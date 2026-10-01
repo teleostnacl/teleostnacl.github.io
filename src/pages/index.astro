@@ -17,3 +17,10 @@ const categories = [...new Set(articles.map(({ data }) => data.category))];
   <section class="section-head latest-head"><div><p class="eyebrow">LATEST NOTES</p><h2>最近更新</h2></div><a href="/articles/">查看全部 →</a></section>
   <section class="article-grid">{latest.map((article) => <a class="article-card" href={`/articles/${article.slug}/`}><div class="card-meta"><span>{article.data.category}</span><time>{article.data.pubDate?.toLocaleDateString('zh-CN') ?? ''}</time></div><h3>{article.data.title}</h3><p>{article.data.description ?? '从实践中整理出的技术记录。'}</p><div class="tags">{article.data.tags.slice(0, 3).map((tag) => <span>#{tag}</span>)}</div></a>)}</section>
 </BaseLayout>
+<script>
+  const root = document.documentElement;
+  window.addEventListener('pointermove', (event) => {
+    root.style.setProperty('--pointer-x', `${event.clientX}px`);
+    root.style.setProperty('--pointer-y', `${event.clientY}px`);
+  }, { passive: true });
+</script>
