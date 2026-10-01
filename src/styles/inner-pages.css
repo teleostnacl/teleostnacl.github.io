@@ -1,0 +1,63 @@
+/* 非首页共用全宽内容布局，并让文章卡片与粒子背景自然融合。 */
+.inner-page .site-header,
+.inner-page main,
+.inner-page footer {
+  width: 100%;
+  max-width: none;
+  padding-left: clamp(20px, 3vw, 56px);
+  padding-right: clamp(20px, 3vw, 56px);
+}
+
+.inner-page .site-header,
+.inner-page footer {
+  margin: 0;
+}
+
+.inner-page main {
+  padding-top: 0;
+}
+
+.inner-page .article-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: clamp(12px, 1.2vw, 20px);
+}
+
+.inner-page .article-card {
+  border-color: rgba(234, 220, 199, 0.9);
+  background: rgba(255, 252, 245, 0.76);
+  -webkit-backdrop-filter: blur(9px);
+  backdrop-filter: blur(9px);
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.inner-page .article-card:hover,
+.inner-page .article-card:focus-visible {
+  border-color: var(--mint);
+  background: rgba(255, 252, 245, 0.9);
+}
+
+.inner-page .article-card h3 {
+  color: var(--ink);
+}
+
+.inner-page .article-card p {
+  color: #53645d;
+}
+
+.inner-page .card-meta span {
+  color: var(--mint);
+}
+
+.inner-page .card-meta time,
+.inner-page .tags {
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .inner-page .site-header,
+  .inner-page main,
+  .inner-page footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
