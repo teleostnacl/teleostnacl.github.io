@@ -12,15 +12,51 @@ const categories = [...new Set(articles.map(({ data }) => data.category))];
     <p class="hero-copy">我是 TeleostNaCl，专注 Android、OpenWrt、Windows、Linux 与开发工具，记录真实实践中的解决方案。</p>
     <div class="hero-actions"><a class="button primary" href="/articles/">浏览文章</a><a class="button" href="https://github.com/teleostnacl">访问 GitHub ↗</a></div>
   </section>
+  <section class="cat-stage" aria-label="互动猫猫">
+    <div class="cat-burst" aria-hidden="true"></div>
+    <button class="cat" type="button" aria-label="点击猫猫触发扩散动画">
+      <svg viewBox="0 0 220 180" role="img" aria-label="一只目光跟随鼠标的猫猫">
+        <path class="cat-ear" d="M38 72 30 15l51 38M182 72l8-57-51 38" />
+        <path class="cat-face" d="M38 67c0-35 32-54 72-54s72 19 72 54v35c0 37-31 62-72 62s-72-25-72-62Z" />
+        <ellipse class="cat-eye" cx="78" cy="82" rx="19" ry="23" /><ellipse class="cat-eye" cx="142" cy="82" rx="19" ry="23" />
+        <circle class="cat-pupil" cx="78" cy="82" r="8" data-eye-x="78" data-eye-y="82" /><circle class="cat-pupil" cx="142" cy="82" r="8" data-eye-x="142" data-eye-y="82" />
+        <path class="cat-nose" d="m105 111 5 4 5-4-5-5Z" /><path class="cat-mouth" d="M110 115v8m0 0-11 7m11-7 11 7" />
+        <path class="cat-whisker" d="M57 113 15 104m45 19-42 9m145-19 42-9m-45 19 42 9" />
+      </svg>
+      <span>点击我</span>
+    </button>
+  </section>
   <section class="section-head"><div><p class="eyebrow">EXPLORE</p><h2>按技术方向浏览</h2></div></section>
   <section class="category-grid">{categories.map((category) => <a class="category-card" href={`/categories/${encodeURIComponent(category)}/`}><span>{category}</span><b>{articles.filter(({ data }) => data.category === category).length.toString().padStart(2, '0')}</b></a>)}</section>
   <section class="section-head latest-head"><div><p class="eyebrow">LATEST NOTES</p><h2>最近更新</h2></div><a href="/articles/">查看全部 →</a></section>
   <section class="article-grid">{latest.map((article) => <a class="article-card" href={`/articles/${article.slug}/`}><div class="card-meta"><span>{article.data.category}</span><time>{article.data.pubDate?.toLocaleDateString('zh-CN') ?? ''}</time></div><h3>{article.data.title}</h3><p>{article.data.description ?? '从实践中整理出的技术记录。'}</p><div class="tags">{article.data.tags.slice(0, 3).map((tag) => <span>#{tag}</span>)}</div></a>)}</section>
 </BaseLayout>
 <script>
-  const root = document.documentElement;
+  const cat = document.querySelector('.cat');
+  const burst = document.querySelector('.cat-burst');
+  const pupils = document.querySelectorAll('.cat-pupil');
   window.addEventListener('pointermove', (event) => {
-    root.style.setProperty('--pointer-x', `${event.clientX}px`);
-    root.style.setProperty('--pointer-y', `${event.clientY}px`);
+    if (!cat) return;
+    const box = cat.getBoundingClientRect();
+    const x = (event.clientX - box.left) / box.width * 220;
+    const y = (event.clientY - box.top) / box.height * 180;
+    pupils.forEach((pupil) => {
+      const eyeX = Number(pupil.dataset.eyeX);
+      const eyeY = Number(pupil.dataset.eyeY);
+      const angle = Math.atan2(y - eyeY, x - eyeX);
+      const distance = Math.min(7, Math.hypot(x - eyeX, y - eyeY) / 10);
+      pupil.setAttribute('transform', `translate(${Math.cos(angle) * distance} ${Math.sin(angle) * distance})`);
+    });
   }, { passive: true });
+  cat?.addEventListener('click', () => {
+    if (!burst) return;
+    // 点击时重建短线集合，让每次扩散都从中心重新开始。
+    burst.replaceChildren();
+    for (let index = 0; index < 24; index += 1) {
+      const ray = document.createElement('i');
+      ray.style.setProperty('--angle', `${index * 15}deg`);
+      ray.style.setProperty('--delay', `${index * 8}ms`);
+      burst.append(ray);
+    }
+  });
 </script>
