@@ -2,5 +2,62 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort((a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0));
+// 日期字段可能缺失；按 UTC 年月分组可避免纯日期 frontmatter 受构建机时区影响。
+const articleGroups = new Map<string, { label: string; articles: typeof articles }>();
+for (const article of articles) {
+  const pubDate = article.data.pubDate;
+  const year = pubDate?.getUTCFullYear();
+  const month = pubDate ? pubDate.getUTCMonth() + 1 : undefined;
+  const key = pubDate ? `${year}-${String(month).padStart(2, '0')}` : 'undated';
+  const group = articleGroups.get(key);
+
+  // 同月文章沿用既有发布时间倒序；未标注日期的文章自然归到末组。
+  if (group) {
+    group.articles.push(article);
+  } else {
+    articleGroups.set(key, {
+      label: pubDate ? `${year} 年 ${month} 月` : '日期未注明',
+      articles: [article]
+    });
+  }
+}
 ---
-<BaseLayout title="全部文章"><section class="listing"><p class="eyebrow">ALL ARTICLES</p><h1>技术文章</h1><div class="article-grid">{articles.map((article) => <a class="article-card" href={`/articles/${article.slug}/`}><div class="card-meta"><span>{article.data.category}</span><time>{article.data.pubDate?.toLocaleDateString('zh-CN') ?? ''}</time></div><h3>{article.data.title}</h3><p>{article.data.description ?? '从实践中整理出的技术记录。'}</p><div class="tags">{article.data.tags.slice(0, 3).map((tag) => <span>#{tag}</span>)}</div></a>)}</div></section></BaseLayout>
+<BaseLayout title="全部文章">
+  <section class="listing">
+    <p class="eyebrow">ALL ARTICLES</p>
+    <h1>技术文章</h1>
+    <div class="archive-layout">
+      <nav class="archive-index" aria-label="按月份浏览文章">
+        <p>月份索引</p>
+        <ul>
+          {Array.from(articleGroups.entries()).map(([key, group]) => (
+            <li><a href={`#article-month-${key}`}>{group.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <div class="archive-months">
+    {Array.from(articleGroups.entries()).map(([key, group]) => (
+      <section class="article-month" aria-labelledby={`article-month-${key}`}>
+        <header class="article-month__heading">
+          <h2 id={`article-month-${key}`} tabindex="-1">{group.label}</h2>
+          <p>{group.articles.length} 篇文章</p>
+        </header>
+        <div class="article-grid">
+          {group.articles.map((article) => (
+            <a class="article-card" href={`/articles/${article.slug}/`}>
+              <div class="card-meta">
+                <span>{article.data.category}</span>
+                <time>{article.data.pubDate?.toLocaleDateString('zh-CN') ?? ''}</time>
+              </div>
+              <h3>{article.data.title}</h3>
+              <p>{article.data.description ?? '从实践中整理出的技术记录。'}</p>
+              <div class="tags">{article.data.tags.slice(0, 3).map((tag) => <span>#{tag}</span>)}</div>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
