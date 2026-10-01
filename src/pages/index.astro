@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort((a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0));
+const latest = articles.slice(0, 8);
+const categories = [...new Set(articles.map(({ data }) => data.category))];
+---
+<BaseLayout>
+  <section class="hero">
+    <p class="eyebrow">PERSONAL TECHNICAL ARCHIVE</p>
+    <h1>记录问题，拆解系统，<em>持续构建。</em></h1>
+    <p class="hero-copy">我是 TeleostNaCl，专注 Android、OpenWrt、Windows、Linux 与开发工具，记录真实实践中的解决方案。</p>
+    <div class="hero-actions"><a class="button primary" href="/articles/">浏览文章</a><a class="button" href="https://github.com/teleostnacl">访问 GitHub ↗</a></div>
+  </section>
+  <section class="section-head"><div><p class="eyebrow">EXPLORE</p><h2>按技术方向浏览</h2></div></section>
+  <section class="category-grid">{categories.map((category) => <a class="category-card" href={`/categories/${encodeURIComponent(category)}/`}><span>{category}</span><b>{articles.filter(({ data }) => data.category === category).length.toString().padStart(2, '0')}</b></a>)}</section>
+  <section class="section-head latest-head"><div><p class="eyebrow">LATEST NOTES</p><h2>最近更新</h2></div><a href="/articles/">查看全部 →</a></section>
+  <section class="article-grid">{latest.map((article) => <a class="article-card" href={`/articles/${article.slug}/`}><div class="card-meta"><span>{article.data.category}</span><time>{article.data.pubDate?.toLocaleDateString('zh-CN') ?? ''}</time></div><h3>{article.data.title}</h3><p>{article.data.description ?? '从实践中整理出的技术记录。'}</p><div class="tags">{article.data.tags.slice(0, 3).map((tag) => <span>#{tag}</span>)}</div></a>)}</section>
+</BaseLayout>

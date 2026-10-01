@@ -1,0 +1,4 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="搜索"><section class="listing"><p class="eyebrow">SEARCH</p><h1>搜索文章</h1><div id="search"></div></section><link rel="stylesheet" href="/pagefind/pagefind-ui.css" /><script src="/pagefind/pagefind-ui.js" is:inline></script><script is:inline>window.addEventListener('DOMContentLoaded',()=>new PagefindUI({element:'#search',showSubResults:true}));</script></BaseLayout>

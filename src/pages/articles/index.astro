@@ -1,0 +1,6 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort((a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0));
+---
+<BaseLayout title="全部文章"><section class="listing"><p class="eyebrow">ALL ARTICLES</p><h1>技术文章</h1><div class="article-grid">{articles.map((article) => <a class="article-card" href={`/articles/${article.slug}/`}><div class="card-meta"><span>{article.data.category}</span><time>{article.data.pubDate?.toLocaleDateString('zh-CN') ?? ''}</time></div><h3>{article.data.title}</h3><p>{article.data.description ?? '从实践中整理出的技术记录。'}</p><div class="tags">{article.data.tags.slice(0, 3).map((tag) => <span>#{tag}</span>)}</div></a>)}</div></section></BaseLayout>

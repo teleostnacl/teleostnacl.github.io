@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  const tags = [...new Set(articles.flatMap(({ data }) => data.tags).filter(Boolean))];
+  return tags.map((tagValue) => ({ params: { tag: encodeURIComponent(String(tagValue)) }, props: { tag: tagValue, articles: articles.filter(({ data }) => data.tags.includes(tagValue)) } }));
+}
+const { tag, articles } = Astro.props;
+---
+<BaseLayout title={`标签：${tag}`}><section class="listing"><p class="eyebrow">TAG</p><h1>#{tag}</h1><div class="article-grid">{articles.map((article) => <a class="article-card" href={`/articles/${article.slug}/`}><div class="card-meta"><span>{article.data.category}</span><time>{article.data.pubDate?.toLocaleDateString('zh-CN') ?? ''}</time></div><h3>{article.data.title}</h3><p>{article.data.description ?? '从实践中整理出的技术记录。'}</p></a>)}</div></section></BaseLayout>

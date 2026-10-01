@@ -1,0 +1,10 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  return [...new Set(articles.map(({ data }) => data.category))].map((category) => ({ params: { category }, props: { category, articles: articles.filter(({ data }) => data.category === category) } }));
+}
+const { category, articles } = Astro.props;
+---
+<BaseLayout title={category}><section class="listing"><p class="eyebrow">CATEGORY</p><h1>{category}</h1><div class="article-grid">{articles.map((article) => <a class="article-card" href={`/articles/${article.slug}/`}><div class="card-meta"><span>{article.data.category}</span><time>{article.data.pubDate?.toLocaleDateString('zh-CN') ?? ''}</time></div><h3>{article.data.title}</h3><p>{article.data.description ?? '从实践中整理出的技术记录。'}</p></a>)}</div></section></BaseLayout>
