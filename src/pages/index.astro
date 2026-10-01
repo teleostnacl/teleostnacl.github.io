@@ -1,49 +1,32 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const articles = (await getCollection('articles', ({ data }) => !data.draft))
-  .sort((left, right) => (right.data.pubDate?.valueOf() ?? 0) - (left.data.pubDate?.valueOf() ?? 0));
-const latest = articles.slice(0, 6);
-const categories = [...new Set(articles.map(({ data }) => data.category))];
 ---
 
 <BaseLayout>
   <section class="home-particles" aria-labelledby="home-particles-title">
-    <p class="home-particles__signal">TECHNICAL FIELD NOTES</p>
-    <h1 id="home-particles-title">TeleostNaCl</h1>
+    <h1 id="home-particles-title">TeleostNaCl の 技术小屋</h1>
     <p class="home-particles__lead">把系统中的复杂问题，整理成可复用的答案。</p>
-    <p class="home-particles__description">Android、OpenWrt、Windows、Linux 与开发工具的实践记录。</p>
-    <div class="home-particles__actions">
-      <a href="/articles/">阅读文章</a>
-      <a href="/about/">了解这个站点</a>
-    </div>
-    <p class="home-particles__hint">点击留白处，让图案融入背景。</p>
-  </section>
-
-  <section class="home-stream" aria-label="最新文章与技术主题">
-    <div class="home-stream__heading">
-      <p>从真实问题开始</p>
-      <a href="/articles/">查看全部文章 <span aria-hidden="true">↗</span></a>
-    </div>
-    <div class="home-stream__content">
-      <div class="home-stream__list">
-        {latest.map((article) => (
-          <a class="stream-item" href={`/articles/${article.slug}/`}>
-            <span>{article.data.category}</span>
-            <h2>{article.data.title}</h2>
-            <time>{article.data.pubDate?.toLocaleDateString('zh-CN') ?? ''}</time>
-          </a>
-        ))}
-      </div>
-      <aside class="home-topics">
-        <p>主题</p>
-        <div>
-          {categories.map((category) => (
-            <a href={`/categories/${encodeURIComponent(category)}/`}>{category}</a>
-          ))}
-        </div>
-      </aside>
-    </div>
+    <nav class="home-particles__navigation" aria-label="网站导航">
+      <a href="/articles/">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.75h9.5L19.5 7v13.25H6z" /><path d="M15.5 3.75V7h4" /><path d="M9 11h6M9 15h6" /></svg>
+        <span>文章</span>
+        <small>Articles</small>
+      </a>
+      <a href="/categories/">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z" /></svg>
+        <span>分类</span>
+        <small>Categories</small>
+      </a>
+      <a href="/about/">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.25" /><path d="M12 10.5v5M12 7.8h.01" /></svg>
+        <span>关于</span>
+        <small>About</small>
+      </a>
+      <a href="/search/">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.75" cy="10.75" r="5.75" /><path d="m15 15 4 4" /></svg>
+        <span>搜索</span>
+        <small>Search</small>
+      </a>
+    </nav>
   </section>
 </BaseLayout>

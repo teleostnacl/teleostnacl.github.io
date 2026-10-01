@@ -1,5 +1,7 @@
 ---
 const { title = 'TeleostNaCl', description = 'TeleostNaCl 的个人技术博客' } = Astro.props;
+// 首页仅作为单屏入口，取消通用页头和页脚以保留视觉中心。
+const isHomePage = Astro.url.pathname === '/';
 import '../styles/global.css';
 import '../styles/tsparticles-home.css';
 ---
@@ -11,13 +13,13 @@ import '../styles/tsparticles-home.css';
     <meta name="description" content={description} />
     <title>{title} · TeleostNaCl</title>
   </head>
-  <body>
-    <header class="site-header">
+  <body class:list={{ 'home-page': isHomePage }}>
+    {!isHomePage && <header class="site-header">
       <a class="brand" href="/"><span class="brand-mark">T</span>TeleostNaCl</a>
       <nav aria-label="主导航"><a href="/articles/">文章</a><a href="/articles/">分类</a><a href="/about/">关于</a></nav><a class="search-link" href="/search/">搜索 <span aria-hidden="true">⌕</span></a>
-    </header>
+    </header>}
     <div id="tsparticles" aria-hidden="true"></div><main><slot /></main>
-    <footer><span>© {new Date().getFullYear()} TeleostNaCl</span><span>记录系统，也记录解决系统的过程。</span></footer>
+    {!isHomePage && <footer><span>© {new Date().getFullYear()} TeleostNaCl</span><span>记录系统，也记录解决系统的过程。</span></footer>}
   </body>
 </html>
 <script src="../scripts/tsparticles-background.js"></script>

@@ -94,3 +94,27 @@ test('首页与布局不再保留旧背景实现或仅隐藏的旧首页内容',
   await assert.rejects(access(new URL('../src/styles/refresh.css', import.meta.url)));
   await assert.rejects(access(new URL('../src/styles/hero-copy.css', import.meta.url)));
 });
+
+test('首页是无顶部与页脚的双语技术博客入口', async () => {
+  const [layout, home] = await Promise.all([
+    readSource('src/layouts/BaseLayout.astro'),
+    readSource('src/pages/index.astro'),
+  ]);
+
+  assert.match(layout, /const isHomePage = Astro\.url\.pathname === '\/';/);
+  assert.match(layout, /!isHomePage && <header class="site-header">/);
+  assert.match(layout, /!isHomePage && <footer>/);
+  assert.match(home, /把系统中的复杂问题，整理成可复用的答案。/);
+  assert.doesNotMatch(home, /home-stream/);
+});
+
+test('首页提供四个带单色图标的中英双语入口', async () => {
+  const home = await readSource('src/pages/index.astro');
+
+  assert.match(home, /文章[\s\S]*?Articles/);
+  assert.match(home, /分类[\s\S]*?Categories/);
+  assert.match(home, /关于[\s\S]*?About/);
+  assert.match(home, /搜索[\s\S]*?Search/);
+  assert.match(home, /<svg[^>]*aria-hidden="true"/);
+  assert.match(home, /stroke="currentColor"/);
+});
