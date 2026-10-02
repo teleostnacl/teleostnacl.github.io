@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import imageAssetMap from 'astro:asset-imports';
 import { getImage } from 'astro:assets';
 import MarkdownIt from 'markdown-it';
+import { bundledLanguages, getSingletonHighlighter } from 'shiki';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 export async function getStaticPaths() { return (await getCollection('articles', ({ data }) => !data.draft)).map((article) => ({ params: { slug: article.slug }, props: { article } })); }
 const { article } = Astro.props;
@@ -20,6 +21,36 @@ const replaceTocMarker = (source: string) => {
   }).join(newline);
 };
 const markdownSource = replaceTocMarker(article.body);
+// 从当前文章的代码围栏收集语言，只在构建时加载所需语法，浏览器无需下载高亮库。
+const codeLanguages = [...new Set(markdownIt.parse(markdownSource, {}).filter((token) => {
+  // 仅处理带围栏的代码块，缩进代码块保持原有纯文本渲染。
+  return token.type === 'fence';
+}).map((token) => {
+  // 围栏首个标记是语言名称；后续附加信息不参与语法识别。
+  return token.info.trim().split(/\s+/)[0].toLowerCase();
+}).filter((language) => {
+  // 使用自身属性检查，未知语言和空语言均回退为纯文本。
+  return Object.hasOwn(bundledLanguages, language);
+}))];
+// 复用 Shiki 的构建期单例，避免为每篇文章重新创建解析器和重复加载主题。
+const codeHighlighter = await getSingletonHighlighter({ themes: ['github-dark'], langs: codeLanguages });
+/**
+ * 将代码围栏转换为深色语法高亮，并保留原始语言标签。
+ * @param code MarkdownIt 提供的代码原文，保留缩进和换行。
+ * @param language 围栏声明的语言标记，空值或不支持的语言使用纯文本。
+ * @return 可直接交给 MarkdownIt 输出的完整 pre 元素。
+ */
+markdownIt.options.highlight = (code: string, language: string) => {
+  // 语言名称规范化仅用于语法识别；展示值先转义，避免破坏 HTML 属性。
+  const normalizedLanguage = language.toLowerCase();
+  // 支持的别名交由 Shiki 识别，未知语言不应阻断整站构建。
+  const syntaxLanguage = Object.hasOwn(bundledLanguages, normalizedLanguage) ? normalizedLanguage : 'text';
+  // 未声明语言的代码也获得相同深色底和文字对比度，标签明确表示纯文本。
+  const languageLabel = markdownIt.utils.escapeHtml(language || '纯文本');
+  // 主题生成逐词颜色，不通过 CSS 覆盖这些颜色，以保留关键字、字符串和注释层级。
+  return codeHighlighter.codeToHtml(code, { lang: syntaxLanguage, theme: 'github-dark' })
+    .replace('<pre ', `<pre tabindex="0" aria-label="${languageLabel}代码块" data-language="${languageLabel}" `);
+};
 const resolveArticleImage = async (source: string) => {
   if (!article.filePath || !source.startsWith('.')) {
     return source;

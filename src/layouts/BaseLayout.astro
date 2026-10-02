@@ -3,6 +3,8 @@ const { title = 'TeleostNaCl', description = 'TeleostNaCl 的个人技术博客'
 // 首页仅作为单屏入口，取消通用页头和页脚以保留视觉中心。
 const isHomePage = Astro.url.pathname === '/';
 const isArticlesPage = Astro.url.pathname === '/articles/' || Astro.url.pathname === '/articles';
+// 仅文章详情恢复首页的粒子强度，保留其他内页的现有背景表现。
+const isArticleDetailPage = Astro.url.pathname.startsWith('/articles/') && !isArticlesPage;
 import '../styles/global.css';
 import '../styles/tsparticles-home.css';
 import '../styles/inner-pages.css';
@@ -15,7 +17,7 @@ import '../styles/inner-pages.css';
     <meta name="description" content={description} />
     <title>{isHomePage ? 'TeleostNaCl の 技术小屋' : `${title} · TeleostNaCl`}</title>
   </head>
-  <body class:list={{ 'home-page': isHomePage, 'inner-page': !isHomePage, 'articles-page': isArticlesPage }}>
+  <body class:list={{ 'home-page': isHomePage, 'inner-page': !isHomePage, 'articles-page': isArticlesPage, 'article-detail-page': isArticleDetailPage }}>
     {!isHomePage && <header class="site-header">
       <a class="brand" href="/"><span class="brand-mark">T</span>TeleostNaCl の 技术小屋</a>
       <nav aria-label="主导航"><a href="/articles/">文章</a><a href="/categories/">分类</a><a href="/search/">搜索</a><a href="/about/">关于</a></nav>
