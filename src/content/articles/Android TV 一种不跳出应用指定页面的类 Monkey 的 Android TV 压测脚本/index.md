@@ -4,31 +4,20 @@ description: "针对 Android TV 中 Monkey 压测容易退出指定页面的问�
 pubDate: 2025-11-30
 category: "Android"
 tags:
-  - "android"
+  - "Android"
   - "经验分享"
   - "压力测试"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/155419571"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/155419571
-> 发布时间：2025-11-30 13:15:48
-> 标签：android、经验分享、压力测试
 
----
-
-#### 文章目录
-
-- [一、问题背景](#_1)
-- [二、脚本](#_6)
-
-## 一、问题背景
-
+@[TOC]
+# 一、问题背景
 在开发 `Android TV` 应用的时候，我们经常需要对一些特定场景进行随机压测，以便模拟用户的操作，提前暴露问题。而 `Android` 提供的 `Monkey` 命令，其随机性太大，在压测过程中很容易退出应用，且无法再次回到应用指定页面。
 
 因此，为了解决以上的需求，本文设计一种可以在压测过程中，如果退出了应用指定页面，可以用指定命令重新拉起应用的脚本，以便实现类 Monkey 的功能。
 
-## 二、脚本
-
+# 二、脚本
 ```shell
 #!/system/bin/sh
 

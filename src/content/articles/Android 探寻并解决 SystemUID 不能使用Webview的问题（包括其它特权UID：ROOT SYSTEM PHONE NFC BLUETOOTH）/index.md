@@ -4,33 +4,25 @@ description: "分析特权 UID 应用使用 WebView 时的报错原因，比较 
 pubDate: 2025-06-03
 category: "Android"
 tags:
-  - "android"
+  - "Android"
   - "经验分享"
-  - "java"
+  - "Java"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/148400974"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/148400974
-> 发布时间：2025-06-03 17:09:37
-> 标签：android、经验分享、java
 
----
+@[TOC]
 
-#### 文章目录
-
-- [一、问题背景](#_1)
-- [二、问题探析](#_50)
-- [三、解决方案：反射赋值 sProviderInstance（仅Android14 以下）](#_sProviderInstanceAndroid14__137)
-- [四、利用多进程将 WebView 相关组件运行在非特权进程](#_WebView__226)
-
-## 一、问题背景
+# 一、问题背景
 
 在 `Android` 中可以使用 `WebView` 这一特殊的 `View` 直接加载网页，其提供了内部实现是采用渲染引擎( `WebKit` )来展示 `网页` 的内容，提供网页前进后退、网页放大、缩小、搜索等基础功能。
 
-参考文档：<https://developer.android.com/develop/ui/views/layout/webapps/webview?hl=zh-cn>
 
-其使用也是相当容易的：  
- 在布局里面添加 `WebView`，然后在 `Activtiy` 中拿到 `WebView` 加载网页，并且在 `Manifest` 中声明联网权限。
+参考文档：[https://developer.android.com/develop/ui/views/layout/webapps/webview?hl=zh-cn](https://developer.android.com/develop/ui/views/layout/webapps/webview?hl=zh-cn)
+
+
+其使用也是相当容易的：
+在布局里面添加 `WebView`，然后在 `Activtiy` 中拿到 `WebView` 加载网页，并且在 `Manifest` 中声明联网权限。
 
 ```xml
 <!-- 布局文件 -->
@@ -57,6 +49,7 @@ webView.loadUrl("url")
 </manifest>
 ```
 
+
 但是，如果是一个指定为 `System UID` 的应用，此时运行就会抛出异常，堆栈如下：
 
 ```
@@ -75,9 +68,11 @@ Caused by: java.lang.UnsupportedOperationException: For security reasons, WebVie
     at android.webkit.WebView.<init>(WebView.java:332)
 ```
 
+
 本文将详细解释出现报错堆栈的原因以及解决方法。
 
-## 二、问题探析
+
+# 二、问题探析
 
 从报错堆栈可以看出，是在 `WebViewFactory.getProvider()` 方法抛出了一个 `java.lang.UnsupportedOperationException: For security reasons, WebView is not allowed in privileged processes` 的报错，从报错信息来看，就是出于安全考虑，不允许在特权进程中使用 `WebView`。我们先来看这部分的源码：
 
@@ -102,7 +97,8 @@ static WebViewFactoryProvider getProvider() {
 }
 ```
 
-可以看到，这里的特权应用指的是 `UID` 为 `ROOT_UID` 、`SYSTEM_UID`、`PHONE_UID`、`NFC_UID`、`BLUETOOTH_UID` 的进程。当进程为特权 `UID` 的时候，此时就会抛出 `UnsupportedOperationException`。这个是谷歌处于安全考虑，从 Android 5.0 开始就全面禁止，具体可以看这笔提交：<https://cs.android.com/android/_/android/platform/frameworks/base/+/85844916b8a7cc7f6aabc6c37af7380a4c000bcb>
+可以看到，这里的特权应用指的是 `UID` 为 `ROOT_UID` 、`SYSTEM_UID`、`PHONE_UID`、`NFC_UID`、`BLUETOOTH_UID` 的进程。当进程为特权 `UID` 的时候，此时就会抛出 `UnsupportedOperationException`。这个是谷歌处于安全考虑，从 Android 5.0 开始就全面禁止，具体可以看这笔提交：[https://cs.android.com/android/_/android/platform/frameworks/base/+/85844916b8a7cc7f6aabc6c37af7380a4c000bcb](https://cs.android.com/android/_/android/platform/frameworks/base/+/85844916b8a7cc7f6aabc6c37af7380a4c000bcb)
+
 
 我们在顺着 `WebView` 的源码，看看是如何调用到上面 `WebViewFactory.getProvider()` 方法的。
 
@@ -150,7 +146,7 @@ protected WebView(Context context, AttributeSet attrs, int defStyleAttr, int def
 }
 ```
 
-如上，我们先来看构造方法，可以看到多参的构造方法最后都会走到完整的构造方法中`WebView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes, Map<String, Object> javaScriptInterfaces, boolean privateBrowsing)`，而在此构造方法中， `ensureProviderCreated();` 与 `mProvider.init(javaScriptInterfaces, privateBrowsing);` 这两行代码是与 `WebViewFactory`，有如下代码：
+如上，我们先来看构造方法，可以看到多参的构造方法最后都会走到完整的构造方法中`WebView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes, Map<String, Object> javaScriptInterfaces, boolean privateBrowsing)`，而在此构造方法中，    `ensureProviderCreated();` 与 `mProvider.init(javaScriptInterfaces, privateBrowsing);` 这两行代码是与 `WebViewFactory`，有如下代码：
 
 ```java
 private WebViewProvider mProvider;
@@ -171,10 +167,11 @@ private static WebViewFactoryProvider getFactory() {
 
 可以看到，在构造方法中会调用 `ensureProviderCreated()`，随后会通过 `getFactory()` 方法拿到 `WebViewFactoryProvider`，而在此方法中，就会调用到 `WebViewFactory.getProvider()` 方法，因此会出现特权应用进程的校验，从而触发 `UnsupportedOperationException`。
 
-## 三、解决方案：反射赋值 sProviderInstance（仅Android14 以下）
 
-由以上的分析可以知道，`WebView` 会通过调用 `WebViewFactory.getProvider()` 静态方法拿到 `WebViewFactoryProvider`，而在 `WebViewFactory.getProvider()` 的静态方法中，会先判断 `sProviderInstance` 是否已被初始化，如果已经被初始化，则直接返回此对象：`if (sProviderInstance != null) return sProviderInstance;`；而未被初始化的时候会走进程校验再初始化 `sProviderInstance`。  
- 因此，我们可以提前初始化 `sProviderInstance`，避免在调用 `WebViewFactory.getProvider()` 方法时去做进程校验。由于 `sProviderInstance` 是私有成员，同时 `WebViewFactoryProvider` 类也是被标记为 `@hide` 的，因此不能直接拿到相关实例，我们需要通过反射的方式进行调用，参考官方实例化 `sProviderInstance` 的方法：
+# 三、解决方案：反射赋值 sProviderInstance（仅Android14 以下）
+
+由以上的分析可以知道，`WebView` 会通过调用 `WebViewFactory.getProvider()` 静态方法拿到 `WebViewFactoryProvider`，而在 `WebViewFactory.getProvider()` 的静态方法中，会先判断 `sProviderInstance` 是否已被初始化，如果已经被初始化，则直接返回此对象：`if (sProviderInstance != null) return sProviderInstance;`；而未被初始化的时候会走进程校验再初始化 `sProviderInstance`。
+因此，我们可以提前初始化 `sProviderInstance`，避免在调用 `WebViewFactory.getProvider()` 方法时去做进程校验。由于 `sProviderInstance` 是私有成员，同时 `WebViewFactoryProvider` 类也是被标记为 `@hide` 的，因此不能直接拿到相关实例，我们需要通过反射的方式进行调用，参考官方实例化 `sProviderInstance` 的方法：
 
 ```java
 Trace.traceBegin(Trace.TRACE_TAG_WEBVIEW, "WebViewFactory.getProvider()");
@@ -200,8 +197,9 @@ try {
 }
 ```
 
-由此，我们可以编写实例化 `sProviderInstance` 的代码。  
- Java版本：
+
+由此，我们可以编写实例化 `sProviderInstance` 的代码。
+Java版本：
 
 ```java
 try {
@@ -231,6 +229,7 @@ try {
 } catch (Throwable e) {
 }
 ```
+
 
 Kotlin版本：
 
@@ -264,7 +263,8 @@ try {
 }
 ```
 
-## 四、利用多进程将 WebView 相关组件运行在非特权进程
+
+# 四、利用多进程将 WebView 相关组件运行在非特权进程
 
 由于 `Android` 安全策略的原因，以上反射强行赋值 `sProviderInstance` 方法仅适用于 `Android 14` 以下的版本，即 `targeting API < 34`。在 `Android 14` 以上的设备，会导致应用崩溃。因此建议使用多线程的方式将 `WebView` 相关组件运行在非特权进程。
 

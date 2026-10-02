@@ -10,13 +10,8 @@ tags:
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/154617061"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/154617061
-> 发布时间：2025-11-09 20:43:19
-> 标签：生活、游戏、经验分享
 
----
-
-参考方法：<https://www.bilibili.com/video/BV1Rz421z797>
+参考方法：[https://www.bilibili.com/video/BV1Rz421z797](https://www.bilibili.com/video/BV1Rz421z797)
 
 偶尔在玩 地平线4 的时候会突然抽风，连不上地平线生活，无法进行在线游戏，从而也无法和朋友一起玩。一开始以为 地平线4 停服了，导致连接不了，随后查找资料发现需要注销登录，再重新登录账户即可，遂做一个记录。（此方法需要先保证能连接上 XBOX ）
 
@@ -26,7 +21,7 @@ draft: false
 
 ![在这里插入图片描述](./1790847571034_c2177329a5c145f18893263cb8c2f275.png)
 
-注销登录之后，会自动重启 地平线4 ，随后再次登录 `XBOX` 账户就可以了  
- ![在这里插入图片描述](./1790847571086_21d5445a5a2d4b8881afcfcfffec0c86.png)
+注销登录之后，会自动重启 地平线4 ，随后再次登录 `XBOX` 账户就可以了
+![在这里插入图片描述](./1790847571086_21d5445a5a2d4b8881afcfcfffec0c86.png)
 
 ![在这里插入图片描述](./1790847571156_10f2da6791e44006a17065fbdaf64c91.png)

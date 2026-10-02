@@ -4,41 +4,25 @@ description: "介绍 Android 集成 mina-sshd 的依赖、混淆和资源冲突�
 pubDate: 2025-11-26
 category: "Android"
 tags:
-  - "android"
-  - "java"
+  - "Android"
+  - "Java"
   - "开发语言"
   - "经验分享"
-  - "ssh"
-  - "apache"
-  - "runtime"
+  - "Ssh"
+  - "Apache"
+  - "Android runtime"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/155284649"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/155284649
-> 发布时间：2025-11-26 22:33:21
-> 标签：android、java、开发语言、经验分享、ssh、apache、android runtime
 
----
+@[TOC]
+# 一、mina-sshd 介绍
+`mina-sshd` 库是由 `Apache` 发布的纯 `Java` 编写的 `SSH` 的开源库，其完整支持 `SSH V2`，`SCP` 和 `SFTP` 协议，方便在 `Java` 程序中搭建  `SSH` 服务端和客户端。
 
-#### 文章目录
+源码地址：[https://github.com/apache/mina-sshd](https://github.com/apache/mina-sshd)
+项目主页：[https://mina.apache.org/sshd-project/](https://mina.apache.org/sshd-project/)
 
-- [一、mina-sshd 介绍](#minasshd__1)
-- [二、依赖导入](#_31)
-- [三、混淆规则](#_41)
-- [四、解决编译错误 3 files found with path 'META-INF/DEPENDENCIES' from inputs:](#_3_files_found_with_path_METAINFDEPENDENCIES_from_inputs_60)
-- [五、解决 java.lang.IllegalArgumentException: No user home folder available.](#_javalangIllegalArgumentException_No_user_home_folder_available_79)
-- [六、解决 Failed (SocketException) to execute: Operation not permitted](#_Failed_SocketException_to_execute_Operation_not_permitted_108)
-- [七、解决 Failed (IOException) to execute: android.os.NetworkOnMainThreadException](#_Failed_IOException_to_execute_androidosNetworkOnMainThreadException_146)
-- [八、总结](#_173)
-
-## 一、mina-sshd 介绍
-
-`mina-sshd` 库是由 `Apache` 发布的纯 `Java` 编写的 `SSH` 的开源库，其完整支持 `SSH V2`，`SCP` 和 `SFTP` 协议，方便在 `Java` 程序中搭建 `SSH` 服务端和客户端。
-
-源码地址：<https://github.com/apache/mina-sshd>  
- 项目主页：<https://mina.apache.org/sshd-project/>
-
-前面有文章写道 [使用 mina-sshd 库通过 SCP 上传文件并解决无法上传大文件的问题](https://blog.csdn.net/TeleostNaCl/article/details/153705007) ，可以用如下代码使用 mina-sshd 创建 SSH 或者使用 SCP/SFTP 进行上传文件。
+前面有文章写道 [使用 mina-sshd 库通过 SCP 上传文件并解决无法上传大文件的问题](https://blog.csdn.net/TeleostNaCl/article/details/153705007) ，可以用如下代码使用  mina-sshd 创建 SSH 或者使用 SCP/SFTP 进行上传文件。
 
 ```kt
 // 创建 SSH 的客户端
@@ -62,10 +46,8 @@ scpClient.upload(Path.of(localFolderPath), targetFolderPath,
 
 那么如何将其运用在 Android 平台上呢？本文将详细介绍如何在 Android 平台上使用mina-sshd，并解决 `java.lang.IllegalArgumentException: No user home folder available. You should call org.apache.sshd.common.util.io.PathUtils.setUserHomeFolderResolver() method to set user home folder as there is no home folder on Android` 的错误。
 
-## 二、依赖导入
-
+# 二、依赖导入
 在项目中只需要导入以下依赖即可引入
-
 ```groovy
 dependencies {
     def sshd_version = "2.16.0"
@@ -74,11 +56,8 @@ dependencies {
     implementation "org.apache.sshd:sshd-scp:$sshd_version"
 }
 ```
-
-## 三、混淆规则
-
-由于 `Android` 平台缺少 `Java EE` 的相关支持，会导致其编译的时候，在混淆阶段报找不到相关类的错误，我们在原来 `Java` 混淆规则基础上需要加上忽略 `Java EE` 相关类的错误，完整的混淆规则如下：
-
+# 三、混淆规则
+由于 `Android` 平台缺少 `Java EE` 的相关支持，会导致其编译的时候，在混淆阶段报找不到相关类的错误，我们在原来 `Java` 混淆规则基础上需要加上忽略  `Java EE` 相关类的错误，完整的混淆规则如下：
 ```pro
 # 保留 SSHD 的核心类和接口
 -keep class org.apache.sshd.** { *; }
@@ -96,10 +75,8 @@ dependencies {
 -dontwarn org.ietf.jgss.**
 ```
 
-## 四、解决编译错误 3 files found with path ‘META-INF/DEPENDENCIES’ from inputs:
-
+# 四、解决编译错误 3 files found with path 'META-INF/DEPENDENCIES' from inputs:
 在编译阶段会报一下错误
-
 ```text
 > A failure occurred while executing com.android.build.gradle.internal.tasks.MergeJavaResWorkAction
    > 3 files found with path 'META-INF/DEPENDENCIES' from inputs:
@@ -109,7 +86,6 @@ dependencies {
 ```
 
 原因是多个模块中定义了 `META-INF/DEPENDENCIES`，编译器不知道如何处理，由于`Android` 不会使用到这些文件，则可以直接在打包的时候忽略此文件即可：
-
 ```groovy
 android {
     packaging {
@@ -118,11 +94,8 @@ android {
     }
 }
 ```
-
-## 五、解决 java.lang.IllegalArgumentException: No user home folder available.
-
+# 五、解决 java.lang.IllegalArgumentException: No user home folder available.
 当正常编译之后开始运行，此时会报以下错误：
-
 ```text
 java.lang.ExceptionInInitializerError
     at org.apache.sshd.common.util.io.PathUtils.getUserHomeFolder(PathUtils.java:144)
@@ -142,19 +115,16 @@ Caused by: java.lang.IllegalArgumentException: No user home folder available. Yo
     at org.apache.sshd.common.util.ValidateUtils.throwIllegalArgumentException(ValidateUtils.java:200)
 ```
 
-核心错误为：`Caused by: java.lang.IllegalArgumentException: No user home folder available. You should call org.apache.sshd.common.util.io.PathUtils.setUserHomeFolderResolver() method to set user home folder as there is no home folder on Android`，这个错误的提示已经很详细的告诉我们，`Android` 没有 `user home`，导致无法处理 `ssh` 相关的业务逻辑，需要使用 `org.apache.sshd.common.util.io.PathUtils.setUserHomeFolderResolver()` 方法先手动设置 `user home`。
+核心错误为：`Caused by: java.lang.IllegalArgumentException: No user home folder available. You should call org.apache.sshd.common.util.io.PathUtils.setUserHomeFolderResolver() method to set user home folder as there is no home folder on Android`，这个错误的提示已经很详细的告诉我们，`Android` 没有 `user home`，导致无法处理 `ssh` 相关的业务逻辑，需要使用 `org.apache.sshd.common.util.io.PathUtils.setUserHomeFolderResolver()` 方法先手动设置  `user home`。
 
 因此为了解决以上错误，我们只需要在使用 `SshClient` 之前，调用 `PathUtils.setUserHomeFolderResolver()` 方法即可，例如可以使用 私有数据目录：
-
 ```kt
 // 设置 SSHD 的 Home Folder
 PathUtils.setUserHomeFolderResolver(Supplier { Paths.get(context.filesDir.absolutePath) })
 ```
 
-## 六、解决 Failed (SocketException) to execute: Operation not permitted
-
+# 六、解决 Failed (SocketException) to execute: Operation not permitted
 如果没有申请联网权限的时候，则会抛出以下移除
-
 ```text
 org.apache.sshd.common.SshException: DefaultConnectFuture[]: Failed (SocketException) to execute: Operation not permitted
     at org.apache.sshd.common.future.AbstractSshFuture.lambda$verifyResult$2(AbstractSshFuture.java:146)
@@ -184,7 +154,6 @@ Caused by: java.net.SocketException: Operation not permitted
 ```
 
 此时只需要在 `AndroidManifest.xml` 中添加声明联网权限语句即可
-
 ```xml
 <manifest>
     <!-- 互联网权限 -->
@@ -192,11 +161,8 @@ Caused by: java.net.SocketException: Operation not permitted
     <application/>
 </manifest>
 ```
-
-## 七、解决 Failed (IOException) to execute: android.os.NetworkOnMainThreadException
-
+# 七、解决 Failed (IOException) to execute: android.os.NetworkOnMainThreadException
 由于 `Android` 是不允许在主线程请求网络的，如果在主线程直接去请求连接 `SSH`，则会抛出 `android.os.NetworkOnMainThreadException` 的异常，此时只需要将其切换到子线程执行连接 `SSH` 即可
-
 ```text
 org.apache.sshd.common.SshException: DefaultConnectFuture[]: Failed (IOException) to execute: android.os.NetworkOnMainT
     at org.apache.sshd.common.future.AbstractSshFuture.lambda$verifyResult$2(AbstractSshFuture.java:146)
@@ -222,10 +188,8 @@ Caused by: android.os.NetworkOnMainThreadException
     at org.apache.sshd.client.session.ClientSessionCreator.connect(ClientSessionCreator.java:57)
 ```
 
-## 八、总结
-
+# 八、总结
 根据以上步骤，当导入好依赖，申请好联网权限之后，一种标准的写法如下：
-
 ```kt
 // 切到子线程中执行
 lifecycleScope.launch(Dispatchers.IO) {

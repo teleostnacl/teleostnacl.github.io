@@ -5,29 +5,16 @@ pubDate: 2025-04-19
 category: "Windows"
 tags:
   - "游戏"
-  - "windows"
+  - "Windows"
   - "电脑"
   - "经验分享"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/147351220"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/147351220
-> 发布时间：2025-04-19 16:10:55
-> 标签：游戏、windows、电脑、经验分享
 
----
-
-#### 文章目录
-
-- [一、背景](#_1)
-- [二、安装](#_28)
-- [三、运行](#_52)
-- [四、Windows大版本更新之后小游戏丢失的解决方案](#Windows_56)
-
-## 一、背景
-
+@[toc]
+# 一、背景
 在 `Windows 7` 上有几款经典的预置小游戏，有：
-
 - 纸牌 Solitaire
 - 蜘蛛纸牌 Spider Solitaire
 - 扫雷 Minesweeper
@@ -45,23 +32,24 @@ draft: false
 
 ![在这里插入图片描述](./1790847736046_6fe89f809548476d932bf0896044b03b.png)
 
-![在这里插入图片描述](./1790847736083_9bccf15e5dc84ae0a05e9b228f80736e.png)  
- 项目地址：`https://win7games.com/#games`
+![在这里插入图片描述](./1790847736083_9bccf15e5dc84ae0a05e9b228f80736e.png)
+项目地址：`https://win7games.com/#games`
 
 官方下载地址：`https://win7games.com/download/Windows7Games_for_Windows_11_10_8.zip`
 
 百度网盘下载链接：`https://pan.baidu.com/s/1EmDQ6flajks1xfhXkZXdeg?pwd=1tad`，提取码: `1tad`
 
-## 二、安装
 
-从下载链接下载之后，将得到一个 `.zip` 压缩包文件，对其进行解压得到一个 `Windows7Games_for_Windows_11_10_8.exe` 文件，此文件即是安装文件。  
- ![在这里插入图片描述](./1790847736119_0f5cc91b15074b3091e4cf5ff882eed6.png)
+# 二、安装
 
-双击运行解压之后的 `Windows7Games_for_Windows_11_10_8.exe` 文件，即可开始安装。  
- ![在这里插入图片描述](./1790847736157_2713bac33adc4048a54d159f95a6c8da.png)
+从下载链接下载之后，将得到一个 `.zip` 压缩包文件，对其进行解压得到一个 `Windows7Games_for_Windows_11_10_8.exe` 文件，此文件即是安装文件。
+![在这里插入图片描述](./1790847736119_0f5cc91b15074b3091e4cf5ff882eed6.png)
 
-在这个页面可以选择所需要安装的小游戏，可以去掉不想要的小游戏，小游戏翻译如下：  
- ![在这里插入图片描述](./1790847736194_08d6bedec6324d99b41b09ea74275b45.png)
+双击运行解压之后的 `Windows7Games_for_Windows_11_10_8.exe` 文件，即可开始安装。
+![在这里插入图片描述](./1790847736157_2713bac33adc4048a54d159f95a6c8da.png)
+
+在这个页面可以选择所需要安装的小游戏，可以去掉不想要的小游戏，小游戏翻译如下：
+![在这里插入图片描述](./1790847736194_08d6bedec6324d99b41b09ea74275b45.png)
 
 - 纸牌 Solitaire
 - 蜘蛛纸牌 Spider Solitaire
@@ -72,14 +60,13 @@ draft: false
 - 麻将泰坦 Mahjong Titans
 - 紫苑 Purble Place
 
-**安装完成！**  
- ![在这里插入图片描述](./1790847736231_9bc8f2b3137c454eaccf0db403b06a23.png)
 
-## 三、运行
+**安装完成！**
+![在这里插入图片描述](./1790847736231_9bc8f2b3137c454eaccf0db403b06a23.png)
 
-安装完成之后，其会在开始菜单新建一个 `Games` 的文件夹，里面即是新安装的小游戏，双击即可运行。  
- ![在这里插入图片描述](./1790847736268_de37dfca04214ebba76435ea74103510.png)
+# 三、运行
+安装完成之后，其会在开始菜单新建一个 `Games` 的文件夹，里面即是新安装的小游戏，双击即可运行。
+![在这里插入图片描述](./1790847736268_de37dfca04214ebba76435ea74103510.png)
 
-## 四、Windows大版本更新之后小游戏丢失的解决方案
-
+# 四、Windows大版本更新之后小游戏丢失的解决方案
 重新安装`Windows7Games_for_Windows_11_10_8.exe`即可（似乎新版本已经没有这样的问题了，仅记录供参考）。

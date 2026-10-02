@@ -7,28 +7,17 @@ tags:
   - "经验分享"
   - "智能路由器"
   - "网络"
-  - "ucode"
-  - "lua"
+  - "Ucode"
+  - "Lua"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/149887517"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/149887517
-> 发布时间：2025-08-03 23:44:16
-> 标签：经验分享、智能路由器、网络、ucode、lua
 
----
-
-#### 文章目录
-
-- [一、问题背景](#_1)
-- [二、实现方法](#_39)
-
-## 一、问题背景
-
+@[TOC]
+# 一、问题背景
 `OpenWrt` 的 `ucode` 是一种轻量级脚本语言，专为嵌入式系统和 `OpenWrt` 环境设计。它的语法类似于 `JavaScript`，并提供了丰富的内置功能，使其适用于系统配置、`Web` 开发（如 `LuCI` 界面）以及嵌入式脚本任务。
 
 例如一段标准的 `ucode` 脚本示例如下：
-
 ```lua
 'use strict';
 
@@ -48,8 +37,7 @@ return {
 }
 ```
 
-需要将此脚本放到 `OpenWrt` 系统的 `/usr/share/rpcd/ucode` 文件夹下，随后使用以下命令重启 `rpcd` 服务
-
+需要将此脚本放到 `OpenWrt` 系统的  `/usr/share/rpcd/ucode` 文件夹下，随后使用以下命令重启 `rpcd` 服务
 ```bash
 /etc/init.d/rpcd restart
 ```
@@ -64,19 +52,16 @@ return {
 
 那么我们在编辑相关 `ucode` 脚本时，我们希望有日志打印，知道我们程序的运行状态，方便我们的调试，因此本文将详细介绍如何在 `ucode` 脚本中添加日志打印的方法。
 
-## 二、实现方法
-
+# 二、实现方法
 参考：
-
 - System logging functions: [https://ucode.mein.io/module-log.html](https://ucode.mein.io/module-log.htm)
-- OpenWrt Ucode Example： <https://github.com/openwrt/rpcd/blob/master/examples/ucode/example-plugin>
-- OpenWrt ubus：<https://openwrt.org/docs/techref/ubus>
+- OpenWrt Ucode Example： [https://github.com/openwrt/rpcd/blob/master/examples/ucode/example-plugin](https://github.com/openwrt/rpcd/blob/master/examples/ucode/example-plugin)
+- OpenWrt ubus：[https://openwrt.org/docs/techref/ubus](https://openwrt.org/docs/techref/ubus)
 
-首先，从 [System logging functions](https://ucode.mein.io/module-log.html) 中的介绍可以知道，只要导入 `log` 包，调用 `log.ulog(LOG_INFO, "Log message");` 即可打印日志，此时日志将输出到 `OpenWrt` 的日志中。  
- ![在这里插入图片描述](./1790847670829_f3a2e6a279934e00a28930ee3200d9e1.png)
+首先，从 [System logging functions](https://ucode.mein.io/module-log.html) 中的介绍可以知道，只要导入 `log` 包，调用 `log.ulog(LOG_INFO, "Log message");` 即可打印日志，此时日志将输出到 `OpenWrt` 的日志中。
+![在这里插入图片描述](./1790847670829_f3a2e6a279934e00a28930ee3200d9e1.png)
 
 同时，使用 `ulog_open(ULOG_SYSLOG, LOG_DAEMON, "LOG TAG");` 可以修改此脚本的打印的 `TAG`，方便在日志中筛选，例如有如下代码，分别打印四种级别的日志：
-
 ```lua
 'use strict';
 
@@ -111,5 +96,5 @@ return {
 }
 ```
 
-此时重启 `rpcd` 服务，执行定义的 ucode 方法，在系统日志中即可以看到相关的日志打印。  
- ![在这里插入图片描述](./1790847670914_5578206f09b1412bbb19071d0af1b5a8.png)
+此时重启 `rpcd` 服务，执行定义的 ucode 方法，在系统日志中即可以看到相关的日志打印。
+![在这里插入图片描述](./1790847670914_5578206f09b1412bbb19071d0af1b5a8.png)

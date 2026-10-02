@@ -158,6 +158,80 @@
   color: #53645d;
 }
 
+/* 文章页保持既有背景，只以版式和前景文字层级改善长文阅读。 */
+.inner-page .reading-layout {
+  grid-template-columns: minmax(0, 920px) minmax(220px, 260px);
+  max-width: none;
+  margin: 0;
+  justify-content: space-between;
+  gap: clamp(32px, 5vw, 96px);
+}
+
+.inner-page .article-content {
+  min-width: 0;
+  max-width: 920px;
+}
+
+.inner-page .article-content h1,
+.inner-page .article-content .prose h2,
+.inner-page .article-content .prose h3,
+.inner-page .article-content .prose h4 {
+  color: #172A38;
+}
+
+.inner-page .article-content .eyebrow,
+.inner-page .article-content .article-meta,
+.inner-page .reading-layout .toc {
+  color: #60758A;
+}
+
+.inner-page .article-content .source-note,
+.inner-page .article-content .prose {
+  color: #334155;
+}
+
+.inner-page .article-content .prose {
+  font-size: 1.125rem;
+  line-height: 1.9;
+}
+
+.inner-page .article-content .prose a,
+.inner-page .article-content .source-note a,
+.inner-page .reading-layout .toc a:hover,
+.inner-page .reading-layout .toc a:focus-visible {
+  color: #246B93;
+}
+
+.inner-page .article-content .prose strong,
+.inner-page .article-content .prose blockquote,
+.inner-page .article-content .prose th {
+  color: #172A38;
+}
+
+.inner-page .article-content .prose pre code {
+  color: #E2E8F0;
+}
+
+.inner-page .article-content .prose :not(pre) > code,
+.inner-page .article-content .prose .copy-button {
+  color: #A9C5EC;
+}
+
+.inner-page .reading-layout .toc p {
+  color: #172A38;
+}
+
+@media (max-width: 800px) {
+  .inner-page .reading-layout {
+    display: block;
+  }
+
+  .inner-page .reading-layout .toc {
+    position: static;
+    margin-top: 50px;
+  }
+}
+
 .inner-page .card-meta span {
   color: var(--mint);
 }

@@ -4,29 +4,22 @@ description: "解释 sysctl.d 多目录和同名配置文件的加载优先级�
 pubDate: 2025-08-23
 category: "Linux"
 tags:
-  - "linux"
+  - "Linux"
   - "经验分享"
   - "运维开发"
   - "运维"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/150651679"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/150651679
-> 发布时间：2025-08-23 21:19:30
-> 标签：linux、经验分享、运维开发、运维
 
----
-
-`sysctl` 命令是 `Linux` 系统在运行时用于配置内核参数的，其用法可以参考 `man-pages` : <https://man7.org/linux/man-pages/man8/sysctl.8.html>
-
+`sysctl` 命令是 `Linux` 系统在运行时用于配置内核参数的，其用法可以参考 `man-pages` : [https://man7.org/linux/man-pages/man8/sysctl.8.html](https://man7.org/linux/man-pages/man8/sysctl.8.html)
 ```shell
 sysctl - configure kernel parameters at runtime
 ```
 
-在 `man-pages` 的有以下 `System file precedence` 的解释：  
- ![在这里插入图片描述](./1790847651047_0e94b3c40e8d4ad8b11936f12de52b32.png)  
- 从 `System file precedence` 的解释可以知道，系统在启动的时候，`sysctl` 命令会自动按顺序从
-
+在 `man-pages` 的有以下 `System file precedence` 的解释：
+![在这里插入图片描述](./1790847651047_0e94b3c40e8d4ad8b11936f12de52b32.png)
+从 `System file precedence` 的解释可以知道，系统在启动的时候，`sysctl` 命令会自动按顺序从 
 - `/etc/sysctl.d/*.conf`
 - `/run/sysctl.d/*.conf`
 - `/usr/local/lib/sysctl.d/*.conf`
@@ -38,24 +31,18 @@ sysctl - configure kernel parameters at runtime
 在加载文件时，会按照 `字典顺序`（`lexicographic order`）进行加载，后加载的文件中的配置可以覆盖掉前面文件的配置。因此，在 `Linux` 系统中会使用数字进行排序优先级，数字越大的时候，即文件排在后面，优先级越高，会覆盖数字小的配置。同时，同一个文件内配置项冲突时，也会使用后面的配置项。
 
 例如，有两个文件：
-
 - `10-sample.conf`
-
 ```shell
 net.bridge.bridge-nf-call-iptables=1
 ```
-
 - `20-sample.conf`
-
 ```shell
 net.bridge.bridge-nf-call-iptables=1
 net.bridge.bridge-nf-call-iptables=0
 ```
-
 则最后，会使用 `net.bridge.bridge-nf-call-iptables=0` 的配置。
 
 使用 `sysctl -a | grep net.bridge.bridge-nf-call-iptables` 可以检查最后加载的命令：
-
 ```shell
 root@OpenWrt:/etc/sysctl.d# sysctl -a | grep net.bridge.bridge-nf-call-iptables
 net.bridge.bridge-nf-call-iptables = 0

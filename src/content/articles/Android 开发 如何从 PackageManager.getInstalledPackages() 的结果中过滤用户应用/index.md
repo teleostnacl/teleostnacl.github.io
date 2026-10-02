@@ -4,26 +4,20 @@ description: "介绍如何利用 PackageManager 获取已安装应用，并根�
 pubDate: 2025-10-03
 category: "Android"
 tags:
-  - "android"
+  - "Android"
   - "经验分享"
-  - "kotlin"
-  - "java"
-  - "androidx"
-  - "runtime"
+  - "Kotlin"
+  - "Java"
+  - "Androidx"
+  - "Android runtime"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/152421448"
 draft: false
----
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/152421448
-> 发布时间：2025-10-03 00:29:46
-> 标签：android、经验分享、kotlin、java、androidx、android runtime
-
 ---
 
 在 `Android` 开发中，我们可以通过 `PackageManager.getInstalledPackages(PackageManager.GET_META_DATA)` 方法拿到包括所有 Android 系统中的应用集合 `List<PackageInfo>`，有时候我们为了业务需求，需要仅使用用户安装的应用，因此我们需要对集合进行一次过滤。
 
 而 `PackageInfo.applicationInfo` 中的 `flags` 参数中蕴含了应用的信息，其官方的 `API` 介绍如下：
-
-```java
+```java 
 /**
  * Flags associated with the application.  Any combination of
  * {@link #FLAG_SYSTEM}, {@link #FLAG_DEBUGGABLE}, {@link #FLAG_HAS_CODE},
@@ -47,7 +41,6 @@ public int flags = 0;
 ```
 
 显然可以看到，这是一个位运算组成的标记位，而其中 `FLAG_SYSTEM` 和 `FLAG_UPDATED_SYSTEM_APP` 则是表示安装在系统镜像中的应用 和 更新后的系统镜像应用，即这两个标记为标识为 系统应用，官方 `API` 如下：
-
 ```java
 /**
  * Value for {@link #flags}: if set, this application is installed in the device's system image.
@@ -70,7 +63,6 @@ public static final int FLAG_UPDATED_SYSTEM_APP = 1<<7;
 ```
 
 当我们有了这些信息之后，就可以轻松过滤出不同类型的应用：
-
 ```kt
 // 获取所有的应用信息
 val packageInfos: List<PackageInfo> = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)

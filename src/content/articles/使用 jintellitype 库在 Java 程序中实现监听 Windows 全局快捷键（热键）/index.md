@@ -4,39 +4,24 @@ description: "介绍使用 jintellitype 在 Java 中注册 Windows 全局快捷�
 pubDate: 2025-10-05
 category: "Android"
 tags:
-  - "java"
+  - "Java"
   - "开发语言"
   - "经验分享"
   - "电脑"
-  - "windows"
-  - "kotlin"
+  - "Windows"
+  - "Kotlin"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/152565510"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/152565510
-> 发布时间：2025-10-05 23:15:06
-> 标签：java、开发语言、经验分享、电脑、windows、kotlin
 
----
-
-#### 文章目录
-
-- [一、问题背景](#_1)
-- [二、依赖导入](#_6)
-- [三、使用实例](#_15)
-- - [1. 注册热键监听](#1__16)
-  - [2. 注册热键事件](#2__40)
-
-## 一、问题背景
-
-有时候我们在开发 `Java` 程序的时候，需要监听全局快捷键或热键，例如监听 `ctrl`+ `alt` + `Q` 全局快捷键被按下的事件，随后做一些特定的业务。因此，我们可以使用 `melloware/jintellitype` 库实现快捷键的监听，官方仓库为：<https://github.com/melloware/jintellitype>
+@[TOC]
+# 一、问题背景
+有时候我们在开发 `Java` 程序的时候，需要监听全局快捷键或热键，例如监听 `ctrl`+ `alt` + `Q` 全局快捷键被按下的事件，随后做一些特定的业务。因此，我们可以使用 `melloware/jintellitype` 库实现快捷键的监听，官方仓库为：[https://github.com/melloware/jintellitype](https://github.com/melloware/jintellitype)
 
 `jintellitype` 库是一个基于 `JNI` 实现的在 `Windows` 下监听全局快捷键组合的开源库，其具有 `API` 简单直观，使用便捷的特点，极其方便在 `Java` 开发中使用。
 
-## 二、依赖导入
-
+# 二、依赖导入
 首先在项目中的 `build.gradle` 文件中导入 `jintellitype` 依赖。
-
 ```groovy
 dependencies {
     // jintellitype
@@ -44,12 +29,9 @@ dependencies {
 }
 ```
 
-## 三、使用实例
-
-### 1. 注册热键监听
-
+# 三、使用实例
+## 1. 注册热键监听
 我们使用 `JIntellitype.getInstance().addHotKeyListener()` 方法注册一个热键监听器，需要传递一个 `HotkeyListener` 对象，其只有一个 `onHotKey` 方法，传递 `identifier` 参数，此参数代表着我们向 `JIntellitype` 注册的热键事件的唯一标识符。`HotkeyListener`源码如下：
-
 ```java
 public interface HotkeyListener {
 	/**
@@ -63,7 +45,6 @@ public interface HotkeyListener {
 ```
 
 当 `JIntellitype` 检测到我们注册的按键事件的时候，回调此方法。一个标准的代码如下：
-
 ```java
 JIntellitype.getInstance().addHotKeyListener(keyMark -> {
           switch (keyMark) {
@@ -73,10 +54,8 @@ JIntellitype.getInstance().addHotKeyListener(keyMark -> {
 
 此时可以在 switch 添加我们注册的按键事件，以处理不同的业务。
 
-### 2. 注册热键事件
-
+## 2. 注册热键事件
 我们需要向 `JIntellitype` 注册我们需要监听的按键事件，可以调用 `JIntellitype.getInstance().registerHotKey()` 方法进行注册，此方法有两个签名：
-
 ```java
 /**
  * Registers a Hotkey with windows. This combination will be responded to by
@@ -108,25 +87,22 @@ public void registerHotKey(int identifier, String modifierAndKeyCode) { }
 
 ---
 
-在 `public void registerHotKey(int identifier, int modifier, int keycode)` 签名中，  
- 第二个参数 `modifier` 为特殊控制键，例如 `MOD_SHIFT` 代表 `shift` 键, `MOD_ALT` 代表 `alt` 键, `MOD_CONTROL` 代表 `ctrl` 键, `MOD_WIN` 代表 `win` 键，如果需要传递两个功能键，则可以使用按位与运算，  
- 而第三个参数为字符键的 `ASIIC` 码。例如 `ctrl` + `E`，代码为：
-
+在 `public void registerHotKey(int identifier, int modifier, int keycode)` 签名中，
+第二个参数 `modifier` 为特殊控制键，例如 `MOD_SHIFT` 代表 `shift` 键, `MOD_ALT` 代表 `alt` 键, `MOD_CONTROL` 代表 `ctrl` 键, `MOD_WIN` 代表 `win` 键，如果需要传递两个功能键，则可以使用按位与运算，
+而第三个参数为字符键的 `ASIIC` 码。例如 `ctrl` + `E`，代码为：
 ```java
 JIntellitype.getInstance().registerHotKey(0x123, MOD_CONTROL, 'E')
 ```
 
 ---
 
-在 `public void registerHotKey(int identifier, String modifierAndKeyCode)` 签名中，第二个参数 `modifierAndKeyCode` 为多个组合键的按键事件，其格式为 特殊控制键+字符键，且可以有多个控制键，只能有一个字符键。  
- 例如，传递字符串 `CTRL+SHIFT+A`，则表示按下 `ctrl` 键，`shift` 键 和 `A` 键：
-
+在 `public void registerHotKey(int identifier, String modifierAndKeyCode)` 签名中，第二个参数 `modifierAndKeyCode` 为多个组合键的按键事件，其格式为 特殊控制键+字符键，且可以有多个控制键，只能有一个字符键。
+例如，传递字符串 `CTRL+SHIFT+A`，则表示按下 `ctrl` 键，`shift` 键 和 `A` 键：
 ```java
 JIntellitype.getInstance().registerHotKey(0x123, "CTRL+SHIFT+A")
 ```
-
-四个特殊键的字符串分别为：  
- `ctrl` 键： `CTRL`  
- `alt` 键：`ALT`  
- `shift` 键：`SHIFT`  
- `win` 键：`WIN`
+四个特殊键的字符串分别为：
+`ctrl` 键： `CTRL`
+`alt` 键：`ALT`
+`shift` 键：`SHIFT`
+`win` 键：`WIN`

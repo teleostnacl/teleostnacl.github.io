@@ -4,24 +4,18 @@ description: "介绍 Java 中检测网站可达性的方式，对比执行 ping 
 pubDate: 2025-10-26
 category: "Android"
 tags:
-  - "java"
+  - "Java"
   - "网络"
   - "服务器"
   - "经验分享"
   - "网络协议"
-  - "kotlin"
-  - "tcp/ip"
+  - "Kotlin"
+  - "Tcp/ip"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/153918438"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/153918438
-> 发布时间：2025-10-26 11:31:40
-> 标签：java、网络、服务器、经验分享、网络协议、kotlin、tcp/ip
-
----
 
 我们知道，如果我们想在终端检查是否可以连接到某个网站的时候，可以执行 `ping` 命令，直接 `ping` 某个网站，如果可以 `ping` 通，则表示可以连接上，例如：
-
 ```shell
 ping baidu.com
 
@@ -44,7 +38,6 @@ Approximate round trip times in milli-seconds:
 我们也知道，`ping` 命令其实是利用了 `TCP/IP` 模型下的 `ICMP` 协议，向目标地址请求一个回显数据包，并等待接受回显数据包，从而检测网站是否可用。因此在 `Java` 程序中只需要利用 `ICMP` 协议封装 `API` 即可实现类似 `ping` 的效果。
 
 幸好，官方提供了这样的 `API`：
-
 ```kt
 // 根据网站实例化 InetAddress
 val address = InetAddress.getByName(URL)
@@ -53,7 +46,6 @@ address.isReachable(TIMEOUT)
 ```
 
 API 解释文档如下：
-
 ```java
 /**
  * Test whether that address is reachable. Best effort is made by the

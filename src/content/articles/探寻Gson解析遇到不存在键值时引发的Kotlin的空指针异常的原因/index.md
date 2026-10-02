@@ -4,38 +4,21 @@ description: "分析 Gson 将缺失 JSON 字段映射到 Kotlin 非空属性时�
 pubDate: 2025-04-17
 category: "Android"
 tags:
-  - "kotlin"
+  - "Kotlin"
   - "开发语言"
-  - "android"
-  - "java"
-  - "json"
+  - "Android"
+  - "Java"
+  - "Json"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/147310882"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/147310882
-> 发布时间：2025-04-17 21:13:39
-> 标签：kotlin、开发语言、android、java、json
 
----
+@[toc]
 
-#### 文章目录
+# 一、问题背景
 
-- [一、问题背景](#_1)
-- [二、问题原因](#_33)
-- [三、问题探析](#_36)
-- - [Kotlin空指针校验](#Kotlin_39)
-  - [Gson.fromJson(String json, Class<T> classOfT)](#GsonfromJsonString_json_ClassT_classOfT_66)
-  - [TypeToken](#TypeToken_105)
-  - [Gson.fromJson(JsonReader reader, TypeToken<T> typeOfT)](#GsonfromJsonJsonReader_reader_TypeTokenT_typeOfT_111)
-  - [TypeAdapter 和 TypeAdapterFactory](#TypeAdapter__TypeAdapterFactory_173)
-  - [ReflectiveTypeAdapterFactory](#ReflectiveTypeAdapterFactory_327)
-  - [RecordAdapter 和 FieldReflectionAdapter](#RecordAdapter__FieldReflectionAdapter_526)
-- [四、解决方法](#_617)
-
-## 一、问题背景
-
-在一次开发过程中，由于在 `Kotlin` 定义的实体类多了一个 `json` 不存在的 `键` 时，即使是对象类型是不可空的对象且指定了默认值，使用 `Gson` 库解析出来的实体对象中的那个变量是`null`，导致后面使用的此变量的时候导致出现空指针异常。比如：  
- 实体类对象定义如下
+在一次开发过程中，由于在 `Kotlin` 定义的实体类多了一个 `json` 不存在的 `键` 时，即使是对象类型是不可空的对象且指定了默认值，使用 `Gson` 库解析出来的实体对象中的那个变量是`null`，导致后面使用的此变量的时候导致出现空指针异常。比如：
+实体类对象定义如下
 
 ```kotlin
 data class Entity(
@@ -66,26 +49,32 @@ val jsonEntity = Gson().fromJson(json, Entity::class.java)
 println("entity = $jsonEntity")
 ```
 
-最后得到的输出为：  
- `entity = Entity(existParam=exist, nonExistParam=null)`
+最后得到的输出为：
+`entity = Entity(existParam=exist, nonExistParam=null)`
+
 
 此时可以发现，`nonExistParam` 已经被指定为不可空的`String` 类型，且使用了默认值 `""`，但解析出来的实体类中`nonExistParam=null`，如果此时不注意直接使用 `nonExistParam`，可能引发空指针异常。
 
-## 二、问题原因
+
+# 二、问题原因
 
 此问题的原因是，`Gson` 在解析实体类的时候会使用**反射**构造方法创建对象，在通过反射的方式设置对象的值。因此，**如果实体类的成员在`json`中不存在，则不会有机会被赋值，其会保持一个默认值（对于对象来说即为空）**。而在 `Kotlin` 中，只要在调用实际方法的时候，会触发`Kotlin`的空校验，从而抛出`空指针异常`，提早发现问题。但是Gson的反射的方式避开了这个空校验，所以成员的值为 `null`，直到使用时可能会出现`空指针异常`。
 
-## 三、问题探析
+
+# 三、问题探析
 
 我们需要探寻 `Gson` 在解析 `json` 的时候，究竟发生了什么，导致会出现解析出来的对象出现了 `null`
 
-### Kotlin空指针校验
+
+## Kotlin空指针校验
 
 但是，我们知道`Kotlin`是对可空非常敏感的，已经指定了成员是不可空的，为什么会把 `null` 赋值给了不可空成员呢。
 
-我们可以看 `Kotlin` 的字节码，并反编译成`java`源码，可以看到最后由`Kotlin`生成的java源码是怎样的。  
- ![在这里插入图片描述](./1790847738774_d3432334563f43969be31d814ccf0955.png)  
- 我们可以得到如下的两个方法。
+
+我们可以看 `Kotlin` 的字节码，并反编译成`java`源码，可以看到最后由`Kotlin`生成的java源码是怎样的。
+
+![在这里插入图片描述](./1790847738774_d3432334563f43969be31d814ccf0955.png)
+我们可以得到如下的两个方法。
 
 ```java
 public Entity(@NotNull String existParam, @NotNull String nonExistParam) {
@@ -106,10 +95,11 @@ public Entity(String var1, String var2, int var3, DefaultConstructorMarker var4)
 }
 ```
 
-第一个即为构造方法，传递了两个参数，且有 `Intrinsics.checkNotNullParameter` 可空检查。如果这里有空，则会抛出异常。而下一个则是因为对 `nonExistParam` 的变量设置了默认值生成的构造方法，默认值为 “”  
- 因此，只有正常调用构造方法的时候，才会触发可空的检查。
+第一个即为构造方法，传递了两个参数，且有 `Intrinsics.checkNotNullParameter` 可空检查。如果这里有空，则会抛出异常。而下一个则是因为对	`nonExistParam` 的变量设置了默认值生成的构造方法，默认值为 ""
+因此，只有正常调用构造方法的时候，才会触发可空的检查。
 
-### Gson.fromJson(String json, Class classOfT)
+
+## Gson.fromJson(String json, Class<T> classOfT)
 
 首先，我们使用的方法是 `Gson.fromJson(String json, Class<T> classOfT)`，这个方法是传进一个 `json` 的字符串和实体对象的 `Class` 类型，随后的返回值就是一个实体对象。方法如下：
 
@@ -119,6 +109,7 @@ public <T> T fromJson(String json, Class<T> classOfT) throws JsonSyntaxException
   return Primitives.wrap(classOfT).cast(object);
 }
 ```
+
 
 我们先看 `Primitives.wrap(classOfT).cast(object);` 这句的作用，点进去看 `Primitives.wrap()`方法：
 
@@ -150,17 +141,21 @@ public static <T> Class<T> wrap(Class<T> type) {
 
 从代码中可以看出，这个方法的作用就是将基本数据类型转换成包装类，即将 `int` 转换成 `Integer`，将 `float` 转换成 `Float` 等。如果非基本数据类，则直接返回类的本身。而随后接的 `.cast(object)` 则是强制数据类型转换的的Class类接口，即是 `(T) object`。
 
+
 因此最后一句的作用只是用来强制转换对象的，与解析 `json` 无关。我们回到第一句 `T object = fromJson(json, TypeToken.get(classOfT));`，这句代码调用了 `Gson.fromJson(String json, TypeToken<T> typeOfT)`，并使用 `TypeToken` 包装了 `class`。
 
-### TypeToken
+
+## TypeToken
 
 我们先看 `TypeToken` 的官方文档解释：
 
-> Represents a generic type T. Java doesn’t yet provide a way to represent generic types, so this class does. Forces clients to create a subclass of this class which enables retrieval the type information even at runtime.
+> Represents a generic type T. Java doesn't yet provide a way to represent generic types, so this class does. Forces clients to create a subclass of this class which enables retrieval the type information even at runtime.
 
-这是一个代表`泛型T`(`generic type T`)的类，在 `Java` 运行时会进行`泛型擦除`，因此在运行过程中是无法拿到`泛型`的准确类型，因此 `TypeToken`  被创建出来，可以在运行时创建基于此类的子类并拿到泛型的信息。也即这个类通过包装泛型类，提供了在运行时获取泛型对象的类信息的能力。
 
-### Gson.fromJson(JsonReader reader, TypeToken typeOfT)
+这是一个代表`泛型T`(`generic type T`)的类，在 `Java` 运行时会进行`泛型擦除`，因此在运行过程中是无法拿到`泛型`的准确类型，因此 `TypeToken ` 被创建出来，可以在运行时创建基于此类的子类并拿到泛型的信息。也即这个类通过包装泛型类，提供了在运行时获取泛型对象的类信息的能力。
+
+
+## Gson.fromJson(JsonReader reader, TypeToken<T> typeOfT)
 
 从 `Gson.fromJson(String json, TypeToken<T> typeOfT)` 方法开始，层次往下只是将 String 或 其他类型的来源封装成 `JsonReader`类，代码如下：
 
@@ -227,7 +222,8 @@ public <T> T fromJson(JsonReader reader, TypeToken<T> typeOfT)
 
 这个方法的一开始是将Gson的 `Strictness`设置给 `JsonReader`。随后再获取 类型的 `TypeAdapter`，使用`TypeAdapterread.read(JsonReader in)`，进行解析 `json`得到实体对象。
 
-### TypeAdapter 和 TypeAdapterFactory
+
+## TypeAdapter 和 TypeAdapterFactory
 
 `TypeAdapter` 是一个抽象类，其有两个抽象方法
 
@@ -250,6 +246,7 @@ public abstract T read(JsonReader in) throws IOException;
 
 也就是 `write()` 方法定义如何把 `实体对象` 转换成 `json字符串` 的实现，和 `read()` 方法定义如何把 `json字符串` 转换成 `实体对象` 的实现。默认已经有部分实现了 `Java` 常用类的转换方式，如基础数据类 `int，float，boolean等 和 map 、set、list` 提供转换方式。
 
+
 `TypeAdapterFactory`是一个接口，只有一个 `creat()` 的方法
 
 ```java
@@ -260,6 +257,8 @@ public abstract T read(JsonReader in) throws IOException;
 ```
 
 此接口将支持的类型 `type` 返回一个 `TypeAdapter`，支持的 `type` 可以是多种类型。如果不支持的话就返回null。因此 `TypeAdapterFactory` 和 `TypeAdapter` 互相配合，可以生成解析和生成json的具体实现方法。
+
+
 
 通过一个类型获取 `TypeAdapter` 的 `Gson.getAdapter()` 方法如下
 
@@ -327,6 +326,7 @@ public <T> TypeAdapter<T> getAdapter(TypeToken<T> type) {
 }
 ```
 
+
 首先，从缓存Map 的 `typeTokenCache` 中取出 `TypeAdapter`，如果有的话，则直接返回此 `TypeAdapter` 进行使用。
 
 ```java
@@ -338,6 +338,7 @@ if (cached != null) {
   return adapter;
 }
 ```
+
 
 随后从 `ThreadLocal` 中去取出 `TypeAdapter`，如果有的话，则直接返回此 `TypeAdapter` 进行使用。如果没有当前线程的 `threadCalls` `Map`，则直接创建新的`threadCalls`。
 
@@ -357,6 +358,7 @@ if (threadCalls == null) {
   }
 }
 ```
+
 
 随后遍历 `Gson` 对象的 `TypeAdapterFactory` `List`，如果是适合的对象，即通过 `TypeAdapterFactory.create()` 方法可以创建 `TypeAdapter`，则直接返回此对象。如果找不到，则会抛出异常。
 
@@ -387,9 +389,11 @@ if (candidate == null) {
 }
 ```
 
+
 因此需要去研究不同类型的 `TypeAdapter` 的做了什么。
 
-### ReflectiveTypeAdapterFactory
+
+## ReflectiveTypeAdapterFactory
 
 在 `Gson` 的构造方法中，会将支持的 `TypeAdapterFactory` 添加进 Gson 类的 `fatories` 中，有以下语句：
 
@@ -472,7 +476,9 @@ factories.add(
 this.factories = Collections.unmodifiableList(factories);
 ```
 
+
 首先我们根据这个列表顺序，结合 `for (TypeAdapterFactory factory : factories)` 分析得到，对于自己定义的实体类，使用的 `TypeAdapterFactory` 为 `ReflectiveTypeAdapterFactory`，即是反射型的 `TypeAdapterFactory`。
+
 
 我们先来看 `ReflectiveTypeAdapterFactory.create()` 方法创建 `TypeAdapter`，这段代码的作用是根据 class的类型生成不同的`TypeAdapter`
 
@@ -536,6 +542,7 @@ public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
 }
 ```
 
+
 首先，对于 私有类 、 匿名内部类 、非静态内部类是不支持生成json的，此时会返回 `null` 的 `TypeAdapter` 或者 不生成 `json` 的 `TypeAdapter`
 
 ```java
@@ -571,6 +578,7 @@ if (ReflectionHelper.isAnonymousOrNonStaticLocal(raw)) {
 }
 ```
 
+
 如果是 `Java 14` 之后 `Record`类，则使用 `RecordAdapter` 的 `TypeAdapter`
 
 ```java
@@ -586,6 +594,7 @@ if (ReflectionHelper.isRecord(raw)) {
 }
 ```
 
+
 而如果是普通的类型，则使用 `FieldReflectionAdapter` 的 `TypeAdapter`
 
 ```java
@@ -594,9 +603,10 @@ return new FieldReflectionAdapter<>(
     constructor, getBoundFields(gson, type, raw, blockInaccessible, false));
 ```
 
-### RecordAdapter 和 FieldReflectionAdapter
 
-`RecordAdapter` 和 `FieldReflectionAdapter` 都是 `Adapter` 的子类，其都没有覆写 `write` 和 `read` 的方法，因此我们直接看 `Adapter` 的的 `read` 方法。
+## RecordAdapter 和 FieldReflectionAdapter
+
+`RecordAdapter` 和 `FieldReflectionAdapter` 都是 `Adapter` 的子类，其都没有覆写 `write` 和 `read` 的方法，因此我们直接看  `Adapter` 的的 `read` 方法。
 
 ```java
 @Override
@@ -630,7 +640,8 @@ public T read(JsonReader in) throws IOException {
 }
 ```
 
-首先，会通过  `A accumulator = createAccumulator();` 方法获取到一个指定类型的对象，从方法中可以看到，其实是调用 `constructor.construct();` 反射调用构造方法生成指定类型的对象。
+
+首先，会通过 ` A accumulator = createAccumulator();` 方法获取到一个指定类型的对象，从方法中可以看到，其实是调用 `constructor.construct();` 反射调用构造方法生成指定类型的对象。
 
 ```java
 // FieldReflectionAdapter.java
@@ -646,6 +657,7 @@ Object[] createAccumulator() {
 }
 ```
 
+
 在初始化的时候，会先调用 `getBoundFields()` 方法，通过反射的方式，获取指定类型已经声明了的成员。因此通过`get` 方法，去判断 `json` 的 `key` 是否存在，
 
 ```java
@@ -656,6 +668,7 @@ if (field == null) {
   readField(accumulator, in, field);
 }
 ```
+
 
 可以看 `FieldReflectionAdapter` 的 `readField` 方法 （`Kotlin`对象未使用`Recond`）
 
@@ -691,8 +704,10 @@ void readIntoField(JsonReader reader, Object target)
 
 最后是通过反射的方式，`field.set(target, fieldValue);` 将 `json` 中的 `value` 设置到指定对象中具体的成员中。
 
+
 因此，**如果实体类的成员在`json`中不存在，则不会有机会被赋值，其会保持一个默认值（对于对象来说即为空）**
 
-## 四、解决方法
+
+# 四、解决方法
 
 从 `Gson` 解析 `json` 的源码中可以得出，由于使用了反射的方式，所以最后生成对象中可能会出现`null`，尤其是实体类中存在 `json` 没有的 `key` ，或者虽然 `key` 存在时但 `value` 就是null。因此，在设计`json`的实体类的时候，需要考虑成员是可空的情况，尽量使用可空类型，避免出现空指针异常。或者使用`kotlinx.serialization` 进行`Kotlin JSON序列化`，保证数据的可空安全性。

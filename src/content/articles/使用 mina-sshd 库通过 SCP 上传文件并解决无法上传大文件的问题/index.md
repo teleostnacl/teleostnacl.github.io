@@ -5,42 +5,28 @@ pubDate: 2025-10-21
 category: "Android"
 tags:
   - "经验分享"
-  - "windows"
-  - "linux"
-  - "ssh"
+  - "Windows"
+  - "Linux"
+  - "Ssh"
   - "Java"
-  - "kotlin"
+  - "Kotlin"
   - "智能路由器"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/153705007"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/153705007
-> 发布时间：2025-10-21 23:34:01
-> 标签：经验分享、windows、linux、ssh、Java、kotlin、智能路由器
 
----
+@[TOC]
+# mina-sshd 介绍
+`mina-sshd` 库是由 `Apache` 发布的纯 `Java` 编写的 `SSH` 的开源库，其完整支持 `SSH V2`，`SCP` 和 `SFTP` 协议，方便在 `Java` 程序中搭建  `SSH` 服务端和客户端。
 
-#### 文章目录
-
-- [mina-sshd 介绍](#minasshd__1)
-- [使用mina-sshd 库通过 SCP 上传文件](#minasshd__SCP__10)
-- [解决无法上传大文件的问题](#_34)
-
-## mina-sshd 介绍
-
-`mina-sshd` 库是由 `Apache` 发布的纯 `Java` 编写的 `SSH` 的开源库，其完整支持 `SSH V2`，`SCP` 和 `SFTP` 协议，方便在 `Java` 程序中搭建 `SSH` 服务端和客户端。
-
-源码地址：<https://github.com/apache/mina-sshd>  
- 项目主页：<https://mina.apache.org/sshd-project/>
+源码地址：[https://github.com/apache/mina-sshd](https://github.com/apache/mina-sshd)
+项目主页：[https://mina.apache.org/sshd-project/](https://mina.apache.org/sshd-project/)
 
 本文将使用 `mina-sshd` 库作为搭建 `SSH` 客户端，通过 `SCP` 上传文件到 `OpenWrt` 系统上的方式，并解决遇到无法上传大文件的问题。
 
 ---
-
-## 使用mina-sshd 库通过 SCP 上传文件
-
+# 使用mina-sshd 库通过 SCP 上传文件
 一段标准的代码如下：
-
 ```kt
 // 创建 SSH 的客户端
 val client: SshClient = SshClient.setUpDefaultClient()
@@ -63,16 +49,12 @@ scpClient.upload(Path.of(localFolderPath), targetFolderPath,
 
 ---
 
-## 解决无法上传大文件的问题
-
+# 解决无法上传大文件的问题
 在使用 `mina-sshd` 库时遇到无法通过 `SCP` 上传大文件时，问题现象时会卡住，并且无流量波动，可以上传大概几百K的数据，一段时间后会报以下错误：
-
 ```text
 waitForCondition(RemoteWindow[client](ChannelExec[id=1, recipient=1]-ClientSessionImpl[root@/192.*****.1:22])) timeout exceeded: PT30S
 ```
-
 经过调查，是因为我使用了以下代码，打开了 `ChannelShell`，影响了 `SCP` 的 `ACK` 数据的接受，导致在 `SCP` 传输数据的时候，卡在了 `org.apache.sshd.common.channel.ChannelOutputStream` 的 `write()` 方法中调用的 `long available = remoteWindow.waitForSpace(maxWaitTimeout);` 的语句，一直等待服务端回应传输窗口有可用空间，直到等待超时失败。
-
 ```kt
 // 打开 shell
 val channelShell = session.createShellChannel()
@@ -92,7 +74,6 @@ channelShell.setIn(writerPipedInputStream)
 
 channelShell.open().await(TIMEOUT)
 ```
-
 ![在这里插入图片描述](./1790847589143_68d66acf6da14808aebaae84cbaa4ab4.png)
 
 ---
@@ -100,7 +81,6 @@ channelShell.open().await(TIMEOUT)
 这里仅记录遇到的此问题，暂未深入研究为什么以上代码会对 `SCP` 的影响，并在这里附上测试中的日志和 `Wireshark` 的抓包信息：
 
 SSHD 的日志：
-
 ```text
 2025-10-20 23:18:39.743 org.apache.sshd.scp.common.ScpHelper sendStream(ScpHelper[ClientSessionImpl[root@/192.***.1:22]])[openwrt-mediatek-filogic-cmcc_rax3000m-squashfs-sysupgrade.itb] send 'C' command: C0644 91751203 openwrt-mediatek-filogic-cmcc_rax3000m-squashfs-sysupgrade.itb
 2025-10-20 23:18:39.744 org.apache.sshd.common.channel.RemoteWindow waitForSpace(RemoteWindow[client](ChannelExec[id=1, recipient=1]-ClientSessionImpl[root@/192.***.1:22])) available: 1048575
@@ -118,7 +98,6 @@ SSHD 的日志：
 ```
 
 `Wireshark` 的包信息：
-
 ```text
 75  5.696737    192.***.108  192.***.1    SSHv2   70  Client: New Keys
 76  5.699465    192.***.1    192.***.108  TCP 60  22 → 12178 [ACK] Seq=1183 Ack=1381 Win=62976 Len=0

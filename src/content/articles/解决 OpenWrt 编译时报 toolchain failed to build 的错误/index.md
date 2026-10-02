@@ -9,14 +9,8 @@ tags:
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/150468792"
 draft: false
 ---
-> 原文链接：https://blog.csdn.net/TeleostNaCl/article/details/150468792
-> 发布时间：2025-08-17 16:12:08
-> 标签：智能路由器、经验分享
-
----
 
 有时候我们在编译 OpenWrt 时，会报一些工具链编译错误的问题，例如
-
 ```shell
 toolchain/binutils failed to build
 ```
@@ -27,5 +21,5 @@ toolchain/binutils failed to build
 make dirclean
 ```
 
-清理命令解析如下：  
- `OpenWrt编译 | make clean、make dirclean 和 make distclean 命令的区别和作用`：<https://blog.csdn.net/TeleostNaCl/article/details/150467924>
+清理命令解析如下：
+`OpenWrt编译 | make clean、make dirclean 和 make distclean 命令的区别和作用`：[https://blog.csdn.net/TeleostNaCl/article/details/150467924](https://blog.csdn.net/TeleostNaCl/article/details/150467924)
