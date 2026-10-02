@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articles = await getCollection('articles', ({ data }) => !data.draft);
+const categories = [...new Set(articles.map(({ data }) => data.category))]
+  .sort((firstCategory, secondCategory) => firstCategory.localeCompare(secondCategory, 'zh-CN'));
+---
+
+<BaseLayout title="分类">
+  <section class="listing">
+    <p class="eyebrow">CATEGORIES</p>
+    <h1>文章分类</h1>
+    <p class="lead">按主题浏览全部技术文章。</p>
+    <div class="article-grid">
+      {categories.map((category) => (
+        <a class="article-card" href={`/categories/${category}/`}>
+          <div class="card-meta">
+            <span>分类</span>
+            <span>{articles.filter(({ data }) => data.category === category).length} 篇文章</span>
+          </div>
+          <h3>{category}</h3>
+          <p>查看这个分类下的全部文章。</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

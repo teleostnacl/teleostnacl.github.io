@@ -2,7 +2,7 @@
 title: "一种解决 Win10的微软输入法无法禁用 shift + 空格 切换半角/全角切换bug的方法"
 description: "一种解决 Win10的微软输入法无法禁用 shift + 空格 切换半角/全角切换bug的方法"
 pubDate: 2025-12-20
-category: "bug"
+category: "Bug"
 tags:
   - "bug"
   - "微软"

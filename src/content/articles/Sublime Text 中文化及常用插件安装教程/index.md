@@ -2,7 +2,7 @@
 title: "Sublime Text 中文化及常用插件安装教程"
 description: "Sublime Text 中文化及常用插件安装教程"
 pubDate: 2025-12-01
-category: "sublime"
+category: "Sublime"
 tags:
   - "sublime"
   - "text"

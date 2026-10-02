@@ -2,7 +2,7 @@
 title: "解决 IDEA 在运行时中文乱码问题"
 description: "解决 IDEA 在运行时中文乱码问题"
 pubDate: 2025-06-02
-category: "intellij-idea"
+category: "Intellij-idea"
 tags:
   - "intellij-idea"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/148372024"

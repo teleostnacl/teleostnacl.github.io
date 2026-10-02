@@ -2,7 +2,7 @@
 title: "Google Chrome 浏览器历史记录的存储位置"
 description: "Google Chrome 浏览器历史记录的存储位置"
 pubDate: 2025-12-17
-category: "chrome"
+category: "Chrome"
 tags:
   - "chrome"
   - "前端"

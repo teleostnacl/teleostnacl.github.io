@@ -2,7 +2,7 @@
 title: "当在git中新增忽略文件之后如何移除已经提交到git的文件"
 description: "当在git中新增忽略文件之后如何移除已经提交到git的文件"
 pubDate: 2025-06-19
-category: "git"
+category: "Git"
 tags:
   - "git"
 csdnUrl: "https://blog.csdn.net/TeleostNaCl/article/details/148752065"

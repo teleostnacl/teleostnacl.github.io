@@ -2,7 +2,7 @@
 title: "一种使用 Java 应用实现快捷键输入字符的方式"
 description: "一种使用 Java 应用实现快捷键输入字符的方式"
 pubDate: 2025-05-23
-category: "java"
+category: "Java"
 tags:
   - "java"
   - "开发语言"
