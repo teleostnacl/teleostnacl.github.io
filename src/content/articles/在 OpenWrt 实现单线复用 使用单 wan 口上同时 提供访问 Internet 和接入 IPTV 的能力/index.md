@@ -23,12 +23,12 @@ draft: false
 
 其网络拓扑图是以下样子的：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1e99cd01d5514a659667a471c32c25c2.png)
+![在这里插入图片描述](./1790847524991_1e99cd01d5514a659667a471c32c25c2.png)
 
 
 而本文将实现一种单线复用的方式，即光猫和 `OpenWrt` 路由器上只有一条线连接，拓扑图如下：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ed87a86daea7490ab81635429f856e1c.png)
+![在这里插入图片描述](./1790847525040_ed87a86daea7490ab81635429f856e1c.png)
 
 
 # 二、光猫 VLAN 绑定设置
@@ -39,7 +39,7 @@ draft: false
 我们先在光猫的超级管理员界面，找到 `网络` > `宽带连接`，可以看到 `Internet` 和 `IPTV` 的 `VLAN`，例如如下：
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2ef1ce84d29e41d3a6406f039dab48a1.png)
+![在这里插入图片描述](./1790847525117_2ef1ce84d29e41d3a6406f039dab48a1.png)
 
 
 可以看到，在我的网络环境下，`Internet` 的 `VLAN ID` 为 `41`，`IPTV` 的  `VLAN ID` 为 `48`。
@@ -48,7 +48,7 @@ draft: false
 随后，我们在 `绑定设置` 中，将指定的 `LAN` 口设置为 `VLAN` 绑定的 `绑定方式`，并填写 `41/41,48/48`，这样就实现了绑定。
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7967d900625b47649074e03405b78851.png)
+![在这里插入图片描述](./1790847525161_7967d900625b47649074e03405b78851.png)
 
 
 # 三、添加 wan 口的 VLAN (802.1q)
@@ -59,7 +59,7 @@ draft: false
 我们在 `OpenWrt` 的 `luci` > `网络` > `接口` > `设备` 的页面下，点击 `添加设备配置...`
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9a541d1c08534892883d6ebf3e52e9a6.png)
+![在这里插入图片描述](./1790847525224_9a541d1c08534892883d6ebf3e52e9a6.png)
 
 
 我们在 `添加设备配置` 页面下，
@@ -68,14 +68,14 @@ draft: false
 - `基础设备` 选择 `eth1`
 - `VLAN ID` 填写 `41`
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b4dfc1716d314f2ca5cacc5f3be4e3c7.png)
+![在这里插入图片描述](./1790847525261_b4dfc1716d314f2ca5cacc5f3be4e3c7.png)
 
 
 
 以上，我们添加了一个 `eth1.41` 的设备，则添加了一个连接 `Internet` 的软件 `VLAN`，使用相同的方式，添加一个 `VLAN ID` 为 `48` 的连接 `IPTV` 的软件 `VLAN` 的 `eth1.48` 的设备
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/dbf3ca1222534edcba6a5f7ff40c37ef.png)
+![在这里插入图片描述](./1790847525297_dbf3ca1222534edcba6a5f7ff40c37ef.png)
 
 # 四、添加 IPTV 的网桥设备
 
@@ -88,12 +88,12 @@ draft: false
 我们在 `OpenWrt` 的 `luci` > `网络` > `接口` > `设备` 的页面下，点击 `br-lan` 设备的 `配置` 按钮
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/879993fc3da84aa1b85bcaeb11500e95.png)
+![在这里插入图片描述](./1790847525374_879993fc3da84aa1b85bcaeb11500e95.png)
 
 
 随后我们在 `网桥端口` 中，取消勾选 `lan3` 即可，这样就将 `lan3` 从 `br-lan` 中移除了。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7833d4f62b64452db1af6ed16a431159.png)
+![在这里插入图片描述](./1790847525411_7833d4f62b64452db1af6ed16a431159.png)
 
 
 然后，我们通过点击 `添加设备配置...` 添加一个新的网桥设备：
@@ -103,12 +103,12 @@ draft: false
 - `端口` 选择 `eth1.48` 和 `lan3` 口
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5f02ae45302145fcb59e7874f7935bb1.png)
+![在这里插入图片描述](./1790847525463_5f02ae45302145fcb59e7874f7935bb1.png)
 
 
 一份完整的配置的如下：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/48fe6d41fc3f4c489d01eec356caad43.png)
+![在这里插入图片描述](./1790847525743_48fe6d41fc3f4c489d01eec356caad43.png)
 
 # 五、修改 wan 口的设备配置
 
@@ -118,13 +118,13 @@ draft: false
 我们在 `luci` > `网络` > `接口` > `接口` 的界面下，对 `wan` 口点击 `编辑` 按钮，打开接口编辑页面。
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/fd608cc17c0d4e05b212ed042fee7357.png)
+![在这里插入图片描述](./1790847525780_fd608cc17c0d4e05b212ed042fee7357.png)
 
 
 随后我们在接口设置中，将 设备从 `eth1` 修改到 `eth1.41`。
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/41217e60a64a4117910378e1e40c18d6.png)
+![在这里插入图片描述](./1790847525821_41217e60a64a4117910378e1e40c18d6.png)
 
 
 经过以上设置之后，我们的路由器 就已经正常连接到 `Internet` 了。
@@ -138,32 +138,32 @@ draft: false
 我们在 `luci` > `网络` > `接口` > `接口` 的界面下，点击 `添加新接口...`，添加新的 `IPTV` 的网络接口
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b7577165a17e42369c1e0c2af81b8b83.png)
+![在这里插入图片描述](./1790847525913_b7577165a17e42369c1e0c2af81b8b83.png)
 
 
 - `名称` 填写 `iptv`
 - `协议` 选择 `DHCP客户端`
 - `设备` 选择 `br-iptv`
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/41d58a3fc3034bb6b5d4fe024b05f03f.png)
+![在这里插入图片描述](./1790847525956_41d58a3fc3034bb6b5d4fe024b05f03f.png)
 
 
 当接口被添加之后，点击此接口的 `编辑`，进行防火墙配置：
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/517d5494967945608e7ff20494e1f46f.png)
+![在这里插入图片描述](./1790847526007_517d5494967945608e7ff20494e1f46f.png)
 
 
 切换到 `防火墙设置`，在 `创建/分配防火墙区域` 中选择自定义，并输入 `iptv`，创建新的防火墙配置。
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/aa6ebb8ac9924d239cb7804361e49898.png)
+![在这里插入图片描述](./1790847526055_aa6ebb8ac9924d239cb7804361e49898.png)
 
 
 在 `DHCP 服务器` 中，为此接口禁用 `DHCP`。
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/66c78481e3db43d6bfdc3bf787af78cc.png)
+![在这里插入图片描述](./1790847526091_66c78481e3db43d6bfdc3bf787af78cc.png)
 
 
 当以上配置完成之后，将电视盒子接入路由器的 `LAN3` 口之后，电视盒子就可以正常的访问和连接了。

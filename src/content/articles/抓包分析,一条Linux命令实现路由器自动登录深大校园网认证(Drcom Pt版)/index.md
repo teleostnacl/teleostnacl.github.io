@@ -92,7 +92,7 @@ wget -q -O- \
 <center><b><font size ='2'>Pt版宽带上网客户端</font></b></center></font>
 
 
-![](https://i-blog.csdnimg.cn/blog_migrate/cfba79e8a093f871c9d0750eee580d63.png#pic_center)
+![](./1790847798685_cfba79e8a093f871c9d0750eee580d63.png)
 
 
 - 本文仅是提供一个在路由器实现自动认证，免去手动登录过程的方法，不含有任何破解校园网的内容，并请合理使用。
@@ -109,12 +109,12 @@ wget -q -O- \
 <center><b><font size ='2'>Padavan固件开启Telnet和SSH服务</font></b></center></font>
 
 
-![Padavan固件Telnet和SSH服务打开](https://i-blog.csdnimg.cn/blog_migrate/8079a9a44060f11cf23725bcd8361dd2.png#pic_center)
+![Padavan固件Telnet和SSH服务打开](./1790847798740_8079a9a44060f11cf23725bcd8361dd2.png)
 
 <center><b><font size ='2'>openwrt固件开启SSH服务</font></b></center></font>
 
 
-![openwrt固件SSH服务打开](https://i-blog.csdnimg.cn/blog_migrate/eb10eb5c6c6af35504e8de213f1845b7.png#pic_center)
+![openwrt固件SSH服务打开](./1790847798806_eb10eb5c6c6af35504e8de213f1845b7.png)
 
 
 2. 准备一个抓包工具和带有 Chrome Dev Tools 的浏览器（进行抓包分析认证过程）。本文使用`Wireshark`进行客户端登录抓包分析。本文使用 `Chrome` 分析网页端登录的过程。<br>`Wireshark: https://www.wireshark.org/`
@@ -122,27 +122,27 @@ wget -q -O- \
 
 - Wireshrak 使用方法
   
-![](https://i-blog.csdnimg.cn/blog_migrate/e24b347202d5459e2136b1f9428244b9.png#pic_center)
+![](./1790847798845_e24b347202d5459e2136b1f9428244b9.png)
 
 
 3. 在 Windows 环境下,需使用 `Putty` 登录到路由器客户端，运行 Linux 命令进行测试管理。另外可能需要使用到 `WinSCP` 进行对路由器的文件管理。<br>`Putty: https://www.chiark.greenend.org.uk/~sgtatham/putty/`<br>`WinSCP: https://winscp.net/`<br>在 Linux 环境下，可以直接使用 ssh 命令登录到路由器后台，scp命令上传文件到路由器，从而对路由器进行管理，而无需准备其它软件。
 
 - Putty 登录
   
-![](https://i-blog.csdnimg.cn/blog_migrate/a3f548b941696d63cdab4bb0673e70ce.png#pic_center)
+![](./1790847798907_a3f548b941696d63cdab4bb0673e70ce.png)
   
 
  <center><b><font size ='2'>输入管理员账号密码登录</font></b></center></font>
  
 
-![输入管理员账号密码登录](https://i-blog.csdnimg.cn/blog_migrate/8362d5cff6777757ab78055828fb0e19.png#pic_center)
+![输入管理员账号密码登录](./1790847798950_8362d5cff6777757ab78055828fb0e19.png)
 
 - WinSCP 登录
 
 <center><b><font size ='2'>选择SCP模式,设置管理员地址端口输入账号密码</font></b></center></font>
 
 
-![选择SCP模式,输入管理员地址端口账号密码](https://i-blog.csdnimg.cn/blog_migrate/a3e1ebd9c7f70358745d09f7c73c6e7c.png#pic_center)
+![选择SCP模式,输入管理员地址端口账号密码](./1790847798998_a3e1ebd9c7f70358745d09f7c73c6e7c.png)
 
 - Linux使用ssh登录
 
@@ -150,13 +150,13 @@ wget -q -O- \
 ssh [账户]@[登录地址]
 ```
 
-![](https://i-blog.csdnimg.cn/blog_migrate/fefd721a37dbff2d78dccc2284f83eea.png#pic_center)
+![](./1790847799121_fefd721a37dbff2d78dccc2284f83eea.png)
 4. 测试路由器是否支持curl命令或wget命令，模拟请求会用到这两个命令，使用putty登录或者ssh登录路由器后台后，输入curl或wget命令，如果能正常输出用法则表示固件支持该命令，如果显示not found，则表示不支持。
 
 <center><b><font size ='2'>不支持curl但支持wget</font></b></center></font>
 
 
-![](https://i-blog.csdnimg.cn/blog_migrate/e0aa70ad7e8bcd7e4beb86a93007f9f0.png#pic_center)
+![](./1790847799169_e0aa70ad7e8bcd7e4beb86a93007f9f0.png)
 
 # 贰、抓包分析
 
@@ -171,7 +171,7 @@ ssh [账户]@[登录地址]
 
 - 先运行 Wireshark 进行抓包，然后登录客户端认证，得到抓包结果。下图为此次抓包所得结果，这里面包含了登录认证的全过程。
   
-![](https://i-blog.csdnimg.cn/blog_migrate/b8c119e806643e8935c679490159b4d7.png#pic_center)
+![](./1790847799220_b8c119e806643e8935c679490159b4d7.png)
 
 
 ### 2. 分析
@@ -179,7 +179,7 @@ ssh [账户]@[登录地址]
 
 - 首先看第 2-9 号包与 116.62.86.125 的通信过程。
 
-![](https://i-blog.csdnimg.cn/blog_migrate/e9e5467632e4762c202c6837f8bcdb9b.png#pic_center)
+![](./1790847799305_e9e5467632e4762c202c6837f8bcdb9b.png)
   - 前三个包（2 - 4）是典型的 TCP 三次握手的过程并建立连接（可以看到在 Info 中有三个标志位`[SYN] [SYN, ACK] [ACK]`，即对应三次握手的过程）
   - **随后（第 5 号包）我们向服务器发送了一个 GET 请求**
   - **随后（第 6 号包）服务器回应了我们，并说明了这是一个 302 请求，即重定向。**
@@ -190,14 +190,14 @@ ssh [账户]@[登录地址]
 
 - 先看请求头（点开 5 号包，展开 Hypertext Transfer Protocol）
   
-![](https://i-blog.csdnimg.cn/blog_migrate/73445b457908d394c99d9bca6c9befe1.png#pic_center)
+![](./1790847799367_73445b457908d394c99d9bca6c9befe1.png)
 
   - 从图中可以看到，这是一个简单的 GET ：我们向服务器 116.62.86.125 发送了 GET 请求。
   - `User-Agent`：服务器通过UA能识别客户使用的操作系统及版本及浏览器信息等，从而来给不同的操作系统、不同的浏览器发送不同的页面。此处用于标识请求是由认证客户端所发出，但在后续进行模拟请求过程中，发现有无 UA 并不影响最终登录结果，故我们忽略 UA。
 
 - 我们再来看响应头(点开 6 号包，展开 Hypertext Transfer Protocol）
  
-![](https://i-blog.csdnimg.cn/blog_migrate/847362428b375fbeb4258e997afd25ba.png#pic_center)
+![](./1790847799420_847362428b375fbeb4258e997afd25ba.png)
 
   - 从图中我们可以看到，这个响应头的响应码为 302,代表着进行了重定向，而重定向的地址由 Location 后面给出，即这里的`http://172.30.255.42/a79.htm?wlanuserip=172.30.236.7&wlanacname=&wlanacip=172.30.255.41`。这个地址携带了我们的 IP 信息，而对后续的包分析可知，正是这些 ip 信息组装成了最终的认证地址。
 
@@ -205,7 +205,7 @@ ssh [账户]@[登录地址]
 
 - 分析完与 116.62.86.125 的通信过程之后，来看第 10 - 21 号包与 172.30.255.42 的通信过程。
 
-![](https://i-blog.csdnimg.cn/blog_migrate/893c91367403013fb5fd6292f333559b.png#pic_center)
+![](./1790847799472_893c91367403013fb5fd6292f333559b.png)
   - 第 10 - 12 号包，与 172.30.255.42 进行了三次握手，建立连接。
   - 随后第 13 号包带有标识位`[PSH]`，表示我方将有数据向服务器进行传输，随后服务器(第 14 号包)应答 ACK。
   - **第 15 号是一个关键包，它表示我们向服务器提交了一个 POST 请求，并由 16,17 号包可以看出，服务器在收到我们的 POST 之后也返回了数据给我们，即 POST 的响应（17 号包由服务器发给我们中也含有标识位`[PSH]`）。**
@@ -215,10 +215,10 @@ ssh [账户]@[登录地址]
 - 我们依旧比较关心请求头和响应头。所以我们先来看第 18 号包的响应头。它传输了数据过来，我们先看看数据是什么。
 
   - 点开第 18 号包，展开`Hypertext Transfer Protocol`，展开`Line-based text data: text/html`。可以看到这返回了一个 HTML，里面的内容仅展示一句`Login succeed`。由此，可以推断该响应头对应的请求是实现认证登录的最核心部分。
-![](https://i-blog.csdnimg.cn/blog_migrate/c547997acfbc8010a8901babbd0cea94.png#pic_center)
+![](./1790847799598_c547997acfbc8010a8901babbd0cea94.png)
   
   - 我们对请求头进行分析，点开第 16 个包，展开`Hypertext Transfer Protocol`。
-![](https://i-blog.csdnimg.cn/blog_migrate/6d99f2d6dd2e6b51c8ca957ec92d3fd3.png#pic_center)
+![](./1790847799652_6d99f2d6dd2e6b51c8ca957ec92d3fd3.png)
 
   - 我们可以看到这是对`http://172.30.255.42:801/eportal/?c=ACSetting&a=Login&jsVersion=3.0&wlanuserip=172.30.236.7&wlanacname=&wlanacip=172.30.255.41`这个网址发送了 POST 请求。
   - 可以推断地址后面的`wlanuserip=172.30.236.7&wlanacname=&wlanacip=172.30.255.41`是由重定向地址进行截取之后获取的。(这个过程是写在客户端里面的，我们没有办法知道去具体细节，如果客户端更新之后改变了这部分逻辑，所得结果有变化，那我们的命令也需要有所变化)。
@@ -280,7 +280,7 @@ url=`curl -G -Ls -w %{url_effective} -o /dev/null 116.62.86.125`
 <center><b><font size ='2'>获取重定向后的地址并使用echo命令查看变量信息</font></b></center></font>
 
 
-![获取重定向之后的地址并使用echo命令查看变量信息](https://i-blog.csdnimg.cn/blog_migrate/f1ed0c4b100829cfffe209ce3d0aa6a0.png#pic_center)
+![获取重定向之后的地址并使用echo命令查看变量信息](./1790847799695_f1ed0c4b100829cfffe209ce3d0aa6a0.png)
 
 - 拆分变量并进行重组url
 
@@ -305,7 +305,7 @@ url="http://172.30.255.42:801/eportal/?c=ACSetting&a=Login&jsVersion=3.0&"${url}
 <center><b><font size ='2'>截取并拼接变量</font></b></center></font>
 
 
-![截取并拼接变量](https://i-blog.csdnimg.cn/blog_migrate/84d3cfcc54a61a54d1fba46201689ee3.png#pic_center)
+![截取并拼接变量](./1790847799744_84d3cfcc54a61a54d1fba46201689ee3.png)
 
 
 - 发送POST请求
@@ -322,7 +322,7 @@ curl -X POST -d 'DDDDD=,0,$校园卡号' -d 'upass=$密码' -d '0MKKey=012345678
 <center><b><font size ='2'>登录成功</font></b></center></font>
 
 
-![登录成功](https://i-blog.csdnimg.cn/blog_migrate/52c31f8e14edac1e7e17226b7d544ebb.png#pic_center)
+![登录成功](./1790847799794_52c31f8e14edac1e7e17226b7d544ebb.png)
 
 
 可以看到最后curl命令的输出为HTML，且仅显示Login succeed。与我们之前抓包的结果相同，认证登录成功。
@@ -360,10 +360,10 @@ curl -X POST \
 <center><b><font size ='2'>开发者工具</font></b></center></font>
 
 
-![](https://i-blog.csdnimg.cn/blog_migrate/e0241419333fa844e1ef95d3f7b24d5f.png#pic_center)
+![](./1790847799842_e0241419333fa844e1ef95d3f7b24d5f.png)
 
 
-![开发者工具](https://i-blog.csdnimg.cn/blog_migrate/fffed027e00a8848acf7c5d8ab68a862.png#pic_center)
+![开发者工具](./1790847799922_fffed027e00a8848acf7c5d8ab68a862.png)
 
 ### 1. 抓包
 
@@ -371,21 +371,21 @@ curl -X POST \
 由于打开网页之后会同时下载网页相关资源及js脚本，用于控制登录细节，但我们经过分析之后，会发现其认证过程是一个明文的GET，且其GET的查询参数基本保持不变，故此处不分析其他包的内容，只分析认证的GET请求。
 我们可以在打开页面之后清除所有包，然后再输入账号密码进行登录，这样所抓的第一个包就是我们登录时发送的请求。
 
-![](https://i-blog.csdnimg.cn/blog_migrate/e8fad69c192f6c36ca2b0be3862ac627.png#pic_center)
+![](./1790847799977_e8fad69c192f6c36ca2b0be3862ac627.png)
 
 
 ### 2. 分析
 
 - 正如前面所说，HTTP请求最重要的是看请求头与响应头，Chrome Dev Tools为我们查看这些内容提供了方便。双击所需分析的包，在标头选项卡下就看到了响应头与请求头。
 
-![](https://i-blog.csdnimg.cn/blog_migrate/629ab3ecb13ece06d0ae8a4a089fc34c.png#pic_center)
+![](./1790847800021_629ab3ecb13ece06d0ae8a4a089fc34c.png)
 - 可以看到，这是一个GET请求，GET的地址是`http://172.30.255.42:801/eportal/portal/login`
 - 问号后面即是查询参数，我们点开载荷选项卡，以表格的方式向我们清晰展示了登录所需使用的查询参数
 
-![](https://i-blog.csdnimg.cn/blog_migrate/5d39e35cbbdb831afe5ead7b7dad930f.png#pic_center)
+![](./1790847800075_5d39e35cbbdb831afe5ead7b7dad930f.png)
 - 我们点开预览，可以看到认证登录成功的消息
 
-![](https://i-blog.csdnimg.cn/blog_migrate/8bb84eef4708a67e4ea8ea6e25726b86.png#pic_center)
+![](./1790847800141_8bb84eef4708a67e4ea8ea6e25726b86.png)
 - 至此，我们知道了网页登录get请求的全部内容
 
 
@@ -401,7 +401,7 @@ curl -G \
 ```
 
 
-![登录成功](https://i-blog.csdnimg.cn/blog_migrate/32ef82f2a34cb54d3cc18b0a7a494e8c.png#pic_center)
+![登录成功](./1790847800194_32ef82f2a34cb54d3cc18b0a7a494e8c.png)
 
 # 叁、使用方法
 
@@ -410,12 +410,12 @@ curl -G \
 - 以老毛子padavan固件为例，其支持在WAN上行/下行启动后执行脚本，故可在这里面执行curl命令，此处用CURL GET请求。
 
 
-![](https://i-blog.csdnimg.cn/blog_migrate/3ac3b20ff160cae38d5df5e689f2cc57.png#pic_center)
+![](./1790847800248_3ac3b20ff160cae38d5df5e689f2cc57.png)
 
 
 - 我们把它放进UP状态中的，并使用sleep 30，表示当WAN口启动后，即网线连接成功后。发送curl命令，并使用了var变量进行接收执行结果，并将其打印到日志上，可以看到在日志中出现了登录成功的消息。
 
-![](https://i-blog.csdnimg.cn/blog_migrate/bd427b3df64eda5fd7ca9862853c4664.png#pic_center)
+![](./1790847800302_bd427b3df64eda5fd7ca9862853c4664.png)
 
 
 2. 若固件没有提供类似开机启动时执行自定义脚本功能，可以通过编写脚本，存储在路由器的可写且能永久储存的目录，并赋予执行权限，修改/etc/rc.local文件（如果有的话），添加运行脚本的命令，实现开机自启动（这里只是举个例子，请自行查阅所使用的路由器固件如何做到开机自动运行脚本）。
@@ -452,24 +452,24 @@ wget --output-document=/dev/null \
 <center><b><font size ='2'>将本地的auto_login.sh上传至路由器</font></b></center></font>
 
 
-![将本地的auto_login.sh上传至路由器](https://i-blog.csdnimg.cn/blog_migrate/74607b924a5c30c8ce4df2c3d645c14d.png#pic_center)
+![将本地的auto_login.sh上传至路由器](./1790847800388_74607b924a5c30c8ce4df2c3d645c14d.png)
 
 
 - 右键路由器的auto_login.sh文件，选择Properties，进行修改权限（修改为0755）
 
 
-![](https://i-blog.csdnimg.cn/blog_migrate/6d6e5b4f5fd852a449771b3a0423d709.png#pic_center)
+![](./1790847800445_6d6e5b4f5fd852a449771b3a0423d709.png)
 
 
 <center><b><font size ='2'>在Octal中输入0755</font></b></center></font>
 
 
-![在Octal中输入0755](https://i-blog.csdnimg.cn/blog_migrate/776f7618fa9adaa773e78fbbf89d3906.png#pic_center)
+![在Octal中输入0755](./1790847800489_776f7618fa9adaa773e78fbbf89d3906.png)
 
 
 - 转到/etc目录，打开/etc/rc.local，在exit 0前添加一句`/usr/auto_login.sh &`，并保存。
 
-![](https://i-blog.csdnimg.cn/blog_migrate/1a6dfbd5c965b5f054d15a152edae1d2.png#pic_center)
+![](./1790847800541_1a6dfbd5c965b5f054d15a152edae1d2.png)
 
 - 在网页中注销认证，并重启路由器，检查是否已经认证成功
 
@@ -510,19 +510,19 @@ vi /etc/rc.local
 <center><b><font size ='2'>SCP上传成功</font></b></center></font>
 
 
-![SCP上传成功](https://i-blog.csdnimg.cn/blog_migrate/599e8ed18e5227e3b81af5e9d90fb0e3.png#pic_center)
+![SCP上传成功](./1790847800612_599e8ed18e5227e3b81af5e9d90fb0e3.png)
 
 
 <center><b><font size ='2'>权限修改成功</font></b></center></font>
 
 
-![权限修改成功](https://i-blog.csdnimg.cn/blog_migrate/e7f0e0be917374b7ad7cfcc43da3e36d.png#pic_center)
+![权限修改成功](./1790847800666_e7f0e0be917374b7ad7cfcc43da3e36d.png)
 
 
 <center><b><font size ='2'>修改/etc/rc.local</font></b></center></font>
 
 
-![修改/etc/rc.local](https://i-blog.csdnimg.cn/blog_migrate/1f286b50114515bfdaf297b6f13554fb.png#pic_center)
+![修改/etc/rc.local](./1790847800715_1f286b50114515bfdaf297b6f13554fb.png)
 
 # 肆、断线重连
 

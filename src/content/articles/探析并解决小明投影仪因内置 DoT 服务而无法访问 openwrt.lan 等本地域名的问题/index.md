@@ -22,7 +22,7 @@ draft: false
 在小明投影仪上使用 `Kodi` 时，添加搭建在 `OpenWrt` 路由器上的 `SMB` 服务器时，使用 `IP` 地址 ( `192.168.10.1` ) 时可以正常的连上设备，但是使用 `openwrt.lan` 本地域名的方式时，却无法连接到 `SMB` 服务器，而在手机或电脑上却完全没有问题的：
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e232fc8e4c40483981df65b454507841.png)
+![在这里插入图片描述](./1790847520625_e232fc8e4c40483981df65b454507841.png)
 
 
 因此，本文将详细介绍通过抓包分析的过程，发现其是因为内置了 `DoT` 服务，通过阿里云的 `DNS` 服务去解析域名，从而导致无法解析本地域名，而无法使用域名连接 `SMB` 服务，并介绍如何通过 `OpenWrt` 的防火墙配置解决此问题。
@@ -49,7 +49,7 @@ ping: unknown host openwrt.lan
 同时，我们使用浏览器进行访问 `openwrt.lan`，同样无法进行访问，并且提示 `net::ERR_NAME_NOT_RESOLVED`，同样告诉我们无法正常解析 `openwrt.lan` 的域名。
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d3ecf8ec3cae429da234060a3aa16553.png)
+![在这里插入图片描述](./1790847520685_d3ecf8ec3cae429da234060a3aa16553.png)
 
 
 因此，我们可以推断是投影仪的DNS 解析 `openwrt.lan` 域名的时候存在问题。 
@@ -107,7 +107,7 @@ tcpdump -i any -nv -w 1.pcap host 192.168.10.100
 
 我们可以很快的发现，在访问网页的时候，会有向 `IP` 为 `223.5.5.5` 和 `223.6.6.6` 的 `TCP` 连接，同时使用的是 `853` 端口。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7615924754a34f108cadc834b7b1b22a.png)
+![在这里插入图片描述](./1790847520736_7615924754a34f108cadc834b7b1b22a.png)
 
 
 由此我们可以很明确的知道了，投影仪在系统层中内置了一个 `DNS-over-TLS(DoT)` 的服务去解析所有请求的域名，而在网络不可用的时候，就退化回路由器的 `DNS` 服务。
@@ -130,7 +130,7 @@ tcpdump -i any -nv -w 1.pcap host 192.168.10.100
 我们通过 `luci` > `网络` > `防火墙` > `通信规则` > `添加` 的方式添加一条新的防火墙的通讯规则
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/04b7df7b521a4d31bd04afd81f6622ee.png)
+![在这里插入图片描述](./1790847520785_04b7df7b521a4d31bd04afd81f6622ee.png)
 
 
 我们按如下的方式进行编辑：
@@ -143,7 +143,7 @@ tcpdump -i any -nv -w 1.pcap host 192.168.10.100
 - `操作` 选择 `拒绝`
 -  
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/efd10a487615425aa44e4c4d5c16fe9b.png)
+![在这里插入图片描述](./1790847520857_efd10a487615425aa44e4c4d5c16fe9b.png)
 
 
 在高级设置中，
@@ -152,7 +152,7 @@ tcpdump -i any -nv -w 1.pcap host 192.168.10.100
 - `源 MAC 地址` 填写 `投影仪的 MAC 地址`
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/47f00110538b405abbac58ec102a3632.png)
+![在这里插入图片描述](./1790847520910_47f00110538b405abbac58ec102a3632.png)
 
 
 > 同时，对于如果遇到客户端是 `DoH` 的服务时，可以在 `目标地址` 中填写  `DoH` 服务的地址，并将 `目标端口` 设置为 `443`，这样就禁用了  `DoH`  的流量了。

@@ -23,7 +23,7 @@ draft: false
 
 > 由于 `PowerToys` 需要在 Windows 10 v2004之后的 64位版本运行，因此此方法也仅适用于Windows 10 v2004之后的 64位版本
 > 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6cf967625ece494ea785a16e52b2bb94.png)
+![在这里插入图片描述](../一种使用 PowerToys 的键盘管理器工具重新映射按键实现在 Windows 上快捷输入字符的方式/1790847711037_6cf967625ece494ea785a16e52b2bb94.png)
 
 
 
@@ -32,7 +32,7 @@ draft: false
 `PowerToys` 是由微软开发的适用于 `Windows` 平台用于自定义 `Windows` 的实用工具：[https://learn.microsoft.com/zh-cn/windows/powertoys/](https://learn.microsoft.com/zh-cn/windows/powertoys/)。
 如官方文档描述，当前 PowerToy 可用的工具如下：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a9af5b6c67934f298663d8c413106f0d.png)
+![在这里插入图片描述](../一种使用 PowerToys 的键盘管理器工具重新映射按键实现在 Windows 上快捷输入字符的方式/1790847711147_a9af5b6c67934f298663d8c413106f0d.png)
 而本文将用到 `PowerToy` 中的 [键盘管理器工具](https://learn.microsoft.com/zh-cn/windows/powertoys/#keyboard-manager)。
 
 
@@ -59,12 +59,12 @@ draft: false
 此时 `重新映射按键` 和 `重新映射快捷键` 的选项将会被启用，点击即可开始配置相关按键的组合，并输出指定的按键组合。
 其中 `重新映射按键` 功能指的是单个按键的映射，其可以实现对单个按键映射成 其他按键或组合键，或发送一段文本。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/43cb58bc17814da0bda4eb2aaf3f47fe.png)
+![在这里插入图片描述](../一种使用 PowerToys 的键盘管理器工具重新映射按键实现在 Windows 上快捷输入字符的方式/1790847711463_43cb58bc17814da0bda4eb2aaf3f47fe.png)
 `重新映射快捷键` 功能则指的是多个按键的映射，其可以实现对单个按键映射成 其他按键或组合键，或发送一段文本。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e25268865e5f4983ae35775279169a26.png)
+![在这里插入图片描述](../一种使用 PowerToys 的键盘管理器工具重新映射按键实现在 Windows 上快捷输入字符的方式/1790847714535_e25268865e5f4983ae35775279169a26.png)
 这里的 `允许组合键` 功能指的是是否可以添加多个字母的组合。如果未开启 `允许组合键`，则输入中只能包含一个字母，而当打开时，则允许组合多个字母的按键。如下图所示
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f9d614b9f5154d69a279f84e0d241195.png)
+![在这里插入图片描述](../一种使用 PowerToys 的键盘管理器工具重新映射按键实现在 Windows 上快捷输入字符的方式/1790847714589_f9d614b9f5154d69a279f84e0d241195.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/af94c53013be4e8d89b15288c3b88258.png)
+![在这里插入图片描述](../一种使用 PowerToys 的键盘管理器工具重新映射按键实现在 Windows 上快捷输入字符的方式/1790847714648_af94c53013be4e8d89b15288c3b88258.png)

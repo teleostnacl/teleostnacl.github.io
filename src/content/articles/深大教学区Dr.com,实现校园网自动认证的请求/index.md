@@ -14,12 +14,12 @@ draft: false
 
 - 经过对教学区登录认证过程进行抓包分析可得，登录是对<br>`https://drcom.szu.edu.cn/a70.htm`<br>发送了POST请求，请求表单如下图所示，且传递了cookies，cookies由js脚本生成设置。
 
-![](https://i-blog.csdnimg.cn/blog_migrate/7e55dd2e7e302b3764ad136960ece766.png)
+![](./1790847791269_7e55dd2e7e302b3764ad136960ece766.png)
 
-![](https://i-blog.csdnimg.cn/blog_migrate/9a761e82f99bcdc40fe9991737d6a2da.png)
+![](./1790847791332_9a761e82f99bcdc40fe9991737d6a2da.png)
 
 
-![POST表单](https://i-blog.csdnimg.cn/blog_migrate/6541e66efd9918b0d27f499e4a2ece3c.png)
+![POST表单](./1790847791606_6541e66efd9918b0d27f499e4a2ece3c.png)
 
 
 - 对其进行减少参数尝试发送post命令可以发现，cookies信息并不影响最后的登录的结果，故可以写出其登录发送的请求如下

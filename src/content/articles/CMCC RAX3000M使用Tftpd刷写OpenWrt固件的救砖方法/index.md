@@ -17,7 +17,7 @@ draft: false
 救砖的固件可以自行编译生成，也可以从 官方的 `OpenWrt Firmware Selector` 选择`CMCC RAX3000M` 进行下载，地址为：`https://firmware-selector.openwrt.org/?version=SNAPSHOT&target=mediatek%2Ffilogic&id=cmcc_rax3000m`
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/16d18c85a3b64eda944d7fb242e185fc.png)
+![在这里插入图片描述](./1790847733694_16d18c85a3b64eda944d7fb242e185fc.png)
 其中 
 
 - `KERNEL` 为 `openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb`
@@ -38,7 +38,7 @@ draft: false
 因为在uboot的时候，路由器会尝试从 **`192.168.1.254`** 上的 `tftp server` 拉取 名为`openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb` 文件来起 `initrd`，从而可以启动系统。 
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d96336de13844d9cb88992b797620452.png)
+![在这里插入图片描述](./1790847733749_d96336de13844d9cb88992b797620452.png)
 
 # 二、配置Tftpd
 
@@ -48,10 +48,10 @@ draft: false
 
 下载之后直接运行
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/942e165c461f4676a49fdadb9e16e741.png)
+![在这里插入图片描述](./1790847733802_942e165c461f4676a49fdadb9e16e741.png)
 进入之后，在`Current Directory` 选择 `openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb` 所在的目录，`Service interfaces` 选择已经将IP地址设置为 `192.168.1.254` 的网络接口，点击`Show Dir`可以看到选中文件夹是否包含 `openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb` 文件，如下图所示，此时已经配置完成。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b88f5a1ea1e14ac4b0522d1779d25d05.png)
+![在这里插入图片描述](./1790847733860_b88f5a1ea1e14ac4b0522d1779d25d05.png)
 
 # 三、路由器进入uboot模式
 
@@ -60,17 +60,17 @@ draft: false
 
 此时可以连接电脑，使用命令 `ping 192.168.1.1 -t`，如果可以`ping`通，则表示连接正常。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d6226f5804784953aa141c49d2e422be.png)
+![在这里插入图片描述](./1790847733906_d6226f5804784953aa141c49d2e422be.png)
 
 
 此时如果一切顺利的话，`Tftpd` 将出现进度条并开始传输文件(如果不能正常传输的话，请检查防火墙设置)，如下图所示：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c67cbe891e6549ddbd8a56aa3c6fc95d.png)
+![在这里插入图片描述](./1790847733952_c67cbe891e6549ddbd8a56aa3c6fc95d.png)
 等进度条走完之后，路由器将重启，此时可以将电脑静态IP地址去掉，登录新的管理员地址，即可进入新的`OpenWrt` 系统。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/fa826cd92c8e493a963d25177fe3f031.png)
+![在这里插入图片描述](./1790847734002_fa826cd92c8e493a963d25177fe3f031.png)
 
 
 这个时候，需要在新系统中的备份与升级刷写 `openwrt-mediatek-filogic-cmcc_rax3000m-squashfs-sysupgrade.itb` 文件，真正的进行刷写新系统，否则断电之后将会丢失。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/056ebc7fd94f41df94bc599e30aac972.png)
+![在这里插入图片描述](./1790847734064_056ebc7fd94f41df94bc599e30aac972.png)

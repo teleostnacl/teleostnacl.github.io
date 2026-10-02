@@ -54,7 +54,8 @@ Windows Registry Editor Version 5.00
 `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout\`
 ![在这里插入图片描述](./1790847724358_c8623b3eab7f45b1946f92273bc7387c.png)
 - **3. 在右边窗口点击右键，选择新建-二进制值，并将其命名为Scancode Map**
-![在这里插入图片描述](./1790847724403_b90cde08e2e34170b4559d4974f41de7.png)![在这里插入图片描述](./1790847724462_ac15a8445bd44acda2140628e31e433f.png)
+![在这里插入图片描述](./1790847724403_b90cde08e2e34170b4559d4974f41de7.png)
+![在这里插入图片描述](./1790847724462_ac15a8445bd44acda2140628e31e433f.png)
 4. **双击新建的 `Scancode Map` 的项，在打开的窗口按顺序输入二进制值，按确定保存**
 ```
 00 00 00 00 00 00 00 00 
