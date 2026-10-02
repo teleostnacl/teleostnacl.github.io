@@ -34,6 +34,22 @@
   font-display: swap;
 }
 
+/* 正文与展示文字统一使用文楷，代码通过独立选择器使用等宽字体。 */
+:root {
+  --sans: 'LXGW WenKai', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  --serif: var(--sans);
+  --pagefind-ui-font: var(--sans);
+  font-family: var(--sans);
+}
+
+/* 表单控件默认不继承字体，显式对齐站点文楷以统一搜索及按钮文字。 */
+button,
+input,
+textarea,
+select {
+  font-family: var(--sans);
+}
+
 /* 非首页共用全宽内容布局，并让文章卡片与粒子背景自然融合。 */
 .inner-page .site-header,
 .inner-page main,
@@ -277,7 +293,7 @@
   border-color: #44505c;
   padding: 48px 20px 20px;
   /* 优先使用站点内置字体，下载完成前由系统等宽字体保持代码可读。 */
-  font-family: 'Fantasque Sans Mono', ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+  font-family: 'Fantasque Sans Mono', 'LXGW WenKai', ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
   line-height: 1.7;
   tab-size: 4;
 }
@@ -310,7 +326,7 @@
   padding: 1px 5px;
   overflow-wrap: anywhere;
   /* 行内代码与代码块共用内置字体，保证两种代码形式的字形一致。 */
-  font-family: 'Fantasque Sans Mono', ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+  font-family: 'Fantasque Sans Mono', 'LXGW WenKai', ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
 }
 
 .inner-page .article-content .prose .copy-button {
