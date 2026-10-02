@@ -43,7 +43,7 @@ wsl: 检测到 localhost 代理配置，但未镜像到 WSL。NAT 模式下的 W
 wsl --version
 ```
 会得到如下的结果
-![在这里插入图片描述](./1790847687719_68746baf6edb4d8687608cdea16d244a.png)
+![](./1790847687719_68746baf6edb4d8687608cdea16d244a.png)
 同时需要确保是使用的是 `WSL2`：输入命令：`wsl --set-default-version 2`，然后重启 `WSL2` 即可
 ## （二）修改配置文件设置全局网络模式为 Mirrored
 在 `C:\Users\<你的用户名>\.wslconfig` 中添加或修改以下内容（如果没有此文件，创建即可）：

@@ -35,7 +35,7 @@ fatal: could not read Username for '*': No such file or directory
 第一种方法就是使用 `Git` 的凭证缓存，可以将输入的用户名和密码保存在本地，等下次使用 `git` 的时候，就可以直接使用了。 而在 `IDEA` 中，可以使用 `GUI` 进行设置打开凭证缓存：
 勾选 `File` > `Settings` > `Version Control` > `Git` > `Update` > `Use credential helper` 即可
 
-![在这里插入图片描述](./1790847545992_53d3b625e2484cb7b51be4724d968068.png)
+![](./1790847545992_53d3b625e2484cb7b51be4724d968068.png)
 
 此时重新拉去或推送分支的时候，会提示输入用户名和密码，正确输入后即可正常使用。
 ## 2. 在链接中加上用户名和密码
@@ -56,4 +56,4 @@ git remote set-url origin https://username:myP%40ss%23word%3F@github.com/user/re
 ```
 也可以用 `Git` > `Manage Remote` 进行编辑 `git` 的链接
 
-![在这里插入图片描述](./1790847546028_b905e68bd17c4f44a5df09b6dcb27ecd.png)
+![](./1790847546028_b905e68bd17c4f44a5df09b6dcb27ecd.png)

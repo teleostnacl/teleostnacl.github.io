@@ -92,4 +92,4 @@ try (DatagramSocket socket = new DatagramSocket(PORT)) {
 
 # 使用
 在CopyQ主页面, 点击文件 > 命令 > 添加 > 新建命令, 定义一条新的命令. 勾选显示高级之后, 即可在命令的输入框中输入以上命令, 即实现对应的效果.
-![在这里插入图片描述](./1790847766372_7b5e5f6eeaf84e3fa314c6db46915c41.png)
+![](./1790847766372_7b5e5f6eeaf84e3fa314c6db46915c41.png)

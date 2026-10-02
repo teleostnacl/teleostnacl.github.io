@@ -38,7 +38,7 @@ draft: false
 # 二、驱动下载
 如  [https://developer.android.com/studio/run/win-usb](https://developer.android.com/studio/run/win-usb) 文档所述，可以有两个方法获取到 `Google` 的 `USB` 驱动：
 
-![在这里插入图片描述](./1790847638155_7a810c3338b94f60b3b8fcf482239848.png)
+![](./1790847638155_7a810c3338b94f60b3b8fcf482239848.png)
 
 最新的 `USB Driver` 的直接下载连接如下（解压之后备用）：[https://dl.google.com/android/repository/latest_usb_driver_windows.zip](https://dl.google.com/android/repository/latest_usb_driver_windows.zip)
 
@@ -48,39 +48,39 @@ draft: false
 `Settings` > `Language & Frameworks` > `Android SDK` > `SDK Tools` > `Google USB Driver` 。
 勾选 `Google USB Driver` 点击 `OK` 之后 即可将驱动文件下载到本地。此路径为：`Android SDK 根目录/extras/google/usb_driver` 。
 
-![在这里插入图片描述](./1790847638194_8fe22c765f9746158b082f8b233b29a1.png)
+![](./1790847638194_8fe22c765f9746158b082f8b233b29a1.png)
 
 驱动文件列表如下：
-![在这里插入图片描述](./1790847638231_8da5b6fd808a4af8912c9877a62e0d0d.png)
+![](./1790847638231_8da5b6fd808a4af8912c9877a62e0d0d.png)
 # 三、安装驱动
 当把驱动文件准备完成之后，我们就需要手动安装相关的驱动了。
 
 首先，我们先右键 `开始` 菜单，打开菜单列表，打开 `设备管理器`。
-![在这里插入图片描述](./1790847638268_5c354d2f04474d4d9cb7e08961ed9c43.png)
+![](./1790847638268_5c354d2f04474d4d9cb7e08961ed9c43.png)
 
 ---
 如果是使用 `Windows 11` 系统，则可以直接添加驱动，
-![在这里插入图片描述](./1790847638304_319ec790c0ec4e79a5903d4bd66ff726.png)
+![](./1790847638304_319ec790c0ec4e79a5903d4bd66ff726.png)
 
 然后选择 驱动的所在目录，并勾选 `包括子文件夹` ，然后点击下一步进行安装。
-![在这里插入图片描述](./1790847638341_316f40e89e254b7c8b4211a1b58742f0.png)
+![](./1790847638341_316f40e89e254b7c8b4211a1b58742f0.png)
 
 随后，驱动安装成功之后会出现以下提示：
-![在这里插入图片描述](./1790847638379_2d46974385be489ab765808b087d5846.png)
+![](./1790847638379_2d46974385be489ab765808b087d5846.png)
 
 此时即可以使用 `ADB` 调试 和 `Fastboot` 调试。
 
 --- 
 
 如果使用的是 `Windows 10` 系统，由于设备管理器里面没有直接添加驱动，所以我们需要先插入 `USB` 连接设备，此时会出现未知设备，对其按右键选择更新驱动。
-![在这里插入图片描述](./1790847638415_d1b9edafe7a14abaaf64d69355318ace.png)
+![](./1790847638415_d1b9edafe7a14abaaf64d69355318ace.png)
 
 随后选择 `浏览我的电脑以查找驱动程序`，此时同 `Windows 11` 一样 选择驱动所在文件夹，并勾选 `包括子文件夹` ，然后点击下一步进行安装即可。
-![在这里插入图片描述](./1790847638453_907a0ba8159d4936a8ea6559366fa79a.png)
+![](./1790847638453_907a0ba8159d4936a8ea6559366fa79a.png)
 
 # 四、驱动验证
 当驱动安装完成之后，此时设备管理器中可以看见 `Android Device` 的设备了。
-![在这里插入图片描述](./1790847638490_fa3ded4584664069aaeeea1d366fbcfa.png)
+![](./1790847638490_fa3ded4584664069aaeeea1d366fbcfa.png)
 
 同时在终端使用 `adb devices` 或 `fastboot` 命令，也可以列出当前已连接的设备：
-![在这里插入图片描述](./1790847638541_795c412a0cd645df9bd19d22ac20d5df.png)
+![](./1790847638541_795c412a0cd645df9bd19d22ac20d5df.png)

@@ -18,7 +18,7 @@ sysctl - configure kernel parameters at runtime
 ```
 
 在 `man-pages` 的有以下 `System file precedence` 的解释：
-![在这里插入图片描述](./1790847651047_0e94b3c40e8d4ad8b11936f12de52b32.png)
+![](./1790847651047_0e94b3c40e8d4ad8b11936f12de52b32.png)
 从 `System file precedence` 的解释可以知道，系统在启动的时候，`sysctl` 命令会自动按顺序从 
 - `/etc/sysctl.d/*.conf`
 - `/run/sysctl.d/*.conf`

@@ -30,7 +30,7 @@ magnet:?xt=urn:btih:<info-hash>
 
 本方案将利用 `atomashpolskiy/bt` 种子下载的功能，先将 种子链接和 `tracker` 进行组装，然后调用 `BtClient` 进行下载种子，并利用回调的方式知道种子下载的状态，再从状态中获取 `peers` 的信息，一旦获取到 `peers` 信息，就立刻停止下载，表示此种子可用。如果在规定时间内，未获取到 `peers` 信息，则表示种子不可用。此方案的流程图如下：
 
-![在这里插入图片描述](./1790847640701_0e1998d4c933448f84ac619062cf4be1.png)
+![](./1790847640701_0e1998d4c933448f84ac619062cf4be1.png)
 # 三、实现细节
 ## （一）在 gradle 中导入 atomashpolskiy/bt
 首先，我们需要先导入 `atomashpolskiy/bt` 的相关依赖，主要有：
@@ -76,7 +76,7 @@ config.maxConcurrentlyActivePeerConnectionsPerTorrent = 50
 ```
 
 源码如下：
-![在这里插入图片描述](./1790847640800_15e6d10427dc477199c22fbcebd04dd1.png)
+![](./1790847640800_15e6d10427dc477199c22fbcebd04dd1.png)
 ## （四）构建不下载的 Storage
 由于在下载的时候，一定需要指定一个 `Storage`，表示下载该种子的文件时存储的目录。但是我们只是需要检测种子是否可用，不需要实际下载，因此需要自定义一个 `Storage` 类，使其不会进行下载，一种实现方法就是覆写所有方法，并且都是空实现，以便实现禁止下载。方法如下：
 ```kotlin

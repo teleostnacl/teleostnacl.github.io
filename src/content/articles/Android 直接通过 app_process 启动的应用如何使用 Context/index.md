@@ -29,7 +29,7 @@ object HelloWorld {
 }
 ```
 编译完成之后，推送至 `/data/local/tmp`，随后使用命令执行 `app_process -Djava.class.path="/data/local/tmp/HelloWorld.apk" /system/bin com.teleostnacl.HelloWorld`
-![在这里插入图片描述](./1790847726894_7e49c88a8fe24d929df463608009236e.png)
+![](./1790847726894_7e49c88a8fe24d929df463608009236e.png)
 可以看到其可以正常执行 `Java` 代码并输出 `Hello World!!!`
 这个方式启动的 `Java` 程序将集成 `shell` 的 `用户组` 和 `用户`，可以执行高权限的命令，实现应用的提权，流行于各种工具箱中。但是由于这样启动的 `Java` 程序是没有`Application` `Activity` 和其它四大组件的，无法直接拿到 `Context`，而对于很多 `Android API` 来说都需要用到 `Context` 的。那么有没有办法去拿到一个 `Context` 呢？本文将介绍一种可以在通过 `app_process` 命令启动的 Java 程序中获取到 `Context` 的方式。
 
@@ -57,7 +57,7 @@ val context: Context? by lazy {
 参考：[scrcpy 的 Workarounds.java](https://github.com/Genymobile/scrcpy/blob/master/server/src/main/java/com/genymobile/scrcpy/Workarounds.java)
 
 此方法的原理是通过 `ActivityThread.getSystemContext()` 来构造获取 `Context`，但是由于 `ActivityThread` 的构造方法和 `getSystemContext()` 方法都是被打上了 `@UnsupportedAppUsage` 注解的，外部无非直接调用，因此需要通过反射来构造。
-![在这里插入图片描述](./1790847726950_fd20e71e09c140638763faa1de7ff369.png)
+![](./1790847726950_fd20e71e09c140638763faa1de7ff369.png)
 # 三、代码详解
 我们可以通过分析 `Android App` 的启动流程来了解到 `Context` 被构造出来的过程。
 我们知道 `Android App` 是基于 Java 编写的一种特殊的程序，其跟 `Java` 程序一样，需要通过 `main` 方法来作为应用程序的唯一入口。在 APP 启动时，会先通过 `AMS` 请求启动应用，通过 `Zygote` 使用 `fork()` 方法复制自身，创建新的应用进程，此时会加载 `Android Runtime (ART)` 进行加载 `Java 虚拟机和核心库`，再调用 `ActivityThread` 的 `main()` 方法，这就是应用进程的入口点。
@@ -124,7 +124,7 @@ public static void main(String[] args) {
 ```
 构建了一个 `ActivityThread`，并调用 `attach` 方法将其绑定。最后调用 `Looper.loop();` 开始循环处理主线程的消息。
 我们再来看 `attach` 方法：
-![在这里插入图片描述](./1790847727039_54914dedabdf4a3e91bb27fce3c5cce1.png)
+![](./1790847727039_54914dedabdf4a3e91bb27fce3c5cce1.png)
 这个方法中的逻辑较多，核心的就是给 `sCurrentActivityThread` 和 `mSystemThread` 进行赋值，并将`ApplicationThread` `attach` 到 `AMS` 中，向 `AMS` 注册应用进程。最后添加与 `View` 有关的配置修改的回调。
 
 我们再看与 `Context` 有关的逻辑：

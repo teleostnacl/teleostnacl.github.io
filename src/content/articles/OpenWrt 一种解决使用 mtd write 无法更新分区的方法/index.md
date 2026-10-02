@@ -54,7 +54,7 @@ Can't open device for writing!
 
 ## 1. 编译勾选 kmod-mtd-rw
 在编译 `OpenWrt` 时勾选 `Kernel modules > Other modules > kmod-mtd-rw`，使内核支持 `mtd` 读写
-![在这里插入图片描述](./1790847701822_d3fe6e6128684d9fb58d65fc5dc833a1.png)
+![](./1790847701822_d3fe6e6128684d9fb58d65fc5dc833a1.png)
 待编译完成之后，刷入带了 `kmod-mtd-rw` 的新系统即可。
 
 ## 2. 配置所有分区为可读写

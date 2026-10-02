@@ -63,7 +63,7 @@ apk del wpad-basic && apk add wpad-openssl
 ### 2. 在编译时选择完整 wpad 包
 如果是自己编译的 `OpenWrt`，那么可以在编译阶段就直接将 `wpad-basic` 更换成 `wpad-openssl`。路径为 `Network` > `WirelessAPD`，取消勾选 `wpad-basic`，并勾选 `wpad-openssl`。
 
-![在这里插入图片描述](./1790847678095_09d359dbe5ea4e5989369867ab8f111d.png)
+![](./1790847678095_09d359dbe5ea4e5989369867ab8f111d.png)
 
 ## （二）编写8021x.cnf配置文件
 选择一个 `OpenWrt` 的永久目录（断电不消失），编写一个适用于 `802.1x` 认证的配置文件。配置文件需要根据网络环境进行修改，一种标准配置文件 `8021x.cnf` 的格式如下：
@@ -117,7 +117,7 @@ ifdown wan && ifup wan
 
 ## （三）添加开机自启的脚本
 在 `luci` 管理界面，`系统` > `启动项` > `本地启动脚本` 中编辑
-![在这里插入图片描述](./1790847678154_f4c5737678384d69bb76719285d3d4da.png)
+![](./1790847678154_f4c5737678384d69bb76719285d3d4da.png)
 
 在 `exit 0` 之前添加认证命令
 ```shell

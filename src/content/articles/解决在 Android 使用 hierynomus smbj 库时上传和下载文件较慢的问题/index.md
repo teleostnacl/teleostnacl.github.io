@@ -20,9 +20,9 @@ draft: false
 [https://github.com/wa2c/cifs-documents-provider/pull/100](https://github.com/wa2c/cifs-documents-provider/pull/100)
 
 可以看到，`hierynomus/smbj` 库在 `Android` 传输速率较慢的问题已经有人反馈了，同时也给出了解决方案，从讨论中可以看到，是因为启用了 `Safe Data Transfer` 的数据加密功能引起的。
-![在这里插入图片描述](./1790847573948_cd61806ca71647b284dd40efa2e95bf8.png)
+![](./1790847573948_cd61806ca71647b284dd40efa2e95bf8.png)
 
-![在这里插入图片描述](./1790847573998_98021fe8ffa44ca0baa28f6196bde1a8.png)
+![](./1790847573998_98021fe8ffa44ca0baa28f6196bde1a8.png)
 
 
 

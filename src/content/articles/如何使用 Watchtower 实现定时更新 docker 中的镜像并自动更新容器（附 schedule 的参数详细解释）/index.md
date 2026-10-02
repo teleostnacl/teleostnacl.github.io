@@ -20,7 +20,7 @@ draft: false
 
 而 [containrrr/watchtower](https://github.com/containrrr/watchtower) 即是为此目的而设计的 `Docker` 镜像，本文将利用 `Watchtower` 实现定时更新 `docker` 中的镜像并自动更新容，同时附上 `schedule` 的参数的详细解释。
 
-![在这里插入图片描述](./1790847668129_2d26bd3870cb459aaa947979a39b4a93.png)
+![](./1790847668129_2d26bd3870cb459aaa947979a39b4a93.png)
 
 
 # 二、Watchtower 介绍
@@ -61,11 +61,11 @@ services:
 `Watchtower` 支持使用 `--schedule` 或 `-s` 参数实现定时运行，相关用法如下：
 [https://containrrr.dev/watchtower/arguments/#scheduling](https://containrrr.dev/watchtower/arguments/#scheduling)
 
-![在这里插入图片描述](./1790847668168_8f22db9551f445b286d945d4a788fe3d.png)
+![](./1790847668168_8f22db9551f445b286d945d4a788fe3d.png)
 
 其参数后面所接字符串的语法规则为 `go` 语法的 `cron` 表达式，用于定义匹配时间点的规则，相关用法如下：[https://pkg.go.dev/github.com/robfig/cron@v1.2.0#hdr-CRON_Expression_Format](https://pkg.go.dev/github.com/robfig/cron@v1.2.0#hdr-CRON_Expression_Format)
 
-![在这里插入图片描述](./1790847668254_12e0a041615449b092b6e90e7518a9bb.png)
+![](./1790847668254_12e0a041615449b092b6e90e7518a9bb.png)
 
 其参数格式如下：`Seconds Minutes Hours Day of month Month Day of week`，即 `秒 分 时 天 月 星期`， 每个值直接使用空格分隔，同时每个值的取值范围如下：
  - `秒`：0 - 59

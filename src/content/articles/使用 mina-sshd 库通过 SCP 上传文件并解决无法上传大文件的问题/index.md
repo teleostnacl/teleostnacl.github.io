@@ -74,7 +74,7 @@ channelShell.setIn(writerPipedInputStream)
 
 channelShell.open().await(TIMEOUT)
 ```
-![在这里插入图片描述](./1790847589143_68d66acf6da14808aebaae84cbaa4ab4.png)
+![](./1790847589143_68d66acf6da14808aebaae84cbaa4ab4.png)
 
 ---
 

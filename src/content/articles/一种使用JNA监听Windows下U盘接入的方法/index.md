@@ -261,7 +261,7 @@ private class DeviceCallback : WinUser.WindowProc {
 ```
 
 # 三、流程图
-![在这里插入图片描述](./1790847756321_8970e0acb2de44488cab4642e1c5c636.png)
+![](./1790847756321_8970e0acb2de44488cab4642e1c5c636.png)
 
 # 四、代码解析
 ## 1. 实现思路

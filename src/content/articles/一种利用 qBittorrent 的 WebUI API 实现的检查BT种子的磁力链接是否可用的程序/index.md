@@ -51,7 +51,7 @@ Set-Cookie: SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ; path=/
 [https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#add-new-torrent](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#add-new-torrent)
 此接口是向 `qBittorrent` 中添加一个种子以便下载的核心接口，其使用 `POST` 方法可以传递多个参数，以适应不同的需求，详细的介绍如下：
 
-![在这里插入图片描述](./1790847619530_0097e7f30e594ecfb74eceb861103616.png)
+![](./1790847619530_0097e7f30e594ecfb74eceb861103616.png)
 我们这里需要用到四个参数：
 `urls`：磁力链链接。为了便于程序的编写，我们只检测磁力连接形如 `magnet:?xt=urn:btih:<info-hash>` 的种子，因此我们使用 `urls` 参数。
 `paused`：传递 `true`，使种子处于暂停状态。由于我们只需要检查其可用性，所以需要使其处于暂停状态。
@@ -64,7 +64,7 @@ Set-Cookie: SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ; path=/
 [https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#get-torrent-generic-properties](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#get-torrent-generic-properties)
 此接口是查询种子状态的核心方法，使用 `GET` 方法传递种子的 `Hash` 值，其可以获取种子的大部分信息，参数如下：
 
-![在这里插入图片描述](./1790847619592_569d37d4763348d48585fe6bd0250e6b.png)
+![](./1790847619592_569d37d4763348d48585fe6bd0250e6b.png)
 我们检验种子有效性的时候，可以使用是否可以获取到种子元信息作为依据，而对于大部分种子来说，当未获取到元信息的时候，`name` 参数为种子的 `hash` 值，当获取到元信息之后，`name` 参数会将会使用种子名。因此，为了程序的简易性，我们将使用此作为种子是否可用的依据，基本可以涵盖大部分场景。在使用中，我们将定时轮询此接口，获取种子信息，一旦种子获取到元信息，我们即可返回种子可用。否则等超时之后（即在指定时间内都无法获取到元信息），则认为种子不可用。
 
 
@@ -73,12 +73,12 @@ Set-Cookie: SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ; path=/
 [https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#delete-torrents](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#delete-torrents)
 此接口用于将种子移除，使用 `POST` 方法，可以传递两个参数，删除指定 `hash` 值的种子任务吗，并指定是否需要移除文件。
 
-![在这里插入图片描述](./1790847619643_1fae9cbc3069485cb9794e49cb6bedb2.png)
+![](./1790847619643_1fae9cbc3069485cb9794e49cb6bedb2.png)
 
 
 # 三、流程图
 
-![在这里插入图片描述](./1790847619706_ea0f875716884912b13d45be51b12dff.png)
+![](./1790847619706_ea0f875716884912b13d45be51b12dff.png)
 
 
 # 四、代码实现

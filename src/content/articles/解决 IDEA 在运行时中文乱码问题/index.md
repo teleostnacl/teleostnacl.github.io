@@ -20,4 +20,4 @@ draft: false
 如下图所示，`Help` > `Edit Custom VM Options`，随后在编辑框中添加`-Dfile.encoding=UTF-8` 的 `JVM` 参数
 
 
-![在这里插入图片描述](./1790847721864_aa8b26732b6241c8960201a8bd6a93d8.png)
+![](./1790847721864_aa8b26732b6241c8960201a8bd6a93d8.png)

@@ -53,7 +53,7 @@ android {
 - 最后 `Connection` 对象是通过 `com.hierynomus.smbj.SMBClient` 对象通过 `connect` 方法 连接到 `SMB` 服务器。
 
 因此，连接的时序图如下：
-![在这里插入图片描述](./1790847626184_d4d09be5220d47aaba7ab65e4eb7c33f.png)
+![](./1790847626184_d4d09be5220d47aaba7ab65e4eb7c33f.png)
 核心代码如下：
 ```kt
 // SMB 客户端对象
@@ -97,9 +97,9 @@ try {
 ```
 
 这里的 `path` 是相对于 `SMB` 服务器的根目录地址，API文档如下：
-![在这里插入图片描述](./1790847626237_38c9cd6cabce4d30959f8e2dd744f068.png)
+![](./1790847626237_38c9cd6cabce4d30959f8e2dd744f068.png)
 之后，我们可以使用 `DiskShare.folderExists()` 方法检查文件夹是否存在
-![在这里插入图片描述](./1790847626285_9ac0057f2c8141f2886e1c38bc66da5f.png)
+![](./1790847626285_9ac0057f2c8141f2886e1c38bc66da5f.png)
 # 五、删除文件/文件夹
 `SMBJ` 提供了两个方便的 `API` 进行删除文件和删除文件夹：
 - `DiskShare.rm()` 删除文件
@@ -115,7 +115,7 @@ if (diskshare.folderExists(path)) {
 ```
 
 这里的 `path` 是相对于 `SMB` 服务器的根目录地址，API文档如下：
-![在这里插入图片描述](./1790847626333_63c33367a3334b628af59486acc248ca.png)
+![](./1790847626333_63c33367a3334b628af59486acc248ca.png)
 # 六、上传文件
 文件上传有多种方法，但所有的方法的第一步是需要打开远端的文件，在打开文件的时候，可以传递不同的参数以实现不同的需求：
 ```kt
@@ -130,7 +130,7 @@ public File openFile(String path, Set<AccessMask> accessMask, Set<FileAttributes
 - `attributes` 是文件的属性值，可以传空
 - `shareAccesses` 是操作类型，此处是写入文件，因此传递 `EnumSet.of(SMB2ShareAccess.FILE_SHARE_WRITE)`
 - `createDisposition` 是文件创建的方法，其可以传递以下类型的值
-![在这里插入图片描述](./1790847626384_d0cae21c3f294f0eadd5ea784905f865.png)
+![](./1790847626384_d0cae21c3f294f0eadd5ea784905f865.png)
 	- `FILE_SUPERSEDE`：如果文件存在时，则先删除旧文件，再写入新文件。如果文件不存在，则创建新文件
 	- `FILE_OPEN`：如果文件存在时，则打开文件。如果文件不存在，则返回操作失败
 	- `FILE_CREATE`：如果文件不存在，则创建新文件。如果文件存在，则返回操作失败
@@ -165,7 +165,7 @@ FileByteChunkProvider(localFile).use { provider ->
 > 第二种方式在遇到大文件时会失败，建议使用第一种方法
 
 同时，`SmbFiles` 提供了 `copy()` 和 `write()` 的方法，方便上传文件。
-![在这里插入图片描述](./1790847626447_ecb0b6a568d54846889c785887baaa9a.png)
+![](./1790847626447_ecb0b6a568d54846889c785887baaa9a.png)
 
 # 七、Proguard 混淆规则
 ```

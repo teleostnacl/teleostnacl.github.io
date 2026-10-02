@@ -25,44 +25,44 @@ draft: false
 # 二、下载安装瑞昱网卡诊断程序
 首先，我们打开 `设备管理器`，确认电脑中的瑞昱网卡的类型：
 
-![在这里插入图片描述](./1790847516048_351c0e056b76439cbd6e1091eaa2f31f.png)
+![](./1790847516048_351c0e056b76439cbd6e1091eaa2f31f.png)
 
 可以看到，我的这个网卡类型是 `Realtek Gaming GbE Family Controller`，那么我们去瑞昱官网去下载相关的驱动和网卡诊断程序。
 
 [https://www.realtek.com/Download/Index?cate_id=194&menu_id=368](https://www.realtek.com/Download/Index?cate_id=194&menu_id=368)
 
-![在这里插入图片描述](./1790847516109_9efd49fa1a1344e9997f4b55c9338170.png)
+![](./1790847516109_9efd49fa1a1344e9997f4b55c9338170.png)
 
 这里是根据不同接口类型划分不同的设备类型，有 `PCIe`、`USB`、`PCI`，根据不同的接口选择即可。现代设备一般都是 `PCIe` 接口，我们选择 `Realtek PCIe FE / GbE / 2.5GbE / 5G / 10G Family Controller Software Quick Download Link` 。
 
 随后我们下载 `DASH all-in-one Installer for Win10/Win11` 下载 `all in one` 驱动自动选择，和 `Ethernet Diagnostic Program for Win7/Win8/Win10/Win11` 下载瑞昱网卡诊断程序。如果是其它设备，则下载相应的即可。
 
-![在这里插入图片描述](./1790847516169_26b8f6fa48c24ddb866f8f0c9646762c.png)
+![](./1790847516169_26b8f6fa48c24ddb866f8f0c9646762c.png)
 
 下载完成之后，得到两个压缩包，解压安装即可。
 
-![在这里插入图片描述](./1790847516213_8f16d10419994164bc27bdc38653b89e.png)
+![](./1790847516213_8f16d10419994164bc27bdc38653b89e.png)
 
 > 部分设备原本的驱动可能是微软通用驱动，不支持设置 `VLAN ID`，因此此处需要先更新一下驱动。
 
 # 三、使用瑞昱网卡诊断程序添加 VLAN ID
 我们打开 `Realtek Ethernet Diagnostic Utilty`，点击 `Realtek` 的网卡，然后切换到 `虚拟局域网络` 
 
-![在这里插入图片描述](./1790847516263_336c88006f554961997f1fe10cb5d2ad.png)
+![](./1790847516263_336c88006f554961997f1fe10cb5d2ad.png)
 
 我们点击 `增加` ，新增一条 `VLAN ID`，并填写相应的 `VLAN ID`， 在确认框中点击 `是`，即可新增一个 `VLAN ID`。然后等待添加完成。如果需要添加更多的 `VLAN ID` 再次增加即可。
 
-![在这里插入图片描述](./1790847516321_f7bcc48cfcc24658b07fcde19b5ce8d9.png)
+![](./1790847516321_f7bcc48cfcc24658b07fcde19b5ce8d9.png)
 
 随后，我们可以到 `网络适配器设置` 中，可以找到新增加的 `Realtek Virtual Adapter` 的虚拟网卡，这个就是新增加的 `VLAN` 网络。
 
-![在这里插入图片描述](./1790847516377_ff4156243e6f4bf9aea91a763e8db26a.png)
+![](./1790847516377_ff4156243e6f4bf9aea91a763e8db26a.png)
 
 至此，`VLAN ID` 添加完成。
 
 # 四、管理 VLAN
 当增加完 `VLAN ID` 之后，可以使用 `删除`、`修改VID`、`修改MAC` 进行管理 `VLAN`。
 
-![在这里插入图片描述](./1790847516422_e366fa95fdb54559afef5d7dd0e68e2d.png)
+![](./1790847516422_e366fa95fdb54559afef5d7dd0e68e2d.png)
 
 > 这个软件在操作过程中容易崩溃，需要多次重新启动该应用。

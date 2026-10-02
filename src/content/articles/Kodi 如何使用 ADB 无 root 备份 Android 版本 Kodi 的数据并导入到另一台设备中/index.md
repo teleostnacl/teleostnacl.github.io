@@ -28,7 +28,7 @@ draft: false
 
 首先，查阅官方教程可以知道，`Kodi` 的数据是存储在 `Android/data/org.xbmc.kodi/files/.kodi` 目录下的：
 
-![在这里插入图片描述](./1790847505183_1d44c9cf712240aca12a8e73fd721c3f.png)
+![](./1790847505183_1d44c9cf712240aca12a8e73fd721c3f.png)
 
 > 这个信息是非常重要的，因为这意味着 `Kodi` 的数据是存在 `/sdcard` 上的，而不是在 `/data/data` 下的私用空间。而 `/sdcard` 上的目录我们可以无 `root` 直接访问。这就可以很方便的让我们直接备份和恢复了。
 
@@ -39,11 +39,11 @@ draft: false
 adb pull /sdcard/Android/data/org.xbmc.kodi $folder
 ```
 
-![在这里插入图片描述](./1790847505234_2fe5b3ddb5e5494184cf08df3cfba55f.png)
+![](./1790847505234_2fe5b3ddb5e5494184cf08df3cfba55f.png)
 
 此时我们就在电脑上得到了 `Kodi` 的完整备份：
 
-![在这里插入图片描述](./1790847505298_a726b1b2036047da936a01eacf98ffcd.png)
+![](./1790847505298_a726b1b2036047da936a01eacf98ffcd.png)
 # 还原
 首先，我们还是使用 `ADB` 连接上待还原的设备，使用如下命令将备份的数据还原到设备上(`$folder` 替换为备份数据的文件夹)：
 ```shell
@@ -52,7 +52,7 @@ adb push $folder /sdcard/Android/data/org.xbmc.kodi
 
 随后我们进入串口，检查文件夹路径是否符合预期 `/sdcard/Android/data/org.xbmc.kodi/files/.kodi`
 
-![在这里插入图片描述](./1790847505347_12aefdc0ece94c37952e5f9e9c3f2e36.png)
+![](./1790847505347_12aefdc0ece94c37952e5f9e9c3f2e36.png)
 
 并 `cd` 到 `/sdcard/Android/data/org.xbmc.kodi/` 目录，执行 `chmod 0777 -R *`，给刚推进去的文件授予可读写的权限。
 
@@ -63,4 +63,4 @@ chmod -R 0755 *
 
 随后，我们启动新设备上的 `Kodi`，检查是否已经还原数据成功。
 
-![在这里插入图片描述](./1790847505460_c2dd7f8853074541a4c1619637ff8a95.jpg)
+![](./1790847505460_c2dd7f8853074541a4c1619637ff8a95.jpg)

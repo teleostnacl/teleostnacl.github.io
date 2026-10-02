@@ -18,7 +18,7 @@ draft: false
 # 一、问题背景
 不知道从哪个版本开始，在 `OpenWrt` 上使用 `luci-app-upnp` 时，当有客户端建立了 `upnp` 端口转发之后，在活跃的端口转发中不显示任何设备。
 
-![在这里插入图片描述](./1790847665775_ff0ce26cba6f41ba9fdd13d89655c754.png)
+![](./1790847665775_ff0ce26cba6f41ba9fdd13d89655c754.png)
 
 本文将详细记录探寻 `luci-app-upnp` 无法显示活跃的端口转发的问题。
 
@@ -27,11 +27,11 @@ draft: false
 
 当我们定位到相关位置时，可以看到这块数据是显示在 `ID` 为 `upnp_status_table` 的 表格 `table` 里面，当前显示为 `当前没有活跃的端口转发。`
 
-![在这里插入图片描述](./1790847665933_17946bb9d6234ad184b943bd6de64a79.png)
+![](./1790847665933_17946bb9d6234ad184b943bd6de64a79.png)
 
 因此，我们通过全局搜索，查找 `upnp_status_table` 使用的地方，查询其被赋值的地方。我们按下 `ctrl` + `shift` + `F`，打开全局搜索，输入 `upnp_status_table`，回车，可以看到  `upnp_status_table` 在 `upnp.js` 的脚本中被使用，因此我们定位到此脚本 `luci-static/resources/view/upnp/upnp.js`
 
-![在这里插入图片描述](./1790847665973_1c2d7f3c276d45c18d2013c2872d548e.png)
+![](./1790847665973_1c2d7f3c276d45c18d2013c2872d548e.png)
 在 `upnp.js` 中可以看到核心代码如下：
 ```js
 load: function() {

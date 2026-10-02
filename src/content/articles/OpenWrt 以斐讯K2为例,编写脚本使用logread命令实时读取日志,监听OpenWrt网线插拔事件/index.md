@@ -18,10 +18,10 @@ OpenWrt是一个高度模块化、高度自动化的嵌入式Linux系统，拥�
 
 有时候，在使用OpenWrt时，我们需要监听网线的插拔，获取网线插拔的事件，并执行一些操作。OpenWrt官方文档给出使用hotplug去获取相关事件: `https://openwrt.org/docs/guide-user/base-system/hotplug`
 如文档中指出，可在`/etc/hotplug.d/iface/`文件夹下编写脚本，对`$ACTION`， `$INTERFACE`，`$DEVICE`进行判断，可监听网络接口的状态。
-![在这里插入图片描述](./1790847773655_cd9247e0382e478ec4de9c7a0f1d13cd.png)
+![](./1790847773655_cd9247e0382e478ec4de9c7a0f1d13cd.png)
 
 但是实际上验证，此监听只是对INTERFACE下建立的接口虚拟接口有效，当手动控制接口状态时，如Restart Stop才会执行`/etc/hotplug.d/iface/`下的脚本文件，而直接插拔网线并不能被监听到。因此此方法并不能直接监听网线插拔事件。
-![在这里插入图片描述](./1790847773754_0c2a388a30082d913375ab7dbb82af99.png)
+![](./1790847773754_0c2a388a30082d913375ab7dbb82af99.png)
 
 同时，这篇文章(`https://www.jianshu.com/p/a1bfc54bc6dd`)中提到phy内核检测到WAN口变化后会创建hotplug消息，因此可在`/etc/hotplug.d/phy/`路径下编写脚本，获取hotplug消息。但是使用斐讯K2的官方OpenWrt，在插拔网线时，并不能执行`/etc/hotplug.d/phy/`路径下的脚本。
 

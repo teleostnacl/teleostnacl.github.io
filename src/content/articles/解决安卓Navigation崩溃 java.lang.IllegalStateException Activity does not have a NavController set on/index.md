@@ -139,7 +139,7 @@ public fun setViewNavController(view: View, controller: NavController?) {
 
 查找此方法的使用地方，可以知道其是在 `androidx.navigation.fragment.NavHostFragment` 中被调用的，我们随后去看 `NavHostFragment` 类。
 
-![在这里插入图片描述](./1790847558243_cfd0eccfa3674f66bb3668b449fbb759.png)
+![](./1790847558243_cfd0eccfa3674f66bb3668b449fbb759.png)
 
 
 ## （二）androidx.navigation.fragment.NavHostFragment 类
@@ -334,9 +334,9 @@ internal constructor(
 
 当源码追到这里的时候，已经不太好往下追踪了，那么我们可以通过在  `setViewNavController` 打断点的方式，来看一下 `androidx.navigation.Navigation.setViewNavController` 的调用链。
 
-![在这里插入图片描述](./1790847558308_b6b38fb872a64e36ab3b0b9d55186c1f.png)
+![](./1790847558308_b6b38fb872a64e36ab3b0b9d55186c1f.png)
 
-![在这里插入图片描述](./1790847558344_2b7daed9f4d94c7a8fbbda7725b068e1.png)
+![](./1790847558344_2b7daed9f4d94c7a8fbbda7725b068e1.png)
 
 
 可以看到，从 `Activity` 的 `onStart` 生命周期开始，将事件下发到 `FragmentController` 和 `FragmentMananger`，由 `FragmentStateManager` 状态机管理，移动到指定的生命周期，最后调用到 `createView` 方法，从而使 `NavHostFragment` 进行设置 `NavController` 到 `Tag` 上。

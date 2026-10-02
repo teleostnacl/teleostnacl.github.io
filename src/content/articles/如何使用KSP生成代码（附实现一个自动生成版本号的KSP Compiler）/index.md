@@ -72,7 +72,7 @@ class 具体SymbolProcessorProvider : SymbolProcessorProvider {
 }
 ```
 之后，需要在模块中 `META-INF` 中声明 `SymbolProcessorProvider` ，保证其可以 `ksp` 识别到。具体是在模块的 `resources/META-INF/service` 新建一个`com.google.devtools.ksp.processing.SymbolProcessorProvider` 文件，并在文件中声明具体的 `SymbolProcessorProvider` 的类全限定名。
-![在这里插入图片描述](./1790847731637_e290981cc34e41bd9c58f4e16200bd77.png)
+![](./1790847731637_e290981cc34e41bd9c58f4e16200bd77.png)
 在 `SymbolProcessor` 的 `process` 方法中，可以通过 `Resolver` 拿到编译时的细节，如类 注解 方法等，而 通过 `SymbolProcessorEnvironment` 可以拿到编译时的环境信息，并通过其的 `codeGenerator` 方法在指定位置生成指定代码。
 
 # 六、使用 KSP
