@@ -1,3 +1,39 @@
+/* 同源内置字体随源码分发，交换加载避免字体下载时阻塞代码阅读。 */
+@font-face {
+  font-family: 'Fantasque Sans Mono';
+  src: url('/fonts/fantasque-sans-mono/FantasqueSansMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 粗体使用原生字形，保留 Markdown 强调代码的清晰笔画。 */
+@font-face {
+  font-family: 'Fantasque Sans Mono';
+  src: url('/fonts/fantasque-sans-mono/FantasqueSansMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 斜体使用原生字形，避免浏览器倾斜合成影响代码辨识。 */
+@font-face {
+  font-family: 'Fantasque Sans Mono';
+  src: url('/fonts/fantasque-sans-mono/FantasqueSansMono-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* 粗斜体覆盖强调与斜体叠加的代码片段。 */
+@font-face {
+  font-family: 'Fantasque Sans Mono';
+  src: url('/fonts/fantasque-sans-mono/FantasqueSansMono-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* 非首页共用全宽内容布局，并让文章卡片与粒子背景自然融合。 */
 .inner-page .site-header,
 .inner-page main,
@@ -240,7 +276,8 @@
   color: #e1e4e8;
   border-color: #44505c;
   padding: 48px 20px 20px;
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+  /* 优先使用站点内置字体，下载完成前由系统等宽字体保持代码可读。 */
+  font-family: 'Fantasque Sans Mono', ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
   line-height: 1.7;
   tab-size: 4;
 }
@@ -265,14 +302,15 @@
   font-family: inherit;
 }
 
-/* 行内代码使用淡暖灰底，与正文接近的深色字降低视觉跳跃。 */
+/* 行内代码以接近暖纸背景的浅米色轻微区分，正文色文字保持连续阅读的自然感。 */
 .inner-page .article-content .prose :not(pre) > code {
-  background: #eee9df;
-  color: #344b46;
-  border: 1px solid #ddd5c8;
+  background: #f5efe4;
+  color: inherit;
+  border: 0;
   padding: 1px 5px;
   overflow-wrap: anywhere;
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+  /* 行内代码与代码块共用内置字体，保证两种代码形式的字形一致。 */
+  font-family: 'Fantasque Sans Mono', ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
 }
 
 .inner-page .article-content .prose .copy-button {
