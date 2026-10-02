@@ -17,14 +17,14 @@ draft: false
 **最后是光猫改成桥接，由路由器进行拨号获取公网IP地址，成功在OpenWrt上运行了UPnP**
 这里简单记录几个所遇到的坑和解决方案
 @[toc]
-# 1.  `fw4: not found`
+## 1.  `fw4: not found`
 使用命令 `/etc/init.d/miniupnpd restart` 重启miniupnpd服务，会报一个`fw4: not found`的错误，这个原因是防火墙未选择安装 `firewall4`，而是安装了旧版本的 `firewall`。更换防火墙版本，重新运行之后无此报错
 ```shell
 /etc/init.d/miniupnpd restart
 /etc/rc.common: eval: line 190: fw4: not found
 ```
 
-# 2. `miniupnpd-nftables` 与 `miniupnpd-iptables`的选择
+## 2. `miniupnpd-nftables` 与 `miniupnpd-iptables`的选择
 在编译和安装`miniupnpd`的时候，发现有两个版本`miniupnpd-nftables` 与 `miniupnpd-iptables`，选择安装哪个取决于使用的防火墙版本
 - miniupnpd-iptables：基于传统的 iptables 防火墙；
 - miniupnpd-nftables：基于较新的 nftables 防火墙；
@@ -39,13 +39,13 @@ which iptables
 - `nft` 存在，且系统安装了 `fw4` ➜ 使用 `nftables`
 - `iptables` 存在，没有 `nft` 或没有 `fw4` ➜ 使用 `iptables`
 
-# 3. 如何在Windows检查路由器的`upnp`是否正常
-## 下载安装 `MiniUPnPc` 工具
+## 3. 如何在Windows检查路由器的`upnp`是否正常
+### 下载安装 `MiniUPnPc` 工具
 下载地址: [https://miniupnp.tuxfamily.org/files/](https://miniupnp.tuxfamily.org/files/)
 找到最新的适用于Windows的 `miniupnpc` 包，一般是带 `win32` 的那个
 解压后找到其中的：upnpc-static.exe，这个即是 `MiniUPnPc` 工具，可用于执行`upnpc` 的命令，用于检测
 
-## 查看当前的端口映射
+### 查看当前的端口映射
 执行命令
 ```bash
 upnpc -l
@@ -81,7 +81,7 @@ No valid UPNP Internet Gateway Device found.
 ```
 则表示 **`miniupnpd` 已经在运行但UPnP并未真正连接成功**，我们后面将分析此错误。
 
-## 手动创建upnp端口映射
+### 手动创建upnp端口映射
 执行命令
 ```sh
 upnpc -a 路由器IP 27015 27015 UDP
@@ -99,7 +99,7 @@ external 1.2.3.4:27015 UDP is redirected to internal 192.168.1.100:0 (duration=6
 
 以上如果有任何错误，需要去`OpenWrt`的日志中过滤`miniupnpd`的日志，查看具体的错误原因。以下将介绍几个所遇到的错误，仅供参考
 
-# 4. private/reserved address ... is not suitable for external IP
+## 4. private/reserved address ... is not suitable for external IP
 使用命令查看当前的端口映射失败之后，过滤`miniupnpd`的日志中发现有以下打印
 ```
 private/reserved address ... is not suitable for external IP
@@ -117,7 +117,7 @@ upnp问题：[https://github.com/kiddin9/Kwrt/issues/1739](https://github.com/ki
 
 本文采用了第二个方法: `使用STUN`，此时成功解决了`private/reserved address ... is not suitable for external IP`的问题，并且`upnpc -l` 已可以正常识别到upnpc的服务了。
 
-# 5. External IP in request didn't match interface IP
+## 5. External IP in request didn't match interface IP
 在`使用STUN`解决上一个问题之后，使用命令手动创建upnp端口映射失败之后，在日志中过滤会发现有以下打印
 ```
 External IP in request didn't match interface IP

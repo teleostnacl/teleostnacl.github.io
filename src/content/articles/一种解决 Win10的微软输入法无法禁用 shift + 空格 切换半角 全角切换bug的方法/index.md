@@ -12,7 +12,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 在 `Win10` 上，微软输入法可以使用 `shift` + `空格` 进行切换 半角/全角 的输入，同时微软输入法提供了禁用此切换的功能，在 `微软拼音输入法设置` > `按键` > `全/半角切换`，将其设置成 `无` 即可。
 
 ![](./1790847528227_05869c7f431347f587f94f6a3204f60a.png)
@@ -30,7 +30,7 @@ draft: false
 - [https://v2ex.com/t/1028800](https://v2ex.com/t/1028800)
 - [https://www.zhihu.com/question/47107132](https://www.zhihu.com/question/47107132)
 
-# 二、禁用方法
+## 二、禁用方法
 PowerToys 的安装使用可以参考: [https://blog.csdn.net/TeleostNaCl/article/details/148533808](https://blog.csdn.net/TeleostNaCl/article/details/148533808)
 
 在 `PowerToys` > `输入和输出` > `键盘管理器` 页面中，首先 `启用键盘管理器`，然后再 `重新映射快捷键`：

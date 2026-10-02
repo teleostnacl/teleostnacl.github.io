@@ -18,7 +18,7 @@ draft: false
 
 @[TOC]
 
-# 一、问题背景
+## 一、问题背景
 我们在调试 `Android` 设备的时候，可以在开发者选项下开启 `ADB` 调试，然后使用 `USB` 数据线连接电脑与 `Android` 设备，可以进行 `ADB` 调试或者进行 `Fastboot` 调试。
 
 `ADB` 全称为 `Android Debug Bridge`，一般翻译为 `安卓调试桥`，其是功能非常强大的命令行工具，是 `Android SDK`（软件开发工具包）的一部分，可以用于调试 `Android` 系统和应用。
@@ -35,7 +35,7 @@ draft: false
 
 因此，本文将详细介绍 `Google` 的 `USB` 驱动的下载以及安装。
 
-# 二、驱动下载
+## 二、驱动下载
 如  [https://developer.android.com/studio/run/win-usb](https://developer.android.com/studio/run/win-usb) 文档所述，可以有两个方法获取到 `Google` 的 `USB` 驱动：
 
 ![](./1790847638155_7a810c3338b94f60b3b8fcf482239848.png)
@@ -52,7 +52,7 @@ draft: false
 
 驱动文件列表如下：
 ![](./1790847638231_8da5b6fd808a4af8912c9877a62e0d0d.png)
-# 三、安装驱动
+## 三、安装驱动
 当把驱动文件准备完成之后，我们就需要手动安装相关的驱动了。
 
 首先，我们先右键 `开始` 菜单，打开菜单列表，打开 `设备管理器`。
@@ -78,7 +78,7 @@ draft: false
 随后选择 `浏览我的电脑以查找驱动程序`，此时同 `Windows 11` 一样 选择驱动所在文件夹，并勾选 `包括子文件夹` ，然后点击下一步进行安装即可。
 ![](./1790847638453_907a0ba8159d4936a8ea6559366fa79a.png)
 
-# 四、驱动验证
+## 四、驱动验证
 当驱动安装完成之后，此时设备管理器中可以看见 `Android Device` 的设备了。
 ![](./1790847638490_fa3ded4584664069aaeeea1d366fbcfa.png)
 

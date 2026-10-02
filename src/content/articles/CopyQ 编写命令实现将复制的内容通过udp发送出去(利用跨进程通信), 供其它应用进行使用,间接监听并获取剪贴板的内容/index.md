@@ -19,7 +19,7 @@ draft: false
 https://cloud.tencent.com/developer/article/2179460
 编写命令和添加功能-CopyQ文档: https://copyq.readthedocs.io/en/latest/writing-commands-and-adding-functionality.html
 
-# CopyQ的命令实现代码
+## CopyQ的命令实现代码
 ```js
 python -c '
 import socket
@@ -39,7 +39,7 @@ sock.close()
 ' %1
 ```
 
-# 命令详解
+## 命令详解
 CopyQ是可以直接执行Python代码的, 该段代码中, 在''中编写了一段将指定内容通过udp发送到指定地址和端口的python代码, 即
 ```py
 import socket
@@ -90,6 +90,6 @@ try (DatagramSocket socket = new DatagramSocket(PORT)) {
 }
 ```
 
-# 使用
+## 使用
 在CopyQ主页面, 点击文件 > 命令 > 添加 > 新建命令, 定义一条新的命令. 勾选显示高级之后, 即可在命令的输入框中输入以上命令, 即实现对应的效果.
 ![](./1790847766372_7b5e5f6eeaf84e3fa314c6db46915c41.png)

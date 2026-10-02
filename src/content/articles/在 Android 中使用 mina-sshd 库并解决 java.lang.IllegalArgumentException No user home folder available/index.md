@@ -16,7 +16,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、mina-sshd 介绍
+## 一、mina-sshd 介绍
 `mina-sshd` 库是由 `Apache` 发布的纯 `Java` 编写的 `SSH` 的开源库，其完整支持 `SSH V2`，`SCP` 和 `SFTP` 协议，方便在 `Java` 程序中搭建  `SSH` 服务端和客户端。
 
 源码地址：[https://github.com/apache/mina-sshd](https://github.com/apache/mina-sshd)
@@ -46,7 +46,7 @@ scpClient.upload(Path.of(localFolderPath), targetFolderPath,
 
 那么如何将其运用在 Android 平台上呢？本文将详细介绍如何在 Android 平台上使用mina-sshd，并解决 `java.lang.IllegalArgumentException: No user home folder available. You should call org.apache.sshd.common.util.io.PathUtils.setUserHomeFolderResolver() method to set user home folder as there is no home folder on Android` 的错误。
 
-# 二、依赖导入
+## 二、依赖导入
 在项目中只需要导入以下依赖即可引入
 ```groovy
 dependencies {
@@ -56,7 +56,7 @@ dependencies {
     implementation "org.apache.sshd:sshd-scp:$sshd_version"
 }
 ```
-# 三、混淆规则
+## 三、混淆规则
 由于 `Android` 平台缺少 `Java EE` 的相关支持，会导致其编译的时候，在混淆阶段报找不到相关类的错误，我们在原来 `Java` 混淆规则基础上需要加上忽略  `Java EE` 相关类的错误，完整的混淆规则如下：
 ```pro
 # 保留 SSHD 的核心类和接口
@@ -75,7 +75,7 @@ dependencies {
 -dontwarn org.ietf.jgss.**
 ```
 
-# 四、解决编译错误 3 files found with path 'META-INF/DEPENDENCIES' from inputs:
+## 四、解决编译错误 3 files found with path 'META-INF/DEPENDENCIES' from inputs:
 在编译阶段会报一下错误
 ```text
 > A failure occurred while executing com.android.build.gradle.internal.tasks.MergeJavaResWorkAction
@@ -94,7 +94,7 @@ android {
     }
 }
 ```
-# 五、解决 java.lang.IllegalArgumentException: No user home folder available.
+## 五、解决 java.lang.IllegalArgumentException: No user home folder available.
 当正常编译之后开始运行，此时会报以下错误：
 ```text
 java.lang.ExceptionInInitializerError
@@ -123,7 +123,7 @@ Caused by: java.lang.IllegalArgumentException: No user home folder available. Yo
 PathUtils.setUserHomeFolderResolver(Supplier { Paths.get(context.filesDir.absolutePath) })
 ```
 
-# 六、解决 Failed (SocketException) to execute: Operation not permitted
+## 六、解决 Failed (SocketException) to execute: Operation not permitted
 如果没有申请联网权限的时候，则会抛出以下移除
 ```text
 org.apache.sshd.common.SshException: DefaultConnectFuture[]: Failed (SocketException) to execute: Operation not permitted
@@ -161,7 +161,7 @@ Caused by: java.net.SocketException: Operation not permitted
     <application/>
 </manifest>
 ```
-# 七、解决 Failed (IOException) to execute: android.os.NetworkOnMainThreadException
+## 七、解决 Failed (IOException) to execute: android.os.NetworkOnMainThreadException
 由于 `Android` 是不允许在主线程请求网络的，如果在主线程直接去请求连接 `SSH`，则会抛出 `android.os.NetworkOnMainThreadException` 的异常，此时只需要将其切换到子线程执行连接 `SSH` 即可
 ```text
 org.apache.sshd.common.SshException: DefaultConnectFuture[]: Failed (IOException) to execute: android.os.NetworkOnMainT
@@ -188,7 +188,7 @@ Caused by: android.os.NetworkOnMainThreadException
     at org.apache.sshd.client.session.ClientSessionCreator.connect(ClientSessionCreator.java:57)
 ```
 
-# 八、总结
+## 八、总结
 根据以上步骤，当导入好依赖，申请好联网权限之后，一种标准的写法如下：
 ```kt
 // 切到子线程中执行

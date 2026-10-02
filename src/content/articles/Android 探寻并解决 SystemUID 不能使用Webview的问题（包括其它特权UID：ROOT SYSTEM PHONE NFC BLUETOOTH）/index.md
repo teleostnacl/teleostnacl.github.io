@@ -13,7 +13,7 @@ draft: false
 
 @[TOC]
 
-# 一、问题背景
+## 一、问题背景
 
 在 `Android` 中可以使用 `WebView` 这一特殊的 `View` 直接加载网页，其提供了内部实现是采用渲染引擎( `WebKit` )来展示 `网页` 的内容，提供网页前进后退、网页放大、缩小、搜索等基础功能。
 
@@ -72,7 +72,7 @@ Caused by: java.lang.UnsupportedOperationException: For security reasons, WebVie
 本文将详细解释出现报错堆栈的原因以及解决方法。
 
 
-# 二、问题探析
+## 二、问题探析
 
 从报错堆栈可以看出，是在 `WebViewFactory.getProvider()` 方法抛出了一个 `java.lang.UnsupportedOperationException: For security reasons, WebView is not allowed in privileged processes` 的报错，从报错信息来看，就是出于安全考虑，不允许在特权进程中使用 `WebView`。我们先来看这部分的源码：
 
@@ -168,7 +168,7 @@ private static WebViewFactoryProvider getFactory() {
 可以看到，在构造方法中会调用 `ensureProviderCreated()`，随后会通过 `getFactory()` 方法拿到 `WebViewFactoryProvider`，而在此方法中，就会调用到 `WebViewFactory.getProvider()` 方法，因此会出现特权应用进程的校验，从而触发 `UnsupportedOperationException`。
 
 
-# 三、解决方案：反射赋值 sProviderInstance（仅Android14 以下）
+## 三、解决方案：反射赋值 sProviderInstance（仅Android14 以下）
 
 由以上的分析可以知道，`WebView` 会通过调用 `WebViewFactory.getProvider()` 静态方法拿到 `WebViewFactoryProvider`，而在 `WebViewFactory.getProvider()` 的静态方法中，会先判断 `sProviderInstance` 是否已被初始化，如果已经被初始化，则直接返回此对象：`if (sProviderInstance != null) return sProviderInstance;`；而未被初始化的时候会走进程校验再初始化 `sProviderInstance`。
 因此，我们可以提前初始化 `sProviderInstance`，避免在调用 `WebViewFactory.getProvider()` 方法时去做进程校验。由于 `sProviderInstance` 是私有成员，同时 `WebViewFactoryProvider` 类也是被标记为 `@hide` 的，因此不能直接拿到相关实例，我们需要通过反射的方式进行调用，参考官方实例化 `sProviderInstance` 的方法：
@@ -264,7 +264,7 @@ try {
 ```
 
 
-# 四、利用多进程将 WebView 相关组件运行在非特权进程
+## 四、利用多进程将 WebView 相关组件运行在非特权进程
 
 由于 `Android` 安全策略的原因，以上反射强行赋值 `sProviderInstance` 方法仅适用于 `Android 14` 以下的版本，即 `targeting API < 34`。在 `Android 14` 以上的设备，会导致应用崩溃。因此建议使用多线程的方式将 `WebView` 相关组件运行在非特权进程。
 

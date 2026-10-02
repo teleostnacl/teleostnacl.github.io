@@ -16,7 +16,7 @@ draft: false
 ---
 
 @[TOC]
-# mina-sshd 介绍
+## mina-sshd 介绍
 `mina-sshd` 库是由 `Apache` 发布的纯 `Java` 编写的 `SSH` 的开源库，其完整支持 `SSH V2`，`SCP` 和 `SFTP` 协议，方便在 `Java` 程序中搭建  `SSH` 服务端和客户端。
 
 源码地址：[https://github.com/apache/mina-sshd](https://github.com/apache/mina-sshd)
@@ -25,7 +25,7 @@ draft: false
 本文将使用 `mina-sshd` 库作为搭建 `SSH` 客户端，通过 `SCP` 上传文件到 `OpenWrt` 系统上的方式，并解决遇到无法上传大文件的问题。
 
 ---
-# 使用mina-sshd 库通过 SCP 上传文件
+## 使用mina-sshd 库通过 SCP 上传文件
 一段标准的代码如下：
 ```kt
 // 创建 SSH 的客户端
@@ -49,7 +49,7 @@ scpClient.upload(Path.of(localFolderPath), targetFolderPath,
 
 ---
 
-# 解决无法上传大文件的问题
+## 解决无法上传大文件的问题
 在使用 `mina-sshd` 库时遇到无法通过 `SCP` 上传大文件时，问题现象时会卡住，并且无流量波动，可以上传大概几百K的数据，一段时间后会报以下错误：
 ```text
 waitForCondition(RemoteWindow[client](ChannelExec[id=1, recipient=1]-ClientSessionImpl[root@/192.*****.1:22])) timeout exceeded: PT30S

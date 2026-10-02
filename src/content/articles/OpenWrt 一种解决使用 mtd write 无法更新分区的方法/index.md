@@ -11,7 +11,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 我们有时候在 `OpenWrt` 上希望使用 `mtd write` 命令去更新部分分区，例如 `uboot` 分区，具体命令如下：
 ```shell
 # 先擦除分区
@@ -47,17 +47,17 @@ Can't open device for writing!
 
 通过查询，可以知道 `OpenWrt` 官方为了保护 `uboot` 分区，默认是不可写入的，要先解锁分区的写入，本文将介绍一种方式来解决此问题。
 
-# 二、解决方案
+## 二、解决方案
 参考：[H3C Magic NX30 Pro 官方 OpenWrt 安装教程](https://ericclose.github.io/install-openwrt-on-h3c_magic-nx30-pro.html#%E9%87%8D%E6%96%B0%E5%88%B7%E5%86%99%E6%AD%A4%E5%89%8D%E6%9C%AA%E5%88%B7%E5%85%A5%E7%9A%84-BL2-%E5%88%86%E5%8C%BA)
  
 从以上文章可以知道，只有安装了 `kmod-mtd-rw`，使内核支持 `mtd` 读写，解锁分区的写入，然后再输入 `insmod /lib/modules/$(uname -r)/mtd-rw.ko i_want_a_brick=1` 将所有分区配置为可读写。
 
-## 1. 编译勾选 kmod-mtd-rw
+### 1. 编译勾选 kmod-mtd-rw
 在编译 `OpenWrt` 时勾选 `Kernel modules > Other modules > kmod-mtd-rw`，使内核支持 `mtd` 读写
 ![](./1790847701822_d3fe6e6128684d9fb58d65fc5dc833a1.png)
 待编译完成之后，刷入带了 `kmod-mtd-rw` 的新系统即可。
 
-## 2. 配置所有分区为可读写
+### 2. 配置所有分区为可读写
 在新系统启动之后，在终端输入命令将所有分区配置为可读写。
 ```shell
 insmod /lib/modules/$(uname -r)/mtd-rw.ko i_want_a_brick=1

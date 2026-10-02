@@ -13,7 +13,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 `iperf3` 是一套测试网络性能的工具，其可以测试出在两个 `IP` 之间最大的带宽速率。其官网地址如下：[https://software.es.net/iperf/](https://software.es.net/iperf/)。其可以被安装在 `OpenWrt` 的系统上，用来测试设备到路由器间内网的最大速率，可以测试 `lan` 口网络和 `wifi` 的极限速率以及各种性能，对于调试路由器和分析网络问题时起到极大的帮助，也能推测出通信的性能瓶颈是出自哪里。
 
 `iperf3` 已经被预置在了 `OpenWrt` 的官方包中，在编译时可以选择 `Network` > `iperf3`，即可在 `OpenWrt` 运行 `iperf3`
@@ -30,7 +30,7 @@ draft: false
 ![](./1790847691275_ec29e7a04cf04efd923dfa37f6acfc40.png)
 > 由于 `Docker` 空间占用相对较大，因此需要提前挂载 `USB` 磁盘才能较好的体验 `Docker`，参考 `OpenWrt` 搭建 `Samba` 服务器的方法：[https://openwrt.org/docs/guide-user/services/nas/cifs.server](https://openwrt.org/docs/guide-user/services/nas/cifs.server)
 
-# 二、安装方法
+## 二、安装方法
 本文将使用 `networkstatic/iperf3` 镜像进行安装：[https://hub.docker.com/r/networkstatic/iperf3](https://hub.docker.com/r/networkstatic/iperf3)
 
 首先在 `luci` 管理界面，`Docker` > `镜像` > `拉取镜像`，输入 `networkstatic/iperf3`，点击拉取，即可将 `networkstatic/iperf3` 镜像拉取到本地。

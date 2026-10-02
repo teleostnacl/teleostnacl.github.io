@@ -15,7 +15,7 @@ draft: false
 
 @[toc]
 
-# 一、问题背景
+## 一、问题背景
 
 在一次开发过程中，由于在 `Kotlin` 定义的实体类多了一个 `json` 不存在的 `键` 时，即使是对象类型是不可空的对象且指定了默认值，使用 `Gson` 库解析出来的实体对象中的那个变量是`null`，导致后面使用的此变量的时候导致出现空指针异常。比如：
 实体类对象定义如下
@@ -56,17 +56,17 @@ println("entity = $jsonEntity")
 此时可以发现，`nonExistParam` 已经被指定为不可空的`String` 类型，且使用了默认值 `""`，但解析出来的实体类中`nonExistParam=null`，如果此时不注意直接使用 `nonExistParam`，可能引发空指针异常。
 
 
-# 二、问题原因
+## 二、问题原因
 
 此问题的原因是，`Gson` 在解析实体类的时候会使用**反射**构造方法创建对象，在通过反射的方式设置对象的值。因此，**如果实体类的成员在`json`中不存在，则不会有机会被赋值，其会保持一个默认值（对于对象来说即为空）**。而在 `Kotlin` 中，只要在调用实际方法的时候，会触发`Kotlin`的空校验，从而抛出`空指针异常`，提早发现问题。但是Gson的反射的方式避开了这个空校验，所以成员的值为 `null`，直到使用时可能会出现`空指针异常`。
 
 
-# 三、问题探析
+## 三、问题探析
 
 我们需要探寻 `Gson` 在解析 `json` 的时候，究竟发生了什么，导致会出现解析出来的对象出现了 `null`
 
 
-## Kotlin空指针校验
+### Kotlin空指针校验
 
 但是，我们知道`Kotlin`是对可空非常敏感的，已经指定了成员是不可空的，为什么会把 `null` 赋值给了不可空成员呢。
 
@@ -99,7 +99,7 @@ public Entity(String var1, String var2, int var3, DefaultConstructorMarker var4)
 因此，只有正常调用构造方法的时候，才会触发可空的检查。
 
 
-## Gson.fromJson(String json, Class<T> classOfT)
+### Gson.fromJson(String json, Class<T> classOfT)
 
 首先，我们使用的方法是 `Gson.fromJson(String json, Class<T> classOfT)`，这个方法是传进一个 `json` 的字符串和实体对象的 `Class` 类型，随后的返回值就是一个实体对象。方法如下：
 
@@ -145,7 +145,7 @@ public static <T> Class<T> wrap(Class<T> type) {
 因此最后一句的作用只是用来强制转换对象的，与解析 `json` 无关。我们回到第一句 `T object = fromJson(json, TypeToken.get(classOfT));`，这句代码调用了 `Gson.fromJson(String json, TypeToken<T> typeOfT)`，并使用 `TypeToken` 包装了 `class`。
 
 
-## TypeToken
+### TypeToken
 
 我们先看 `TypeToken` 的官方文档解释：
 
@@ -155,7 +155,7 @@ public static <T> Class<T> wrap(Class<T> type) {
 这是一个代表`泛型T`(`generic type T`)的类，在 `Java` 运行时会进行`泛型擦除`，因此在运行过程中是无法拿到`泛型`的准确类型，因此 `TypeToken ` 被创建出来，可以在运行时创建基于此类的子类并拿到泛型的信息。也即这个类通过包装泛型类，提供了在运行时获取泛型对象的类信息的能力。
 
 
-## Gson.fromJson(JsonReader reader, TypeToken<T> typeOfT)
+### Gson.fromJson(JsonReader reader, TypeToken<T> typeOfT)
 
 从 `Gson.fromJson(String json, TypeToken<T> typeOfT)` 方法开始，层次往下只是将 String 或 其他类型的来源封装成 `JsonReader`类，代码如下：
 
@@ -223,7 +223,7 @@ public <T> T fromJson(JsonReader reader, TypeToken<T> typeOfT)
 这个方法的一开始是将Gson的 `Strictness`设置给 `JsonReader`。随后再获取 类型的 `TypeAdapter`，使用`TypeAdapterread.read(JsonReader in)`，进行解析 `json`得到实体对象。
 
 
-## TypeAdapter 和 TypeAdapterFactory
+### TypeAdapter 和 TypeAdapterFactory
 
 `TypeAdapter` 是一个抽象类，其有两个抽象方法
 
@@ -393,7 +393,7 @@ if (candidate == null) {
 因此需要去研究不同类型的 `TypeAdapter` 的做了什么。
 
 
-## ReflectiveTypeAdapterFactory
+### ReflectiveTypeAdapterFactory
 
 在 `Gson` 的构造方法中，会将支持的 `TypeAdapterFactory` 添加进 Gson 类的 `fatories` 中，有以下语句：
 
@@ -604,7 +604,7 @@ return new FieldReflectionAdapter<>(
 ```
 
 
-## RecordAdapter 和 FieldReflectionAdapter
+### RecordAdapter 和 FieldReflectionAdapter
 
 `RecordAdapter` 和 `FieldReflectionAdapter` 都是 `Adapter` 的子类，其都没有覆写 `write` 和 `read` 的方法，因此我们直接看  `Adapter` 的的 `read` 方法。
 
@@ -708,6 +708,6 @@ void readIntoField(JsonReader reader, Object target)
 因此，**如果实体类的成员在`json`中不存在，则不会有机会被赋值，其会保持一个默认值（对于对象来说即为空）**
 
 
-# 四、解决方法
+## 四、解决方法
 
 从 `Gson` 解析 `json` 的源码中可以得出，由于使用了反射的方式，所以最后生成对象中可能会出现`null`，尤其是实体类中存在 `json` 没有的 `key` ，或者虽然 `key` 存在时但 `value` 就是null。因此，在设计`json`的实体类的时候，需要考虑成员是可空的情况，尽量使用可空类型，避免出现空指针异常。或者使用`kotlinx.serialization` 进行`Kotlin JSON序列化`，保证数据的可空安全性。

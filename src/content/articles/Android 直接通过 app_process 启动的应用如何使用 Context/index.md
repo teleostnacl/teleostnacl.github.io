@@ -11,7 +11,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 在 `Android` 中，可以使用 `Android Studio` 编写 `Java` 应用程序，通过编译打包成 `apk` 文件，然后将文件推送至 `/data/local/tmp` 等可执行的目录或安装打包出来的应用，随后使用 `app_process` 命令即可运行此 `Java 程序`，命令格式如下：
 ```shell
 app_process -Djava.class.path=${apk路径} /system/bin 主类的全限定名
@@ -33,7 +33,7 @@ object HelloWorld {
 可以看到其可以正常执行 `Java` 代码并输出 `Hello World!!!`
 这个方式启动的 `Java` 程序将集成 `shell` 的 `用户组` 和 `用户`，可以执行高权限的命令，实现应用的提权，流行于各种工具箱中。但是由于这样启动的 `Java` 程序是没有`Application` `Activity` 和其它四大组件的，无法直接拿到 `Context`，而对于很多 `Android API` 来说都需要用到 `Context` 的。那么有没有办法去拿到一个 `Context` 呢？本文将介绍一种可以在通过 `app_process` 命令启动的 Java 程序中获取到 `Context` 的方式。
 
-# 二、代码实现
+## 二、代码实现
 先直接上代码，看如何在代码中构造一个 `Context`
 ```kotlin
 val context: Context? by lazy {
@@ -58,7 +58,7 @@ val context: Context? by lazy {
 
 此方法的原理是通过 `ActivityThread.getSystemContext()` 来构造获取 `Context`，但是由于 `ActivityThread` 的构造方法和 `getSystemContext()` 方法都是被打上了 `@UnsupportedAppUsage` 注解的，外部无非直接调用，因此需要通过反射来构造。
 ![](./1790847726950_fd20e71e09c140638763faa1de7ff369.png)
-# 三、代码详解
+## 三、代码详解
 我们可以通过分析 `Android App` 的启动流程来了解到 `Context` 被构造出来的过程。
 我们知道 `Android App` 是基于 Java 编写的一种特殊的程序，其跟 `Java` 程序一样，需要通过 `main` 方法来作为应用程序的唯一入口。在 APP 启动时，会先通过 `AMS` 请求启动应用，通过 `Zygote` 使用 `fork()` 方法复制自身，创建新的应用进程，此时会加载 `Android Runtime (ART)` 进行加载 `Java 虚拟机和核心库`，再调用 `ActivityThread` 的 `main()` 方法，这就是应用进程的入口点。
 我们来看一下 `ActivityThread` 的 `main()` 实际的实现：

@@ -11,12 +11,12 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 在 `Windows` 中有一个 `Administrator` 用户，相当于 `Linux` 中的 `root` 用户，具有计算机的最高权限，在有些场景下使用  `Administrator` 用户可以修改一些系统配置和文件，实现自定义功能。但由于使用此用户是极其危险的，因此 `Windows` 中默认隐藏了此用户。
 
 因此本文将介绍开启和关闭 `Administrator` 用户的方法。
 
-# 二、命令
+## 二、命令
 需要使用**管理员权限**执行以下命令
 
 开启 `Administrator` 用户：

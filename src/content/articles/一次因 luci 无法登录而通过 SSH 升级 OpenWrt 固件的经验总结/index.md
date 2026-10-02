@@ -14,7 +14,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、背景介绍
+## 一、背景介绍
 我们平常时在玩 `OpenWrt` 系统的时候，难免会遇到因为配置出错，`OpenWrt` 的 `luci` 无法正常使用，无法登录到路由器的管理界面，从而导致路由器无法正常使用。这个时候其实路由器还没有成砖，电脑是可以正常连接到路由器，甚至可以访问到外网，只是 `luci` 模块崩溃了，因此还不需要使用 `不死uboot` 模式下去救砖。
 
 就在某次刷机的时候，因为编译的系统中缺少了 `luci` 某个核心组件，导致无法进入 `luci` 管理界面，需要重新刷一个带完整 `luci` 的固件才能正常使用。因为想到，此系统是配置了 `Dropbear` 实例的，可以使用 `SSH` 的方式登录到路由器后台，因此想到可以通过  `SSH` 登录到后台之后，使用 `SCP` 将固件包上传到路由器临时目录，再使用 `sysupgrade` 命令刷写新系统，以恢复 `luci` 的使用，从而避免使用 `uboot` 刷机。本文将详细介绍此次因 `luci` 无法登录而通过 `SSH` 升级 `OpenWrt` 固件的经验总结。
@@ -23,8 +23,8 @@ draft: false
 >
 > ![](./1790847673264_e21620d71b474e1f8c303af9d6833729.png)
 
-# 二、解决过程
-## （一）使用 SSH 登录到路由器
+## 二、解决过程
+### （一）使用 SSH 登录到路由器
 我们先使用一个支持 `SSH` 的软件登录到路由器后台，本文使用的是 `Putty`：[https://www.putty.org/](https://www.putty.org)。其他软件基本操作相同。
 
 在 `Host Name` 和 `Port` 输入路由器的 `IP` 地址和 `Dropbear` 实例设置的 `端口号` （默认为 `22` ），`Connection type` 需要选择 `SSH`，随后点击 `Open`。
@@ -40,7 +40,7 @@ draft: false
 如果 `Dropbear` 实例配置正常，此时即可登录到路由器后台
 ![](./1790847673480_8dcb9fc94a444b1da08d00b0a01f4c03.png)
 
-## （二）使用 SCP 上传新固件到路由器
+### （二）使用 SCP 上传新固件到路由器
 我们使用一个支持 `SCP` 的软件将编译好的新固件到路由器上，这里我们使用 `WinSCP`：[https://winscp.net/eng/download.php](https://winscp.net/eng/download.php)
 
 运行 `WinSCP` 之后，会自动弹出一个登录弹窗，此时 `File protocal` 选择 `SCP`，`Host name` 输入路由器的 `IP`，`Port number` 输入 `Dropbear` 实例设置的 `端口号` （默认为 `22` ），在 `User name` 和 `Password` 分别输入用户名和密码，随后点击 `Login`，即可进行登录
@@ -58,7 +58,7 @@ draft: false
 随后右键新固件，点击 `Upload` 将固件上传到路由器的 `/tmp` 目录，并等待其完成。
 ![](./1790847673665_87e1677d4ece4c83b0a23ca5f57006ab.png)
 
-## （三）使用 sysupgrade 命令进行升级
+### （三）使用 sysupgrade 命令进行升级
 随后我们回到 `Putty` 软件（或其他 `SSH` 软件），使用 `sysupgrade` 命令进行升级。首先我们输入 `sysupgrade -h` 可以得到此命令的使用方法：
 ```shell
 root@OpenWrt:~# sysupgrade -h
@@ -111,5 +111,5 @@ sysupgrade -n /tmp/sysupgrade.bin
 ![](./1790847673703_8e3c4f9954d5450a8a823b3ce4bcfde7.png)
 
 
-# 三、后话
+## 三、后话
 此次救机虽然简单，但很关键的是系统配置了 `Dropbear` 实例的，让我们可以有机会使用命令进行更新。因此，我们在玩 `OpenWrt`，尽量需要配置一个安全的 `Dropbear` 实例，以便在出问题的时候，可以方便修复问题，而不需要使用 `uboot` 刷机，这样子我们可以省去不少的麻烦事。

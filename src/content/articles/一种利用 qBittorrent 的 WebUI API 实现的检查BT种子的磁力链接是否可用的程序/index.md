@@ -15,19 +15,19 @@ draft: false
 
 @[TOC]
 
-# 一、问题背景
+## 一、问题背景
 
 之前有利用 `atomashpolskiy/bt`：[https://github.com/atomashpolskiy/bt](https://github.com/atomashpolskiy/bt) 的 `Java` 库实现了用 `Java / Kotlin` 编写检测BT种子的磁力链接是否有可用 `peers` 的程序: [https://blog.csdn.net/TeleostNaCl/article/details/151051936](https://blog.csdn.net/TeleostNaCl/article/details/151051936)。由于使用的开源库，功能没有 `qBittorrent` 的那么丰富，导致有些种子在 `qBittorrent` 中可以使用的，但是在检测程序中报告无法下载，从而造成误判断。而 `qBittorrent` 提供了丰富的 `WebUI` 的 `API`，是我们可以通过直接调用相关 `API` 而使用 `qBittorrent` 的功能。因此，本文将详细介绍使用 `Kotlin` 代码，使用 `Retrofit` 的响应式风格调用 `qBittorrent` 的 `API` 去检查BT种子的磁力链接是否可用的程序。
 
 
-# 二、WebUI API 介绍
+## 二、WebUI API 介绍
 
 详细的官方介绍文档如下：[https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0))
 
 
 我们在此功能中只会用到四个接口（`login` 接口，`add` 接口，`properties`接口，`delete` 接口），本文将详细介绍他们的用法，其它接口可以参阅详细的官方介绍文档。
 
-## 1. login 接口：api/v2/auth/login
+### 1. login 接口：api/v2/auth/login
 
 [https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#login](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#login)
 首先，我们需要调用 `login` 接口（`api/v2/auth/login`），使用 `POST` 方法传递用户名和账户，此时将尝试登录，如果登录成功，则会得到 `Cookies` 信息，此 `Cookies` 信息将会在后面调用其它接口的时候被传递作为身份凭证。
@@ -46,7 +46,7 @@ Set-Cookie: SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ; path=/
 ```
 
 
-## 2. add 接口：api/v2/torrents/add
+### 2. add 接口：api/v2/torrents/add
 
 [https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#add-new-torrent](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#add-new-torrent)
 此接口是向 `qBittorrent` 中添加一个种子以便下载的核心接口，其使用 `POST` 方法可以传递多个参数，以适应不同的需求，详细的介绍如下：
@@ -59,7 +59,7 @@ Set-Cookie: SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ; path=/
 `tags`：此参数可选。其可以给种子下载任务添加一个标签，将检测种子可用的任务与其它任务进行区分。使用 `,` 可以分割多个标签。
 
 
-## 3. properties 接口：api/v2/torrents/properties
+### 3. properties 接口：api/v2/torrents/properties
 
 [https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#get-torrent-generic-properties](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#get-torrent-generic-properties)
 此接口是查询种子状态的核心方法，使用 `GET` 方法传递种子的 `Hash` 值，其可以获取种子的大部分信息，参数如下：
@@ -68,7 +68,7 @@ Set-Cookie: SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ; path=/
 我们检验种子有效性的时候，可以使用是否可以获取到种子元信息作为依据，而对于大部分种子来说，当未获取到元信息的时候，`name` 参数为种子的 `hash` 值，当获取到元信息之后，`name` 参数会将会使用种子名。因此，为了程序的简易性，我们将使用此作为种子是否可用的依据，基本可以涵盖大部分场景。在使用中，我们将定时轮询此接口，获取种子信息，一旦种子获取到元信息，我们即可返回种子可用。否则等超时之后（即在指定时间内都无法获取到元信息），则认为种子不可用。
 
 
-## 4. delete 接口：api/v2/torrents/delete
+### 4. delete 接口：api/v2/torrents/delete
 
 [https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#delete-torrents](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-5.0)#delete-torrents)
 此接口用于将种子移除，使用 `POST` 方法，可以传递两个参数，删除指定 `hash` 值的种子任务吗，并指定是否需要移除文件。
@@ -76,14 +76,14 @@ Set-Cookie: SID=hBc7TxF76ERhvIw0jQQ4LZ7Z1jQUV0tQ; path=/
 ![](./1790847619643_1fae9cbc3069485cb9794e49cb6bedb2.png)
 
 
-# 三、流程图
+## 三、流程图
 
 ![](./1790847619706_ea0f875716884912b13d45be51b12dff.png)
 
 
-# 四、代码实现
+## 四、代码实现
 
-## 1. Retrofit 接口定义
+### 1. Retrofit 接口定义
 
 ```kt
 class QBRetrofit {
@@ -141,7 +141,7 @@ interface QBApi {
 ```
 
 
-## 2. Repo类
+### 2. Repo类
 
 ```kt
 /**

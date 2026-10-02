@@ -15,10 +15,10 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 当我们在 `Java` 程序 或 `Android` 程序中，需要使用 `SMB` 的客户端连接 `SMB` 服务器进行上传和下载文件的时候，我们可以使用优秀的开源库 `hierynomus/smbj`：[https://github.com/hierynomus/smbj](https://github.com/hierynomus/smbj)，其是专门为 `Java` 实现的 `SMB2/SMB3` 客户端库。其具有 `API` 简单清晰，使用方便的特点，本文将简单介绍其使用方法，实现文件/文件夹的上传、删除 等文件操作。
 
-# 二、依赖导入
+## 二、依赖导入
 首先，我们需要在自己的项目中导入 `SMBJ` 的相关依赖
 ```groovy
 dependencies {
@@ -46,7 +46,7 @@ android {
 }
 ```
 
-# 三、连接到 SMB
+## 三、连接到 SMB
 `SMBJ` 对于文件的操作都是基于 `com.hierynomus.smbj.share.DiskShare`，因此我们需要先创建出 `DiskShare` 对象，
 - 在创建 `DiskShare` 对象，需要 `com.hierynomus.smbj.session.Session` 对象通过 `connectShare()` 方法连接到 `SMB` 的路径，
 - 而 `Session` 对象是通过 `com.hierynomus.smbj.connection.Connection` 对象通过 `authenticate` 方法进行认证得到连接，
@@ -84,7 +84,7 @@ try {
 
 通过以上方法可以得到 `DiskShare` 对象进行操作文件。
 
-# 四、文件夹创建
+## 四、文件夹创建
 如果我们需要在 `SMB` 服务器创建一个新文件，则可以使用 `com.hierynomus.smbj.utils.SmbFiles.mkdirs()` 方法进行创建，同时此方法会递归创建父文件夹，保证父文件夹存在，文件夹可以创建成功。同时，如果创建失败，会抛出异常，只需要捕获此异常即可知道是创建失败，因此可以使用以下方法创建文件夹
 ```kt
 var result = false
@@ -100,7 +100,7 @@ try {
 ![](./1790847626237_38c9cd6cabce4d30959f8e2dd744f068.png)
 之后，我们可以使用 `DiskShare.folderExists()` 方法检查文件夹是否存在
 ![](./1790847626285_9ac0057f2c8141f2886e1c38bc66da5f.png)
-# 五、删除文件/文件夹
+## 五、删除文件/文件夹
 `SMBJ` 提供了两个方便的 `API` 进行删除文件和删除文件夹：
 - `DiskShare.rm()` 删除文件
 - `DiskShare.rmdir()` 删除文件夹
@@ -116,7 +116,7 @@ if (diskshare.folderExists(path)) {
 
 这里的 `path` 是相对于 `SMB` 服务器的根目录地址，API文档如下：
 ![](./1790847626333_63c33367a3334b628af59486acc248ca.png)
-# 六、上传文件
+## 六、上传文件
 文件上传有多种方法，但所有的方法的第一步是需要打开远端的文件，在打开文件的时候，可以传递不同的参数以实现不同的需求：
 ```kt
 val file = diskShare.openFile(remotePath, EnumSet.of(AccessMask.GENERIC_WRITE), null,  EnumSet.of(SMB2ShareAccess.FILE_SHARE_WRITE), SMB2CreateDisposition.FILE_CREATE, null)
@@ -167,7 +167,7 @@ FileByteChunkProvider(localFile).use { provider ->
 同时，`SmbFiles` 提供了 `copy()` 和 `write()` 的方法，方便上传文件。
 ![](./1790847626447_ecb0b6a568d54846889c785887baaa9a.png)
 
-# 七、Proguard 混淆规则
+## 七、Proguard 混淆规则
 ```
 -keep class org.slf4j.** { *; }
 -dontwarn org.slf4j.**

@@ -16,7 +16,7 @@ draft: false
 脚本API-CopyQ文档`https://copyq.readthedocs.io/en/latest/scripting-api.html#dateString`
 日期 QML 类型: `https://doc.qt.io/qt-5/qml-qtqml-date.html#format-strings`
 
-# CopyQ的命令实现代码
+## CopyQ的命令实现代码
 ```js
 copyq: 
 var time = dateString('yy/MM/dd hh:mm:ss ddd')
@@ -25,11 +25,11 @@ var tags = str(data(tagsMime)) + ', ' + time
 setData(tagsMime, tags)
 ```
 
-# 效果
+## 效果
 当复制一条剪贴板内容之后, 会自动向条目添加一个时间戳标签, 方便回溯复制的时间, 效果如下: 
 ![](./1790847768731_0a7b000f73bf43dc86d827ee3821fd16.png)
 
-# 命令详解
+## 命令详解
 首先, 通过js的方法`dateString`将当前的时间按照指定的格式格式化成字符串, 以下的格式(`yy/MM/dd hh:mm:ss ddd`)为 `两位数年/两位数月/两位数日 两位数时:两位数分:两位数秒 星期简称`, 比如 `24/11/10/14/48/04 Sun`. 
 具体的格式可以查看: [日期 QML 类型](https://doc.qt.io/qt-5/qml-qtqml-date.html#format-strings)
 ```js
@@ -41,7 +41,7 @@ var tags = str(data(tagsMime)) + ', ' + time
 ```
 最后, 通过`setData`将此条目编辑保存. 
 
-# 使用
+## 使用
 在CopyQ主页面, 点击`文件` > `命令` > `添加` > `新建命令`, 定义一条新的命令. 
 ![](./1790847768825_38c8d3f15cc54ebbadfdb93e44956478.png)
 ![](./1790847768885_4e3d2d9c13de41c58438778878ed4a00.png)

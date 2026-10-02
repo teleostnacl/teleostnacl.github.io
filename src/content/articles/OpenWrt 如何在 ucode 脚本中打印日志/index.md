@@ -14,7 +14,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 `OpenWrt` 的 `ucode` 是一种轻量级脚本语言，专为嵌入式系统和 `OpenWrt` 环境设计。它的语法类似于 `JavaScript`，并提供了丰富的内置功能，使其适用于系统配置、`Web` 开发（如 `LuCI` 界面）以及嵌入式脚本任务。
 
 例如一段标准的 `ucode` 脚本示例如下：
@@ -52,7 +52,7 @@ return {
 
 那么我们在编辑相关 `ucode` 脚本时，我们希望有日志打印，知道我们程序的运行状态，方便我们的调试，因此本文将详细介绍如何在 `ucode` 脚本中添加日志打印的方法。
 
-# 二、实现方法
+## 二、实现方法
 参考：
 - System logging functions: [https://ucode.mein.io/module-log.html](https://ucode.mein.io/module-log.htm)
 - OpenWrt Ucode Example： [https://github.com/openwrt/rpcd/blob/master/examples/ucode/example-plugin](https://github.com/openwrt/rpcd/blob/master/examples/ucode/example-plugin)

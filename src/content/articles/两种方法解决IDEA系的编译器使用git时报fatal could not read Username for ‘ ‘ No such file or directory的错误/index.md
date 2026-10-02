@@ -31,14 +31,14 @@ fatal: could not read Username for '*': No such file or directory
 
 而为了解决这个问题，有两种解决方法：
 
-## 1.  使用凭证缓存（推荐）
+### 1.  使用凭证缓存（推荐）
 第一种方法就是使用 `Git` 的凭证缓存，可以将输入的用户名和密码保存在本地，等下次使用 `git` 的时候，就可以直接使用了。 而在 `IDEA` 中，可以使用 `GUI` 进行设置打开凭证缓存：
 勾选 `File` > `Settings` > `Version Control` > `Git` > `Update` > `Use credential helper` 即可
 
 ![](./1790847545992_53d3b625e2484cb7b51be4724d968068.png)
 
 此时重新拉去或推送分支的时候，会提示输入用户名和密码，正确输入后即可正常使用。
-## 2. 在链接中加上用户名和密码
+### 2. 在链接中加上用户名和密码
 另一种方法，我们可以编辑 `git` 的链接，在其链接上加上用户名和密码，形如以下格式：
 ```shell
 https://username:password@git.com/user/repo.git

@@ -16,7 +16,7 @@ draft: false
 
 @[TOC]
 
-# 一、背景介绍
+## 一、背景介绍
 
 `Kodi` 是跨平台的影音播放器，被广泛运用在各类电视和电视盒子上，其功能非常强大，可以播放任何类型的影音，例如音乐、图片、视频、直播。因此，几乎成为了电视必备的应用，轻松打造家庭影院电影库必备神器。
 
@@ -50,7 +50,7 @@ draft: false
 > 请注意由于默认没有中文字体，再安装 `Arctic Horizon 2` 皮肤前，先设置为英文进行操作，避免出现乱码的情况。
 
 
-# 二、安装 Kodi
+## 二、安装 Kodi
 
 首先到 `Kodi` 官网安装适合自己平台的安装包：[https://kodi.tv/download/android/](https://kodi.tv/download/android/)
 
@@ -62,7 +62,7 @@ draft: false
 
 
 
-# 三、安装 jurialmunkey 的 repository
+## 三、安装 jurialmunkey 的 repository
 
 首先，我们先去 `github` 上下载 `jurialmunkey` 的 `repository`，随后推到设备合适的位置备用：[https://jurialmunkey.github.io/repository.jurialmunkey/repository.jurialmunkey-3.4.zip](https://jurialmunkey.github.io/repository.jurialmunkey/repository.jurialmunkey-3.4.zip)
 
@@ -111,7 +111,7 @@ draft: false
 ![](./1790847512799_229f168e6d944159bae987d6917e3c05.png)
 
 
-# 四、安装 Arctic Horizon 2 皮肤
+## 四、安装 Arctic Horizon 2 皮肤
 
 我们切到 `Add-ons` 选项卡，选择 `Install from repository`，再选择 ` jurialmunkey Alpha Repository`，再选择 `Look and feel`，随后安装 `Skin` 目录下的 `Artic Horizon 2` 和 `font` 目录下的 `Roboto CJKSC`（以便支持中文），并等待下载安装完成即可。
 
@@ -132,7 +132,7 @@ draft: false
 
 ![](./1790847513332_53111c375fd44f61a0c125169a39aab8.png)
 
-# 五、启用 Arctic Horizon 2 皮肤
+## 五、启用 Arctic Horizon 2 皮肤
 
 待皮肤安装完成之后，会提示你是否切换到 `Arctic Horizon 2` 的皮肤。如果之前语言没有设置为中文，这里可以直接选择切换。
 
@@ -168,7 +168,7 @@ draft: false
 ![](./1790847513607_7b2e4ffb953846b8a675f076fd5783c3.png)
 
 
-# 六、设置为中文
+## 六、设置为中文
 
 > 一定要确保 `Roboto CJKSC ` 安装成功之后再设置为中文，否则会出现乱码
 

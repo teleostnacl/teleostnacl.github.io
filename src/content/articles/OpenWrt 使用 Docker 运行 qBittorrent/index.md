@@ -13,7 +13,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 `qBittorrent` 是一款优秀的跨平台的种子下载器的开源软件，官方的介绍如下：
 > qBittorrent is a bittorrent client programmed in C++ / Qt that uses libtorrent (sometimes called libtorrent-rasterbar) by Arvid Norberg.
 > It aims to be a good alternative to all other bittorrent clients out there. qBittorrent is fast, stable and provides unicode support as well as many features.
@@ -31,7 +31,7 @@ draft: false
 `luci-app-dockerman` 包的位置位于：`LuCI` > `3. Applications` > `luci-app-dockerman`，勾选编译即可。
 ![](./1790847693699_ec29e7a04cf04efd923dfa37f6acfc40.png)
 > 由于 `Docker` 空间占用相对较大，因此需要提前挂载 `USB` 磁盘才能较好的体验 `Docker`，参考 `OpenWrt` 搭建 `Samba` 服务器的方法：[https://openwrt.org/docs/guide-user/services/nas/cifs.server](https://openwrt.org/docs/guide-user/services/nas/cifs.server)
-# 二、安装方法
+## 二、安装方法
 本文使用 `linuxserver/qbittorrent` 镜像进行安装：[https://hub.docker.com/r/linuxserver/qbittorrent](https://hub.docker.com/r/linuxserver/qbittorrent)
 
 首先在 `luci` 管理界面，`Docker` > `镜像` > `拉取镜像`，输入 `linuxserver/qbittorrent`，点击拉取，即可将 `linuxserver/qbittorrent` 镜像拉取到本地。
@@ -106,7 +106,7 @@ The webui is administrator password was not set. A temporary password is provide
 ![](./1790847693834_9acad6c4faf8480d8d6c81667a014481.png)
 首次登录成功之后，点击 `设置` > `WebUI` > `验证`，修改用户名和密码。之后就可以正常使用 `qBittorrent` 。
 ![](./1790847693884_3e455ad7b83c4e1789ebc316606e8c45.png)
-# 三、性能优化
+## 三、性能优化
 由于路由器设备的性能相对较弱，为了减少 `qBittorrent` 对资源的占用，可以用以下方法进行相关优化。
 
 1. 在 `连接` > `连接限制` 中，减少 `全局最大连接数` 和 `每 torrent 最大连接数`

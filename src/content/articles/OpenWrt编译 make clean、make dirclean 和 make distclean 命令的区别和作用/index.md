@@ -38,7 +38,7 @@ endif
 
 ---
 
-# make _clean
+## make _clean
 - 作用：删除基本的编译生成文件（如 `.o` 对象文件、临时文件等），但保留交叉编译工具链、下载的软件包和配置文件（如 `.config`）。
 
 ```shell
@@ -56,7 +56,7 @@ _clean: FORCE
 
 ---
 
-# make clean
+## make clean
 - 作用：同 `make _clean`，删除基本的编译生成文件（如 `.o` 对象文件、临时文件等），但保留交叉编译工具链、下载的软件包和配置文件（如 `.config`），同时删除构建日志相关文件。
 
 ```shell
@@ -75,7 +75,7 @@ clean: _clean
 
 ---
 
-# make targetclean
+## make targetclean
 - 作用：在 `make _clean` 的基础上，同时清楚编译工具链 `toolchain` 和主机工具
 
 ```shell
@@ -96,7 +96,7 @@ targetclean: _clean
 
 ---
 
-# make dirclean
+## make dirclean
 - 作用：比 `make clean` 更彻底，不仅清理 `make clean` 的内容，还会删除交叉编译工具链目录（`staging_dir/` 和 `build_dir/` 的部分内容）。
 
 ```shell
@@ -124,7 +124,7 @@ dirclean: targetclean clean
 
 ---
 
-# make cacheclean
+## make cacheclean
 ```shell
 cacheclean:
 ifneq ($(CONFIG_CCACHE),)
@@ -135,5 +135,5 @@ endif
 
 ---
 
-# make distclean
+## make distclean
 最彻底的清理，删除所有生成的文件，包括：`make clean` 和 `make dirclean` 的内容、下载的软件包（`dl/` 目录）、配置文件（如 `.config`）、临时缓存目录（`tmp/`），此命令会完全重置 `OpenWrt` 编译环境

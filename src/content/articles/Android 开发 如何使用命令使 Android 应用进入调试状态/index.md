@@ -13,7 +13,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 我们在做 `Android` 应用开发的时候，有时候为了调试应用，需要让应用进入调试状态，我们一般可以通过 `Android Studio` 的 `Debug` 按钮 使应用进入调试状态：
 ![](./1790847597916_41a835ce59c94b49a1ab566b7e02b981.png)
 
@@ -21,7 +21,7 @@ draft: false
 
 参考文档：[https://android-dev-life.blogspot.com/2015/02/do-you-adb-shell-am-set-debug-app.html](https://android-dev-life.blogspot.com/2015/02/do-you-adb-shell-am-set-debug-app.html)
 
-# 二、进入调试状态
+## 二、进入调试状态
 从参考文档可以知道，我们可以在终端使用以下命令使应用进入调试状态（注意此应用需要 `debuggable` 状态，即 `debug` 版本）：
 ```shell
 am set-debug-app -w --persistent 包名
@@ -35,13 +35,13 @@ am set-debug-app -w --persistent 包名
 
 ![](./1790847597998_1434a73584654531a567d69a4b4243ef.png)
 
-# 三、退出调试状态
+## 三、退出调试状态
 当不需要调试状态时，可以使用以下命令退出调试状态：
 ```shell
 am clear-debug-app 包名
 ```
 
-# 四、图形界面的方法
+## 四、图形界面的方法
 在 `Android` 设置中，`开发者选项` 菜单下，有一个 `选择调试应用` 功能 和 `等待调试程序`，此时可以设置这两个选项实现应用进入调试状态：
 
 ![](./1790847598044_b08ad40ee58a47579ee6173973831527.png)

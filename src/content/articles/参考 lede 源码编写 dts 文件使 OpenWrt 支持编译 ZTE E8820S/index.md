@@ -12,14 +12,14 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 在 `lede` 源码 [https://github.com/coolsnowwolf/lede](https://github.com/coolsnowwolf/lede) 中，其已经支持了 `ZTE E8820S` 设备编译，而在  `OpenWrt` 源码 [https://github.com/openwrt/openwrt](https://github.com/openwrt/openwrt) 中是不支持 `ZTE E8820S` 设备的编译，因此在  `ZTE E8820S` 无法直接使用原版的 `OpenWrt`。其实 `lede` 架构和 `OpenWrt` 架构都是一样的，只要参考 `lede` 源码编写适合 `OpenWrt` 的 `dts` 文件即可实现编译适合于 `ZTE E8820S` 的 `OpenWrt` 系统。
 
 本文将详细介绍如何参考 lede 源码编写 dts 文件使其适合于编译 `ZTE E8820S` 的 `OpenWrt` 系统。
 
-# 二、代码实现
+## 二、代码实现
 首先，先直接给出源码：
-## 1. 增加 target/linux/ramips/dts/mt7621_zte_e8820s.dts 文件
+### 1. 增加 target/linux/ramips/dts/mt7621_zte_e8820s.dts 文件
 进入到 `OpenWrt` 源码根目录，再进入到 `target/linux/ramips/dts` 目录，创建 `mt7621_zte_e8820s.dts` 文件，文件内容如下
 ```dts
 // SPDX-License-Identifier: GPL-2.0-or-later OR MIT
@@ -198,7 +198,7 @@ draft: false
 };
 ```
 
-## 2. 修改 target/linux/ramips/image/mt7621.mk 添加 ZTE E8820S 设备支持
+### 2. 修改 target/linux/ramips/image/mt7621.mk 添加 ZTE E8820S 设备支持
 进入到 `OpenWrt` 源码根目录，再进入到 `target/linux/ramips/image` 目录，修改 `mt7621.mk` 文件，在文件末尾添加以下内容：
 ```mk
 define Device/zte_e8820s
@@ -219,7 +219,7 @@ endef
 TARGET_DEVICES += zte_e8820s
 ```
 
-# 三、移植过程
+## 三、移植过程
 参考官方添加新设备的教程 [https://openwrt.org/docs/guide-developer/adding_new_device](https://openwrt.org/docs/guide-developer/adding_new_device) ，我们可以知道新增加一个设备需要编写一个 `dts` 文件和编辑相关平台的 `mk` 文件。同时我们可以在 `lede` 源码仓库中搜索 `ZTE E8820S` 相关的修改，可以得到如下三条修改：
 1. [coolsnowwolf/lede@a3c941d](https://github.com/coolsnowwolf/lede/commit/a3c941d1267229a71da2a5cde5055698eadc0fd0)
 2. [coolsnowwolf/lede@f465968](https://github.com/coolsnowwolf/lede/commit/f4659685c5f606e0e7ce43596745bb873ed1cc3c)
@@ -230,24 +230,24 @@ TARGET_DEVICES += zte_e8820s
 
 同时，由于 `lede` 仓库和 `OpenWrt` 仓库有一定的差异，我们迁移的时候需要排除掉这部分的差异，才能使 `OpenWrt` 顺利编译通过，因此，我们选择两个仓库都支持的同平台的 `Phicomm K2P` 作为对比进行迁移。
 
-## （一）分析 Phicomm K2P dts的差异
+### （一）分析 Phicomm K2P dts的差异
 
 我们先来看 `dts` 文件，比对两个仓库的 `Phicomm K2P` 的 `dts` 文件：`target/linux/ramips/dts/mt7621_phicomm_k2p.dts`
 - `lede` ：[https://github.com/coolsnowwolf/lede/blob/master/target/linux/ramips/dts/mt7621_phicomm_k2p.dts](https://github.com/coolsnowwolf/lede/blob/master/target/linux/ramips/dts/mt7621_phicomm_k2p.dts)
 - `OpenWrt` ：[https://github.com/openwrt/openwrt/blob/main/target/linux/ramips/dts/mt7621_phicomm_k2p.dts](https://github.com/openwrt/openwrt/blob/main/target/linux/ramips/dts/mt7621_phicomm_k2p.dts)
 
 可以看到，这里由四部分的不同之处：
-### 第一处 LED 的差异
+#### 第一处 LED 的差异
 
 ![](./1790847680292_e25bde900e0f44ea8199ddfb4a817499.png)
-### 第二处 分区布局的差异
+#### 第二处 分区布局的差异
 ![](./1790847680364_03a7b0c613ef47d5a2bb224025acffad.png)
-### 第三处 端口定义方式的不同
+#### 第三处 端口定义方式的不同
 ![](./1790847680409_1dcada36b3ed40a1bca667950b5d08f6.png)
-### 第四处 OpenWrt 无 hnat
+#### 第四处 OpenWrt 无 hnat
 `lede` 对 `mtk` 平台加入了闭源驱动，支持 `mtk` 的 `hnat` 硬件分流，可以提高 `wifi` 性能和路由能力。但是在 `OpenWrt` 仓库中，无此能力，因此需要去掉与 `hnat` 有关的源码。
 
-## （二）分析 Phicomm K2P mk的差异
+### （二）分析 Phicomm K2P mk的差异
 我们先来看 `mk` 文件，比对两个仓库的 `Phicomm K2P` 的 `mk` 文件：`target/linux/ramips/image/mt7621.mk`
 - `lede` ：[https://github.com/coolsnowwolf/lede/blob/master/target/linux/ramips/image/mt7621.mk](https://github.com/coolsnowwolf/lede/blob/master/target/linux/ramips/image/mt7621.mk)
 ```
@@ -279,8 +279,8 @@ TARGET_DEVICES += phicomm_k2p
 
 可以看到，除了定义方式不一样外，其余内容使完全相同的。
 
-## （三）编写  ZTE E8820S  的编译文件
-### 第一步 编写 mk 文件
+### （三）编写  ZTE E8820S  的编译文件
+#### 第一步 编写 mk 文件
 我们先来说简单的，参考 `lede` 的 `mk` 文件[https://github.com/coolsnowwolf/lede/blob/master/target/linux/ramips/image/mt7621.mk](https://github.com/coolsnowwolf/lede/blob/master/target/linux/ramips/image/mt7621.mk)
 ```
 define Device/zte_e8820s
@@ -303,11 +303,11 @@ TARGET_DEVICES += zte_e8820s
 ```
 可以直接编写 OpenWrt 的 `target/linux/ramips/image/mt7621.mk` 文件，在文件末尾增加 `zte_e8820s` 的支持
 
-### 第二步 迁移 dts 文件
+#### 第二步 迁移 dts 文件
 `lede` 中 ` ZTE E8820S ` 的 `dts` 文件如下：
 `target/linux/ramips/dts/mt7621_zte_e8820s.dts` ：[https://github.com/coolsnowwolf/lede/blob/master/target/linux/ramips/dts/mt7621_zte_e8820s.dts](https://github.com/coolsnowwolf/lede/blob/master/target/linux/ramips/dts/mt7621_zte_e8820s.dts)
 
-#### 1. 删去 hnat 相关
+##### 1. 删去 hnat 相关
 我们有前面的分析可以知道，`OpenWrt` 是不支持 `hnat` 的，对比 `Phicomm K2P` 我们需要移除以下代码
 ```
 &gsw {
@@ -325,7 +325,7 @@ TARGET_DEVICES += zte_e8820s
 };
 ```
 
-#### 2. 重新定义端口
+##### 2. 重新定义端口
 在上面我们移除了 `hnat`，则需要在 dts 文件中声明各个 `wan` 口 和 `lan` 口位置和顺序关系，以及交换机信息，由于布局与 `Phicomm K2P` 是相同的，我们直接沿用，修改 `switch0` 的信息如下：
 ```
 &switch0 {
@@ -361,7 +361,7 @@ TARGET_DEVICES += zte_e8820s
 
 经过以上步骤，即可新增成功，此时在编译中将增加  `ZTE E8820S` 设备。
 
-# 四、后话
+## 四、后话
 由于笔者对 `OpenWrt` 还不够深入了解，这样处理仍然是存在一定的问题，
 首先，这里忽略了迁移 `LED` 相关代码，可能指示灯是无法正常工作的。
 其次，在笔者的路由器上，无法通过 `luci` 页面进行更新，一定要进入 `mboot` 刷 `factory` 系统才可以正常刷机。

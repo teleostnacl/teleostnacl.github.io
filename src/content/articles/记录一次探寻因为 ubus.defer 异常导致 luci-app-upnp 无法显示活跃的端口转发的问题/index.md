@@ -15,14 +15,14 @@ draft: false
 ---
 
 @TOC
-# 一、问题背景
+## 一、问题背景
 不知道从哪个版本开始，在 `OpenWrt` 上使用 `luci-app-upnp` 时，当有客户端建立了 `upnp` 端口转发之后，在活跃的端口转发中不显示任何设备。
 
 ![](./1790847665775_ff0ce26cba6f41ba9fdd13d89655c754.png)
 
 本文将详细记录探寻 `luci-app-upnp` 无法显示活跃的端口转发的问题。
 
-# 二、从开发者工具获取数据来源
+## 二、从开发者工具获取数据来源
 首先，我们先按 `F12` 键打开浏览器的 `开发者工具` ，查看 `活跃的端口转发` 数据来源。
 
 当我们定位到相关位置时，可以看到这块数据是显示在 `ID` 为 `upnp_status_table` 的 表格 `table` 里面，当前显示为 `当前没有活跃的端口转发。`
@@ -90,7 +90,7 @@ POST /ubus/?1755408901151
 
 我们前文说到，其使用的是 `data[0].rules`，但是返回值是一个 `5`，且没有 `rules` 这个参数，因此可以推测这里的返回值是有问题的。同时每次请求都返回了 `5`，那么这个返回值代表了什么呢？
 
-# 三、在 OpenWrt 终端调用
+## 三、在 OpenWrt 终端调用
 由前文知道，获取 `upnp` 的 `活跃的端口转发` 是通过 `RPC` 调用的，最后由 `ubus` 实现调用并返回值，其对应的终端命令为：`ubus call luci.upnp get_status`。我们在终端调用此命令，可以得到如下结果：
 ```
 root@OpenWrt:~# ubus call luci.upnp get_status
@@ -98,7 +98,7 @@ Command failed: No response
 ```
 其返回了 `No response` 的提示语。
 
-# 四、UBUS 中的异常码
+## 四、UBUS 中的异常码
 我们前文已经分析了，最后会通过 `RPC` 远程调用，由 `ubus` 实现调用并返回值，因此我们推测，前文提到的 5 的返回值，是否为 `ubus` 的异常码呢？我们首先查阅 ubus 的异常码。
 
 我们可以查找 `ubus` 的 `github` 仓库，在 `ubusmsg.h`:[https://github.com/openwrt/ubus/blob/master/ubusmsg.h](https://github.com/openwrt/ubus/blob/master/ubusmsg.h) 中，可以找到如下枚举：
@@ -144,7 +144,7 @@ const char *__ubus_strerror[__UBUS_STATUS_LAST] = {
 
 因此，返回的 `5` 对应 `ubus` 中的 `UBUS_STATUS_NO_DATA` 枚举，对应 `No response` 的提示语。
 
-# 五、upnp 的 ucode 代码
+## 五、upnp 的 ucode 代码
 通过 `ubus` 调用是需要编写 `ucode` 代码，将代码放在 `ucode` 目录（即 `/usr/share/rpcd/ucode`）下，向 `ubus` 中注册方法。我们可以看到，在 `/usr/share/rpcd/ucode` 目录下有一个文件 `luci.upnp`，此即为 `upnp` 的 `ucode` 代码，其定义了 `get_status` 方法，`get_status` 的关键源码如下：
 ```lua
 get_status: {
@@ -370,7 +370,7 @@ Sun Aug 17 14:17:36 2025 daemon.info rpcd: upnp req.reply finish rules = { "rule
 
 由 `Reply has already been sent` 的异常可以知道，在调用`req.reply({ rules });` 时，已经有值已经被返回了，从而造成了逻辑异常。
 
-# 六、ubus.defer 的示例代码
+## 六、ubus.defer 的示例代码
 为了避免因为其他业务逻辑造成混乱，可以使用 `ubus.defer` 的示例代码，继续探寻此问题。搜索 `OpenWrt` 的源码中，可以找到如下代码：`example-plugin.uc`：[https://github.com/openwrt/rpcd/blob/master/examples/ucode/example-plugin.uc](https://github.com/openwrt/rpcd/blob/master/examples/ucode/example-plugin.uc)
 ```lua
 method_3: {
@@ -410,7 +410,7 @@ Command failed: No response
 
 因此，可以推测，这是官方源码的 `bug`，而非 `upnp` 的bug。
 
-# 七、向 OpenWrt 提 issues
+## 七、向 OpenWrt 提 issues
 从以上分析可以知道，这是来在官方源码的 `bug`，由于本人能力有限，无法再往下分析，因此决定向 `OpenWrt` 提 `issues`：
 [https://github.com/openwrt/rpcd/issues/17](https://github.com/openwrt/rpcd/issues/17)
 [https://github.com/openwrt/openwrt/issues/19726](https://github.com/openwrt/openwrt/issues/19726)

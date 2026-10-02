@@ -15,15 +15,15 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 我们在 `Windows` 上可以在 `控制面板` > `网络和 Internet` > `网络和共享中心` > `更改适配器选项` 中，然后选择需要设置静态 `IP` 的网卡，点击 `属性`，选择 `Internet 协议版本 4 (TCP/IPv4)`，随后即可设置静态 `IP` 地址。
 
 ![](./1790847604755_0d8680923d9e4c7aad84537801941810.png)
 
 但如果我们需要设置自动化任务，使用 `GUI` 设置静态 `IP` 可能会带来不方便，因此我们希望可以使用命令设置静态 `IP` 。本文将详细介绍在 `Windows` 上使用命令的方式给网卡设置静态 `IP` 地址。
 
-# 二、详细步骤
-## 1. 获取网卡的 ID 和 名称
+## 二、详细步骤
+### 1. 获取网卡的 ID 和 名称
 我们使用命令以下命令获取机器上所有的网络适配器的名称和 ID：
 ```bash
 netsh interface ip show interfaces
@@ -34,7 +34,7 @@ netsh interface ip show interfaces
 ![](./1790847604804_7a285be9feec404d95d032a418756a3e.png)
 我们可以获得 `wifi` 网卡的 `ID` 为 `20`，网卡名为 `WLAN`，而有线连接的 `ID` 为 `3`，网卡名为 `以太网` 。
 
-## 2. 设置静态 IP 地址
+### 2. 设置静态 IP 地址
 设置静态 `IP` 地址使用以下命令（需要以管理员身份运行）：
 ```bash
 netsh interface ip set address "连接名称"/索引号 static 静态IP地址 子网掩码 默认网关
@@ -52,7 +52,7 @@ netsh interface ip set address 20 static 192.168.1.200 255.255.255.0 192.168.1.1
 
 ![](./1790847604841_2d0b475f557c41bd862021c53e841a25.png)
 
-## 3. 设置DNS
+### 3. 设置DNS
 在设置完静态地址之后，往往需要设置 `DNS`，用以下命令进行配置即可（需要以管理员身份运行）：
 ```bash
 // 主 DNS 地址
@@ -80,7 +80,7 @@ netsh interface ip add dns 20 8.8.4.4 index=2
 同时可以使用 `网络适配器` 中查看是否设置生效
 ![](./1790847604882_4b46b80e108e4e8ba9cfa44e3c2ed0f0.png)
 
-## 3. 还原动态 IP 地址
+### 3. 还原动态 IP 地址
 当我们希望从静态 `IP` 地址还原到动态 `IP` 地址（`DHCP`）时，可以使用如下两个命令进行还原：
 ```bash
 // 还原 IP 地址
@@ -100,7 +100,7 @@ netsh interface ip set address 20 dhcp
 netsh interface ip set dns 20 dhcp
 ```
 
-# 三、总结
+## 三、总结
 ```bash
 // 获取机器上所有的网络适配器的名称和 ID
 netsh interface ip show interfaces

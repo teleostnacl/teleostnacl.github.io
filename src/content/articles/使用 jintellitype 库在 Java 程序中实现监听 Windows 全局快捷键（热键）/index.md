@@ -15,12 +15,12 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 有时候我们在开发 `Java` 程序的时候，需要监听全局快捷键或热键，例如监听 `ctrl`+ `alt` + `Q` 全局快捷键被按下的事件，随后做一些特定的业务。因此，我们可以使用 `melloware/jintellitype` 库实现快捷键的监听，官方仓库为：[https://github.com/melloware/jintellitype](https://github.com/melloware/jintellitype)
 
 `jintellitype` 库是一个基于 `JNI` 实现的在 `Windows` 下监听全局快捷键组合的开源库，其具有 `API` 简单直观，使用便捷的特点，极其方便在 `Java` 开发中使用。
 
-# 二、依赖导入
+## 二、依赖导入
 首先在项目中的 `build.gradle` 文件中导入 `jintellitype` 依赖。
 ```groovy
 dependencies {
@@ -29,8 +29,8 @@ dependencies {
 }
 ```
 
-# 三、使用实例
-## 1. 注册热键监听
+## 三、使用实例
+### 1. 注册热键监听
 我们使用 `JIntellitype.getInstance().addHotKeyListener()` 方法注册一个热键监听器，需要传递一个 `HotkeyListener` 对象，其只有一个 `onHotKey` 方法，传递 `identifier` 参数，此参数代表着我们向 `JIntellitype` 注册的热键事件的唯一标识符。`HotkeyListener`源码如下：
 ```java
 public interface HotkeyListener {
@@ -54,7 +54,7 @@ JIntellitype.getInstance().addHotKeyListener(keyMark -> {
 
 此时可以在 switch 添加我们注册的按键事件，以处理不同的业务。
 
-## 2. 注册热键事件
+### 2. 注册热键事件
 我们需要向 `JIntellitype` 注册我们需要监听的按键事件，可以调用 `JIntellitype.getInstance().registerHotKey()` 方法进行注册，此方法有两个签名：
 ```java
 /**

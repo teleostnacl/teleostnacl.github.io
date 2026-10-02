@@ -11,7 +11,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 当在开发 `Android` 应用期望访问存储的文件时，对于标准应用来说，应该使用 `SAF` 框架以便用户选择文件进行访问：[https://developer.android.com/guide/topics/providers/document-provider](https://developer.android.com/guide/topics/providers/document-provider)
 
 但是，如果开发的应用是文件管理器等需要访问整个存储，则通过SAF会不方便。
@@ -44,7 +44,7 @@ draft: false
 
 > 参考：[https://developer.android.com/training/data-storage/manage-all-files?hl=zh-cn](https://developer.android.com/training/data-storage/manage-all-files?hl=zh-cn)
 
-# 二、MANAGE_EXTERNAL_STORAGE 权限声明
+## 二、MANAGE_EXTERNAL_STORAGE 权限声明
 首先，我们在 `AndroidManifest.xml` 文件中声明权限：
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -58,7 +58,7 @@ draft: false
 
 此时应用就声明了 管理存储设备上的所有文件 的权限。
 
-# 三、MANAGE_EXTERNAL_STORAGE 权限申请
+## 三、MANAGE_EXTERNAL_STORAGE 权限申请
 此权限需要用户手动授予，可以通过Intent引导用户到设置页面，授予应用所有文件的管理权限。
 
 我们使用 `Environment.isExternalStorageManager()` 方法可以先检查应用是否被授予了 所有文件访问权限：

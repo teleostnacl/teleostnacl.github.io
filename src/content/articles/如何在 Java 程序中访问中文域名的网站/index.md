@@ -13,7 +13,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 在 `Java` 程序中，可以使用 `URI.create("网址").toURL().openConnection()` 快速获取到一个 `HttpURLConnection` 对象，利用输入流快速获取到网页数据，例如：
 ```kt
 val connection = URI.create("网址").toURL().openConnection() as HttpURLConnection
@@ -47,7 +47,7 @@ Exception in thread "main" java.net.UnknownHostException: 新华社.中国
 
 本文将介绍使用 `IDN` 的转换中文域名的方式，使 `Java` 程序可以访问中文域名。
 
-# 二、解决方案
+## 二、解决方案
 如前文所述，我们需要将国际化域名转化为 `ASCII` 字符之后才可以正常访问。因此，我们需要使用 `java.net.IDN` 的 `toASCII` 的方法对域名进行转换，同时我们只需要对域名进行转换，不转换 `http` 或 `https` 方法，修改后的代码如下：
 ```kt
 val connection = URI.create("http://${IDN.toASCII("新华社.中国")}").toURL().openConnection() as HttpURLConnection

@@ -12,7 +12,7 @@ draft: false
 
 @[TOC]
 
-# 一、问题背景
+## 一、问题背景
 
 在之前的一篇文章中介绍了使用 `Java` 程序实现快捷键输入字符的方式（[https://blog.csdn.net/TeleostNaCl/article/details/148158298](https://blog.csdn.net/TeleostNaCl/article/details/148158298)），其原理是利用 后台常驻的 `Java` 应用实现监听快捷键的方式，将指定内容写入 `剪贴板` 中，再使用 `Robot` 类模拟 `ctrl` + `V` 进行粘贴，实现按下快捷键输入指定内容。但是此问题存在一定的技术门槛，且由于 `Java Api` 的限制，其对 `剪贴板` 有一定的侵入性，因此不具有广泛的适用性。
 
@@ -25,7 +25,7 @@ draft: false
 
 
 
-# 二、安装 PowerToys
+## 二、安装 PowerToys
 
 `PowerToys` 是由微软开发的适用于 `Windows` 平台用于自定义 `Windows` 的实用工具：[https://learn.microsoft.com/zh-cn/windows/powertoys/](https://learn.microsoft.com/zh-cn/windows/powertoys/)。
 如官方文档描述，当前 PowerToy 可用的工具如下：
@@ -41,7 +41,7 @@ draft: false
 
 ![](./1790847711233_0aef5464db3b4ed9ad8402740f563da0.png)
 
-# 三、配置快捷键
+## 三、配置快捷键
 
 安装完成之后，在开始菜单中找到 `PowerToys`，然后双击运行。
 

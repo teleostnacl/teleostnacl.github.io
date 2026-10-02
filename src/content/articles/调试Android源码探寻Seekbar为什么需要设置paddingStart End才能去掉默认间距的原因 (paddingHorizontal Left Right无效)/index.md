@@ -14,7 +14,7 @@ draft: false
 ---
 
 @[toc]
-# 一、问题背景
+## 一、问题背景
 在一次 `Android` 开发中使用 `Seekbar` 时，发现会有一个默认的间距，通过尝试发现，需要设置
 ```xml
 android:paddingStart="0dp"
@@ -32,15 +32,15 @@ android:padding="0dp"
 
 本文将调试Android源码探寻为什么一定需要设置 `paddingStart` 和 `paddingEnd` 才能去掉默认间距的原因。
 
-# 二、问题原因
+## 二、问题原因
 先直接说原因，**水平方向上的padding的优先级	`paddingStart/paddingEnd` > `paddingHorizontal` > `padding` > `paddingLeft/Right`**。而 `Seekbar` 使用的默认的 `Style` 中，设置了 `paddingStart` 和 `paddingEnd`，因此需要通过设置 `paddingStart/End` 才能去掉默认的间距。
 
 ![](./1790847741422_b0b9e95c3a26400fbac25e327cfbb671.png)
 
-# 三、调试Android源码
+## 三、调试Android源码
 以下是如何找到Style的过程：
 
-## （一） 调试 onDraw() 方法
+### （一） 调试 onDraw() 方法
 首先根据 `Android` 绘制流程，我们需要先查看 `onDraw()` 的方法，看具体是因为什么有间距。
 我们先去看 `Seekbar` 类，发现没有 `onDraw()` 方法，我们继续看它的父类 `AbsAbsSeekBar` 类的 `onDraw()` 
 ```java
@@ -157,7 +157,7 @@ void drawTrack(Canvas canvas) {
 
 因此从以上的分析中，需要分析 `mPaddingLeft ` 是从什么时候被赋值成了 `46`
 
-## （二） 调试 mPaddingLeft 赋值的地方
+### （二） 调试 mPaddingLeft 赋值的地方
 在 `SeekBar`、`AbsSeekBar`、`ProgressBar` 的源码中搜索 `mPaddingLeft  =` 寻找 `mPaddingLeft` 赋值的地方，但是可以发现， `SeekBar`、`AbsSeekBar`、`ProgressBar` 这三个类中没有进行赋值，因此需要从其的基类 `View` 中寻找 `mPaddingLeft ` 赋值的地方。
 
 ![](./1790847742099_4a8f27af55ac4bd6a2cf23a2588537ab.png)
@@ -177,7 +177,7 @@ void drawTrack(Canvas canvas) {
 ![](./1790847742474_dd94e82d539842daa223858a9bc3ab01.png)
 但是从代码中没有直接找到调用 `resetPaddingInitalValue` 的地方，从方法名中可以知道是将Padding reset 回初始值。因此调用此方法之后，会设置padding，因此需要分析 `mUserPaddingEnd, mUserPaddingStart` 赋值的地方。
 
-## （三）分析 mUserPaddingStart mUserPaddingEnd 赋值的地方
+### （三）分析 mUserPaddingStart mUserPaddingEnd 赋值的地方
 在View中搜索 `mUserPaddingStart = `，寻找 `mUserPaddingStart` 和 `mUserPaddingEnd`赋值的地方。（从以上分析 `mUserPaddingStart` 与 `mUserPaddingEnd` 是相同的，只要分析其中一个就可以了）
 ![](./1790847742681_1d5f840fc64a434180435e7c24bd06b8.png)
 总共搜索出五个地方赋值，与前面一样添加断点，并添加条件，只有是 `Seekbar` 类才断点。
@@ -447,7 +447,7 @@ protected void internalSetPadding(int left, int top, int right, int bottom) {
 
 **水平方向上的padding的优先级	`paddingStart/paddingEnd` > `paddingHorizontal` > `padding` > `paddingLeft/Right`**。**因此这个优先级就可以解释了为什么一定需要设置 `paddingStart` 和 `paddingEnd` 才能去掉默认间距的原因**
 
-## （四）Seekbar的默认Style
+### （四）Seekbar的默认Style
 以上分析可以知道是由于有 `paddingStart` 和 `paddindEnd` 导致的，因此需要从`Seekbar`默认`Style`去分析，从`Seekbar`的构造源码知道style名称为`seekBarStyle`
 ```java
 public SeekBar(Context context, AttributeSet attrs) {

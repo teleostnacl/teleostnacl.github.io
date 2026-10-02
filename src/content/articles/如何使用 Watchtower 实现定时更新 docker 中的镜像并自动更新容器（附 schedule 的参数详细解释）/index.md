@@ -15,7 +15,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 当我们使用 `Docker` 中运行了 `容器` 之后，如果我们想要更新容器所运行的 `镜像`，我们首先会停止掉当前的 `容器`，然后更新相关的 `镜像` ，最后再重新运行 `容器`。如果有多个这样的 `容器` 需要更新时，这样的工作会略显繁琐，因此我们希望有一个自动化更新的工具帮助我们完成这些过程。
 
 而 [containrrr/watchtower](https://github.com/containrrr/watchtower) 即是为此目的而设计的 `Docker` 镜像，本文将利用 `Watchtower` 实现定时更新 `docker` 中的镜像并自动更新容，同时附上 `schedule` 的参数的详细解释。
@@ -23,14 +23,14 @@ draft: false
 ![](./1790847668129_2d26bd3870cb459aaa947979a39b4a93.png)
 
 
-# 二、Watchtower 介绍
+## 二、Watchtower 介绍
 - `containrrr/watchtower` Github地址：[https://github.com/containrrr/watchtower](https://github.com/containrrr/watchtower)
 - `Watchtower` 官方文档：[https://containrrr.dev/watchtower/arguments/](https://containrrr.dev/watchtower/arguments/)
 
 `Watchtower` 将自动的拉取新镜像，然后优雅的停止已经存在的 `容器`，并使用与部署时相同的参数重启此 `容器`。具体的用法可以参考 [`Watchtower` 官方文档](https://containrrr.dev/watchtower/arguments/)
 > Watchtower will pull down your new image, gracefully shut down your existing container and restart it with the same options that were used when it was deployed initially.
 
-# 三、标准用法
+## 三、标准用法
 在 `docker` 中运行 `Watchtower` 可以使用如下命令：
 ```bash
 docker run -d \
@@ -57,7 +57,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 ```
 
-# 四、定时运行
+## 四、定时运行
 `Watchtower` 支持使用 `--schedule` 或 `-s` 参数实现定时运行，相关用法如下：
 [https://containrrr.dev/watchtower/arguments/#scheduling](https://containrrr.dev/watchtower/arguments/#scheduling)
 

@@ -13,7 +13,7 @@ draft: false
 ---
 
 @[toc]
-# 一、背景
+## 一、背景
 在 `Windows 7` 上有几款经典的预置小游戏，有：
 - 纸牌 Solitaire
 - 蜘蛛纸牌 Spider Solitaire
@@ -40,7 +40,7 @@ draft: false
 百度网盘下载链接：`https://pan.baidu.com/s/1EmDQ6flajks1xfhXkZXdeg?pwd=1tad`，提取码: `1tad`
 
 
-# 二、安装
+## 二、安装
 
 从下载链接下载之后，将得到一个 `.zip` 压缩包文件，对其进行解压得到一个 `Windows7Games_for_Windows_11_10_8.exe` 文件，此文件即是安装文件。
 ![](./1790847736119_0f5cc91b15074b3091e4cf5ff882eed6.png)
@@ -64,9 +64,9 @@ draft: false
 **安装完成！**
 ![](./1790847736231_9bc8f2b3137c454eaccf0db403b06a23.png)
 
-# 三、运行
+## 三、运行
 安装完成之后，其会在开始菜单新建一个 `Games` 的文件夹，里面即是新安装的小游戏，双击即可运行。
 ![](./1790847736268_de37dfca04214ebba76435ea74103510.png)
 
-# 四、Windows大版本更新之后小游戏丢失的解决方案
+## 四、Windows大版本更新之后小游戏丢失的解决方案
 重新安装`Windows7Games_for_Windows_11_10_8.exe`即可（似乎新版本已经没有这样的问题了，仅记录供参考）。

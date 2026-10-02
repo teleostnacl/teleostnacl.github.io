@@ -23,14 +23,14 @@ draft: false
 本文仅使用到这两个文件。
 
 @[toc]
-# 一、设置静态IP地址并关闭防火墙
+## 一、设置静态IP地址并关闭防火墙
 首先，需要将我们的电脑的`以太网`接口设置为静态IP：**`192.168.1.254`**
 同时，我们需要临时将电脑的防火墙关闭，以免被防火墙拦截，导致无法传输文件。
 
 因为在uboot的时候，路由器会尝试从 **`192.168.1.254`** 上的 `tftp server` 拉取 名为`openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb` 文件来起 `initrd`，从而可以启动系统。 
 
 ![](../CMCC RAX3000M使用Tftpd刷写OpenWrt固件的救砖方法/1790847733749_d96336de13844d9cb88992b797620452.png)
-# 二、配置Tftpd
+## 二、配置Tftpd
 `Tftpd`官网：`https://pjo2.github.io/tftpd64/`
 似乎官网下载链接已经挂了，找了很久在电脑上找到了一个Tftpd： `https://pan.baidu.com/s/1s5Am5JKYHlm4_Do8tEseQw?pwd=cy3q`
 
@@ -38,7 +38,7 @@ draft: false
 ![](../CMCC RAX3000M使用Tftpd刷写OpenWrt固件的救砖方法/1790847733802_942e165c461f4676a49fdadb9e16e741.png)
 进入之后，在`Current Directory` 选择 `openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb` 所在的目录，`Service interfaces` 选择已经将IP地址设置为 `192.168.1.254` 的网络接口，点击`Show Dir`可以看到选中文件夹是否包含 `openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb` 文件，如下图所示，此时已经配置完成。
 ![](../CMCC RAX3000M使用Tftpd刷写OpenWrt固件的救砖方法/1790847733860_b88f5a1ea1e14ac4b0522d1779d25d05.png)
-# 三、路由器进入uboot模式
+## 三、路由器进入uboot模式
 先将路由器断开电源，然后使用牙签等工具摁住路由器底部的 `reset` 键不放，再接上电源，等待两三秒之后亮**绿灯**，则进入 `uboot` 模式。
 
 此时可以连接电脑，使用命令 `ping 192.168.1.1 -t`，如果可以`ping`通，则表示连接正常。

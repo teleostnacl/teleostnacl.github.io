@@ -19,7 +19,7 @@ draft: false
 因此本文将介绍一款可以实现改变文件图标的软件--`FileTypesMan`
 
 @[toc]
-# 一、 `FileTypesMan`介绍
+## 一、 `FileTypesMan`介绍
 官方下载地址：`https://www.nirsoft.net/utils/file_types_manager.html`
 
 以下引用官方的介绍
@@ -33,12 +33,12 @@ FileTypesMan also allows you to easily edit the properties and flags of each fil
 因此，这个软件将方便的给我们提供了改变文件图标的方式。
 > 当然，正如官方所介绍的那样，这个软件是可以管理编辑文件格式的各种信息的，它的功能远远不止于此，可以实现很多客制化的需求。
 
-# 二、下载运行
+## 二、下载运行
 拖到网页的最下面，即有下载地址，选择对应的cpu位数进行下载，之后解压即可运行。
 ![](./1790847748804_5faaab9b89f84ed0a9d3a1395d0d0569.png)
 ![](./1790847748861_fc88deaf85c84af0aacd7236f6289834.png)
 
-# 三、使用
+## 三、使用
 在开始使用之前，需要去找到适合做图标的文件，按照这篇文章（`https://learn.microsoft.com/zh-cn/windows/win32/uxguide/vis-icons`）所介绍的，选择不超过 `256*256`分辨率的图标文件。
 ![](./1790847748913_54a06355f0d344bc9ed3752300c13a51.png)
 

@@ -15,7 +15,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 `Proguard` 是一个开源的用于混淆、删减 Java 代码的优秀的混淆工具，可以显著的减少 Java 程序和 Android 程序的包体积，同时重命名类目和包名，给反编译增加难度，保护程序的安全。因此，此混淆工具被广泛用于 `Java` 和 `Android` 项目中。
 
 官方地址：[https://www.guardsquare.com/manual/home](https://www.guardsquare.com/manual/home)
@@ -42,9 +42,9 @@ android {
 
 因此，为了便于在Java应用中使用混淆，本文将会参考 `Android` 中的对 `Proguard` 混淆规则的处理，编写 `Gradle` 脚本实现在编译时对 Java 程序的混淆。
 
-# 二、Android 混淆规则解析
+## 二、Android 混淆规则解析
 一个常规的混淆过程为先编译 `Android` 应用包，然后再对 `Android` 应用包进行混淆，最终生成混淆后的应用安装包。在 `Android` 混淆过程中，最重要的是用规则去指导混淆如何进行，应该保留哪些代码，保证程序可以正常运行，因此将详细解释 `Android` 中混淆规则的使用。
-## 1. 库模块
+### 1. 库模块
 参考文档：[https://developer.android.com/topic/performance/app-optimization/library-optimization](https://developer.android.com/topic/performance/app-optimization/library-optimization)
 
 如文档介绍，如果一个模块以库的方式导入，其会自动在 `jar` 包里面 寻找 `META-INF/proguard` 目录下的混淆规则，并将这些混淆规则运用在最终的打包中。
@@ -54,7 +54,7 @@ android {
 ![](./1790847612545_56e0a8f86d5941f7b599ceb5e5ab65d4.png)
 
 
-## 2. 指定路径下的混淆规则
+### 2. 指定路径下的混淆规则
 在每个模块下，可以在 `build.gradle` 下 添加以下语句，使其利用指定的混淆规则。
 ```groovy
 // 主模块 添加 混淆规则
@@ -65,11 +65,11 @@ consumerProguardFiles 'consumer-proguard-rules.pro'
 
 其中， `getDefaultProguardFile('proguard-android-optimize.txt')` 是 `Android` 默认的规则。
 
-# 三、思路解析
+## 三、思路解析
 因此，参考 `Android` 混淆过程，在混淆 `Java` 程序时可以采用相同的方式，先编译出 `jar` 包，再搜集库、模块和依赖的所有编译规则，传递给混淆程序，使其进行混淆，流程图如下：
 ![](./1790847612600_34acf469443445698c1563ef2992d5f8.png)
-# 四、代码实现
-## 1. 导入依赖
+## 四、代码实现
+### 1. 导入依赖
 我们可以在项目中的 `buildSrc` 模块编写自己的 `Gradle` 编译逻辑，使其可以供其它模块使用自定义的编译业务需求。按照模块新建的方式，我们可以创建出 `buildSrc` 模块：
 ![](./1790847612697_b87de9ea7d224136bbad38e4f27997e1.png)
 我们需要编辑 `build.gradle` 文件，导入相关的依赖：
@@ -89,7 +89,7 @@ dependencies {
 
 此时执行 `sync` 操作同步项目，即可将 `proguard` 的 `Gradle` 插件导入项目中，方便我们编写 `Proguard` 的混淆业务逻辑。
 
-## 2. 创建 Groovy 脚本
+### 2. 创建 Groovy 脚本
 我们采用 `groovy` 脚本的方式编写 `Proguard` 的混淆脚本。因此我们在 `buildSrc/src/main/` 文件夹下创建 `groovy` 文件夹，在此文件夹下创建包名路径和 `groovy` 脚本文件 `ProguardTask.groovy`，在此文件夹下进行编写混淆的方法。
 
 我们在 `groovy` 脚本中定义创建编译混淆 `jar` 包的任务，以后只需要在需要编译混淆包的地方，调用此方法即可生成编译混淆包的任务，随后我们再执行此任务，即可生成混淆包。例如，定义如下：
@@ -113,7 +113,7 @@ def static createBuildProjectTask(Project project, String baseName, File outputF
 - `outputFile`：存放生成的 `Jar` 包文件的最终目录。
 - `mainClass`：`Java` 程序的入口 `Main-Class`，用于指定程序的主入口，并避免被混淆。
 
-## 3. 编译 Jar 包
+### 3. 编译 Jar 包
 如前所述，我们在混淆 `jar` 包之前需要先编译生成 `jar` 包，因此我们需要先获取到项目的 `jar` 任务，编译生成 `jar` 包。
 
 ```groovy
@@ -135,14 +135,14 @@ def static createBuildProjectTask(Project project, String baseName, File outputF
 
 使用上述代码即可获取到 `jar` 任务并配置完成
 
-## 4. 定义 Proguard 任务
+### 4. 定义 Proguard 任务
 这是整个混淆的核心步骤，同时需要分几步之后才能完成。
 首先，需要先定义输入输出文件，并定义混淆规则的临时存放路径，定义生成混淆包的任务。
 随后，需要收集所有库、模块和依赖的混淆规则。
 然后，在混淆规则中添加对主类的混淆规则。
 最后，将规则传递给混淆程序。
 
-### 4.1 定义生成包混淆包的任务
+#### 4.1 定义生成包混淆包的任务
 我们在配置完成 `jar` 任务后继续编写：
 ```groovy
 def static createBuildProjectTask(Project project, String baseName, File outputFile, String mainClass) {
@@ -187,7 +187,7 @@ def static createBuildProjectTask(Project project, String baseName, File outputF
 }
 ```
 
-### 4.2 搜集混淆规则并传递
+#### 4.2 搜集混淆规则并传递
 我们需要在 `Proguard` 任务执行之前，搜集到所有的库、模块和依赖中的混淆规则，如前面所述，我们需要寻找每个模块的 `META-INF/proguard` 目录下的混淆规则。因此我们有以下代码：
 ```groovy
 def static createBuildProjectTask(Project project, String baseName, File outputFile, String mainClass) {
@@ -270,7 +270,7 @@ project.copy {
 }
 ```
 
-### 4.3 完整的代码
+#### 4.3 完整的代码
 按照以上思路，即可定义完成一个完整的生成混淆包的方法，完整的代码如下：
 ```groovy
 /**
@@ -378,7 +378,7 @@ public static void main(java.lang.String[]);
 }
 ```
 
-# 五、使用方法
+## 五、使用方法
 当定义完以上方法之后，就可以在主模块里面调用此方法定义生成混淆包的任务，并传递 `Project` 、任务名、`jar` 包输出路径 和 主类的全限定名。例如：
 ```groovy
 BuildProjectTask.createBuildProjectTask(project, "TestProject",

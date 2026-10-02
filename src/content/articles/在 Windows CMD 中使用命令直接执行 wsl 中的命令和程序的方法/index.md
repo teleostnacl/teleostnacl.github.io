@@ -11,14 +11,14 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 `WSL` 全称是 `Windows Subsystem for Linux`（`Windows` 的 `Linux` 子系统），是微软在 `Windows 10/11` 上提供的一种功能，可以让用户直接在 `Windows` 上运行原生的 `GNU/Linux` 环境。
 
 那么我们有时候会有这样的需求，直接在 `Windows` 的终端下执行一些 `Linux` 命令或程序，或者在自己编写的程序中执行一些 `Linux` 的命令或程序，那么我们如何直接去执行wsl 中的命令和程序呢？
 
 本文将依据官方文档，详细介绍如何使用 `Windows` 的 `CMD` 命令去执行 WSL 中的命令和程序的方法。
 
-# 二、解决方案
+## 二、解决方案
 命令格式如下：
 ```shell
 wsl -d 发行版系统名称 --cd 命令执行的工作目录 -- 详细命令

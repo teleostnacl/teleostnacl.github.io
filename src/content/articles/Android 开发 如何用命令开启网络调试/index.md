@@ -12,7 +12,7 @@ draft: false
 ---
 
 @[TOC]
-# 问题背景
+## 问题背景
 `Android` 提供了网络调试的方式，例如使用以下命令可以使用网络连接到设备，并进行 `ADB` 调试：
 ```shell
 adb connect ip:port
@@ -22,7 +22,7 @@ adb connect ip:port
 
 参考文档：[https://developer.android.com/tools/adb#wireless](https://developer.android.com/tools/adb#wireless)
 
-# 解决方案
+## 解决方案
 当已使用数据线连接到电脑，并成功让 `ADB` 连接上了，则可以使用以下命令开启网络调试：
 ```shell
 adb tcpip 5555

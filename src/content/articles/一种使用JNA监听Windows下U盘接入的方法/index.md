@@ -11,10 +11,10 @@ draft: false
 ---
 
 @[toc]
-# 一、需求背景
+## 一、需求背景
 在 Windows 系统上，检测 USB 设备的插入和移除可以通过 Windows API 来实现。Java 语言本身不提供直接的 API 访问这些系统功能，但可以借助 JNA (Java Native Access) 进行调用。本篇文章介绍了一种使用 JNA 监听 USB 设备插拔事件的实现方式。
 
-# 二、核心代码
+## 二、核心代码
 ```kt
 import com.sun.jna.Native
 import com.sun.jna.Structure
@@ -260,18 +260,18 @@ private class DeviceCallback : WinUser.WindowProc {
     }
 ```
 
-# 三、流程图
+## 三、流程图
 ![](./1790847756321_8970e0acb2de44488cab4642e1c5c636.png)
 
-# 四、代码解析
-## 1. 实现思路
+## 四、代码解析
+### 1. 实现思路
 1. 注册一个隐藏窗口 作为消息接收器。
 2. 使用 RegisterDeviceNotification 注册设备通知，监听`DEV_BROADCAST_DEVICEINTERFACE` 事件。
 3. 启动 Windows 消息循环 以等待 USB 设备的插入或移除通知。
 4. 使用回调函数处理 `WM_DEVICECHANGE` 事件 并获取可移动存储设备的盘符
 5. 比较设备变更前后的可移动盘符集合，得出新增或移除的设备。
 
-## 2. 定义JNA接口代码
+### 2. 定义JNA接口代码
 Windows 定义的 USB 设备接口 GUID `{A5DCBF10-6530-11D2-901F-00C04FB951ED}`，代表所有 USB 设备。
 ```kt
 private val GUID_DEVINTERFACE_USB_DEVICE by lazy { Guid.GUID("{A5DCBF10-6530-11D2-901F-00C04FB951ED}") }
@@ -355,7 +355,7 @@ private val dbdi by lazy {
     }
 }
 ```
-## 2. 初始化代码
+### 2. 初始化代码
 首先注册窗口`User32.INSTANCE.RegisterClassEx`
 然后再创建窗口`User32.INSTANCE.CreateWindowEx`，并记录创建出来的`HWND`类
 再注册设备通知`MyUser32.INSTANCE.RegisterDeviceNotification`，并记录`WinUser.HDEVNOTIFY`类
@@ -383,7 +383,7 @@ if (hDevNotify == null) {
 // 获取 该监听u盘插拔事件的 在系统底层的 ID
 threadId = Kernel32.INSTANCE.GetCurrentThreadId()
 ```
-## 3. 核心代码
+### 3. 核心代码
 该方法的实现核心: 注册USB 设备接口的 GUID `{A5DCBF10-6530-11D2-901F-00C04FB951ED}` 的设备通知，然后再轮询并分发Windows的消息，在 `WinUser.WindowProc` 过滤 `WM_DEVICECHANGE` 的消息，再判断参数 `wParam` 是`DBT_DEVICEARRIVAL` 和 `DBT_DEVICEREMOVECOMPLETE` 的事件，此时回调获取当前已连接的设备，然后再与之前的设备列表进行比较，得到的差异即是此前接收到事件所接入或拔出的u盘。
 
 消息循环，等待并分发 Windows 消息
@@ -434,7 +434,7 @@ fun getRemovableDrives(): Set<String> {
     return drives
 }
 ```
-## 4.  结束代码
+### 4.  结束代码
 当需要结束掉监听时，需要先向线程发送结束的消息，使用 `User32.INSTANCE.PostThreadMessage` 发送消息，传递 `WinUser.WM_QUIT` 参数，此时 `User32.INSTANCE.GetMessage` 会返回0，上面核心代码中的消息循环代码将退出，不再监听Windows的消息。
 ```kt
 User32.INSTANCE.PostThreadMessage(threadId, WinUser.WM_QUIT, null, null)
@@ -444,14 +444,14 @@ User32.INSTANCE.PostThreadMessage(threadId, WinUser.WM_QUIT, null, null)
 再销毁窗口 `User32.INSTANCE.DestroyWindow(hWnd)`
 最后解注册窗口 `User32.INSTANCE.UnregisterClass`
 
-# 五、其它说明
+## 五、其它说明
 以上调用JNA的代码需要在同一个线程执行，不可以跨线程访问。
 
-## [JNA](https://github.com/java-native-access/jna)
+### [JNA](https://github.com/java-native-access/jna)
 源码路径: `https://github.com/java-native-access/jna`
 
 `Java Native Access (JNA)` 是一个Java库，它允许Java程序直接调用本机共享库（Shared Libraries），而无需编写任何`JNI（Java Native Interface`）或本机代码。
-## JNA依赖导入
+### JNA依赖导入
 ```groovy
 def jna_version = '5.16.0'
 
@@ -459,7 +459,7 @@ implementation "net.java.dev.jna:jna:$jna_version"
 implementation "net.java.dev.jna:jna-platform:$jna_version"
 ```
 
-## JNA混淆规则
+### JNA混淆规则
 ```pro
 # 保留 jna 的核心类和接口
 -keep class com.sun.jna.** { *; }

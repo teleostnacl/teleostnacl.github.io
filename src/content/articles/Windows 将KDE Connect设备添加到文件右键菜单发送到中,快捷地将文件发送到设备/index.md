@@ -13,7 +13,7 @@ draft: false
 ---
 
 @[toc]
-# 一、绪论
+## 一、绪论
 KDE Connect是著名的Linux桌面环境KDE下的一款适用于Linux, Windows, MacOS, Android, iOS跨平台互联开源工具，可以把手机当电脑的触控板，遥控器，互传文件，收发短信等等 。其官网地址如下：https://kdeconnect.kde.org/
 
 关于发送文件，KDE Connect在KDE桌面环境下，可非常方便地发送文件，因为其已将发送到设备的选项添加到右键菜单中。
@@ -25,8 +25,8 @@ KDE Connect是著名的Linux桌面环境KDE下的一款适用于Linux, Windows, 
 
 本文提出一种编写VBS脚本的方法，使用kdeconnect-cli命令，将KDE Connect设备添加到右键发送到选项菜单中，可快捷的将文件发送给指定设备。
 
-# 二、相关基础
-## 1. kdeconnect-cli命令
+## 二、相关基础
+### 1. kdeconnect-cli命令
 kdeconnect-cli是位于`/KDE Connect安装路/bin/`下的一个叫`kdeconnect-cli`的可执行文件（Windows下默认路径为：`C:\Program Files\KDE Connect\bin\kdeconnect-cli.exe`），提供KDE Connect部分功能的命令行版本，可使用该程序进行快捷的操作。详细的文档说明：https://userbase.kde.org/KDE_Connect/Tutorials/Useful_commands
 
 打开命令行，跳转到`kdeconnect-cli`所在路径，执行kdeconnect-cli.exe --help查看帮助文档，如下图所示，可以清晰的知道kdeconnect-cli命令的用法。
@@ -48,7 +48,7 @@ done && kdeconnect-cli -d $(kdeconnect-cli -a --id-only) --share "${file}"
 
 因此，为了使用kdeconnect-cli进行发送文件，首先使用`kdeconnect-cli -a`列出所有设备，获取设备的id（设备ID一般是不会改变的），然后使用`kdeconnect-cli -d $设备ID --share "$文件路径"`命令进行发送文件。
 
-## 2. 文件右键菜单中的发送到选项
+### 2. 文件右键菜单中的发送到选项
 右键文件在弹出的菜单中有一个名为`发送到`的选项，在其子菜单下一般有以下默认功能。
 ![发送到默认功能](./1790847777034_034e3a098cbc5e67f0ca4920db29bde3.png)
 此子菜单的列表项其实是对应着一个文件夹下的文件，在`运行`中输入`shell:sendTo`可快速打开该文件夹。
@@ -68,7 +68,7 @@ pause
 ![](./1790847777274_afc271e8a2dd51d96aafe2b793cf366c.png)
 因此我们可以在`shell:sendTo`文件夹下编写脚本，使用第一个参数来获取文件路径，从而完成我们想要对文件的操作。
 
-## 3. 使用vbs运行时隐藏命令行窗口
+### 3. 使用vbs运行时隐藏命令行窗口
 编写以下vbs脚本，可在运行cmd命令时，不显示命令行窗口(ws.run 为执行命令的方法，command为所需执行的命令，vbhide参数为隐藏运行窗口)
 ```
 Set ws = CreateObject("Wscript.Shell")
@@ -76,7 +76,7 @@ ws.run command, vbhide
 ```
 >`WScript.Arguments`可获取传递给vbs脚本的参数，`WScript.Arguments(0)`可获取第一个参数，`WScript.Arguments.Count`为参数的总数。
 
-# 三、编写VBS脚本
+## 三、编写VBS脚本
 综上所述，我们可以在`shell:sendTo`文件夹编写vbs脚本，并执行kdeconnect-cli命令，完成在发送到的菜单中添加KDE Connect设备，并便捷的将文件发送至设备中。脚本如下：
 ```vbnet
 ' 使用 发送到 时, 仅有一个参数
@@ -106,7 +106,7 @@ End If
 5. 然后将命令进行拼接，形成一条完整的发送文件到指定设备的命令`kdeconnect-cli -d $设备ID --share "$文件路径"`
 6. 最后使用隐藏cmd命令行窗口的方式执行命令。
 
-# 四、隐藏格式拓展名和修改图标
+## 四、隐藏格式拓展名和修改图标
 若直接在`shell:sendTo`文件夹编写vbs脚本，则显示在`发送到`的选项中会显示.vbs格式拓展名。我们可以在其它路径下编写vbs脚本，最后创建一个快捷方式（同时，快捷方式可以自定义图标），并移动到`shell:sendTo`文件夹下。
 
 最后效果如下：

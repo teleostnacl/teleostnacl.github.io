@@ -11,7 +11,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 我们在使用 ArchLinux 的时候，使用 `Pacman` 软件包管理工具快速的更新 `ArchLinux` 系统中安装的应用，`Pacman` 通过和主服务器同步软件包列表来保持系统是最新的。一种常用的命令如下：
 ```shell
 sudo pacman -Syyu
@@ -29,11 +29,11 @@ sudo pacman -Syyu
 
 但是，官方源的服务器是分布于全球范围，即使选择自己国家的服务器，也有可能因为服务器的远近导致更新缓慢。因此我们会有需求希望能自动筛选可用的服务器，并按时延进行排序，使 `Pacman` 可以优先使用低时延的服务器进行更新软件，以达到加快 `Pacman` 的更新速度的目的。
 
-# 二、Reflector 介绍
+## 二、Reflector 介绍
 `Reflector` 工具 可以从 `Arch Linux` 官方镜像状态页面获取最新的镜像列表，并根据延迟、速度等进行筛选和排序。
 其支持丰富的调用方式，以满足不同需求下的调用。同时，其支持定时调用，可以在指定的时间自动更新 `mirrorlist`
 
-# 三、基础调用
+## 三、基础调用
 强烈建议，在操作前首先备份自己的原始镜像文件 `/etc/pacman.d/mirrorlist`
 ```shell
 sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
@@ -60,8 +60,8 @@ sudo reflector --country China --sort rate --save /etc/pacman.d/mirrorlist
 
 此时使用 `pacman` 更新的时候就会使用更新之后的镜像。
 
-# 四、定时任务
-## 1. 启用Service
+## 四、定时任务
+### 1. 启用Service
 如果希望实现定时任务，在指定的时间点进行自动更新，可以启用 `Reflector` 附带的 `reflector.timer` 服务，然后编辑相应的服务参数，这样即可实现自动更新镜像列表。
 ```shell
 # 启用 reflector.service
@@ -70,7 +70,7 @@ sudo systemctl enable reflector.service
 sudo systemctl enable reflector.timer
 ```
 
-## 2. 编辑Service
+### 2. 编辑Service
 默认的配置文件在 `/usr/lib/systemd/system/` 下的，但是直接编辑文件不是最佳实践，应使用 `systemctl edit` 命令来创建覆盖配置文件 `override.conf`，命令如下：
 
 ```shell
@@ -121,7 +121,7 @@ ExecStart=/usr/bin/reflector \
 ```shell
 sudo systemctl daemon-reload
 ```
-## 3. 验证Service
+### 3. 验证Service
 我们可以使用 `systemctl cat` 命令去验证修改是否已经生效
 ```
 sudo systemctl cat reflector.timer
@@ -143,7 +143,7 @@ Pass --all to see loaded but inactive timers, too.
 ```
 从这个列表中可以知道下一次执行时间为 `Fri 2025-09-19 22:50:34 CST`，由此可以验证设置的定时器是否生效。
 
-# 五、Reflector 文档
+## 五、Reflector 文档
 官方 `man` 文档如下：
 ```shell
 usage: reflector [-h] [--connection-timeout n] [--download-timeout n] [--list-countries] [--cache-timeout n]

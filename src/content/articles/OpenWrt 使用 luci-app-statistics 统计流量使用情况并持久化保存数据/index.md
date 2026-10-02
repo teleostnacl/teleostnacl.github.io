@@ -13,7 +13,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、背景介绍
+## 一、背景介绍
 我们在使用 `OpenWrt` 的时候，可以使用 `ifconfig` 命令清晰的获得从开机开始到此刻各接口的流量使用情况，例如：
 ```text
 pppoe-wan Link encap:Point-to-Point Protocol  
@@ -37,7 +37,7 @@ pppoe-wan Link encap:Point-to-Point Protocol
 
 因此，本文将详细介绍使用 `luci-app-statistics` 进行统计流量数据的方式，并详细介绍如何持久化统计到的数据。
 
-# 二、安装 luci-app-statistics
+## 二、安装 luci-app-statistics
 `luci-app-statistics` 底层依赖于 `collectd` 服务进行收集数据，并由 `rrdtool` 提供数据存储与可视化，可以详细的收集并展示设备的 `CPU`、`内存`、`流量` 等各项数据。
 
 首先，我们要使用 `luci-app-statistics` 收集数据，则先要安装 `luci-app-statistics`，可用如下命令安装所有有关的插件和依赖：
@@ -56,7 +56,7 @@ apk add collectd collectd-mod-cpu collectd-mod-interface collectd-mod-iwinfo col
 
 等安装完成之后，此时在 `luci` 中就会出现新的选项卡：`统计`，点进去之后即可看到可视化的数据项。
 ![](./1790847562662_9a7b1e29f973448691c43adf68ab877e.png)
-# 三、持久化配置
+## 三、持久化配置
 当首次安装完成之后，默认将收集到的数据是存放在 `/tmp` 目录下的，当设备重启之后，数据就会丢失，因此我们需要设置一个可持久化存放数据的目录，例如 外置挂载设备 的目录。
 
 我们在 `luci` 中点击 `统计` > `设置`，进入 `luci-app-statistics` 的设置管理界面。
@@ -84,7 +84,7 @@ apk add collectd collectd-mod-cpu collectd-mod-interface collectd-mod-iwinfo col
 
 这样配置好之后，数据就会被持久化保存，设备断电之后也不会丢失。
 
-# 四、详细配置
+## 四、详细配置
 首先，我们的需求只是统计流量使用情况，由于 `collected` 也是使用 `ifconfig` 收集数据的，因此它不需要实时获取具体时刻的数据就可以统计出流量使用情况，那么我们的时间间隔可以不用设置的很快，避免性能占用太大，此处我设置的是1分钟获取一次数据：
 
 ![](./1790847562858_4f7fae9e665644d59893a1a103ce2633.png)

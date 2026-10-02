@@ -11,7 +11,7 @@ draft: false
 
 @[TOC]
 
-# 一、Alist 介绍
+## 一、Alist 介绍
 
 `AList` 是一种使用 `Gin` 和 `Solidjs` 编写的可以挂载多个网盘的文件列表的开源程序，官方地址为：[https://alistgo.com/zh/](https://alistgo.com/zh/)
 
@@ -25,12 +25,12 @@ draft: false
 ![](./1790847648356_a10a8ad0223640f7aefa34b2a04f205b.png)
 
 
-# 二、配置 Alist 的 Webdav
+## 二、配置 Alist 的 Webdav
 
 首先，`AList` 的 `WebDav` 功能默认是关闭的，我们需要先手动的将它打开。
 
 
-## （一）进入管理页面
+### （一）进入管理页面
 
 我们进入 `AList` 的 `Web` 端（即 `AListIP:端口`，端口默认为 `5244`），点击页面底下的 `管理` ，进入到 `AList` 的管理页面。
 
@@ -38,7 +38,7 @@ draft: false
 ![](./1790847648394_5d0f4e43ffc94195b5f19fed3ae5e513.png)
 
 
-## （二）给 general 角色授予 Wedav 读取 权限
+### （二）给 general 角色授予 Wedav 读取 权限
 
 首先在 `AList` 的管理页面，点击 `角色`，点击 `general` 角色的 `编辑` 按钮，在接下来的界面中，编辑权限，勾选 `Wedav 读取` 权限。（也可以新建角色，用于精细化权限控制）
 
@@ -48,7 +48,7 @@ draft: false
 
 ![](./1790847648490_a5bdf2b2058241ce999ba2d8d540953a.png)
 
-## （三）添加新用户
+### （三）添加新用户
 
 在 `AList` 的管理页面，点击 `用户` ，随后点 `添加`，在添加用户界面，设置用户名和密码，并将角色设置为具有 `Wedav 读取` 权限，即刚刚编辑的 `general` 的角色或添加的角色。
 
@@ -59,7 +59,7 @@ draft: false
 ![](./1790847648598_e8c9f699323847ae98c386b11bed6db8.png)
 
 
-# 三、Potplayer 添加 Wedav 专辑
+## 三、Potplayer 添加 Wedav 专辑
 
 首先，打开 `播放列表`，在 `播放列表` 空白处右键打开菜单，点击 `专辑`，在点击新建专辑，打开 `专辑设置` 页面。
 

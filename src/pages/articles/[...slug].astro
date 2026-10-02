@@ -1,9 +1,34 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
+import MarkdownIt from 'markdown-it';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 export async function getStaticPaths() { return (await getCollection('articles', ({ data }) => !data.draft)).map((article) => ({ params: { slug: article.slug }, props: { article } })); }
 const { article } = Astro.props;
-const { Content, headings } = await render(article);
+const markdownIt = new MarkdownIt({ html: true, linkify: true, typographer: true });
+let headingSlugs = new Map<string, number>();
+const createHeadingSlug = (text: string) => {
+  const baseSlug = text.trim().toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, '').replace(/\s+/g, '-') || 'section';
+  const occurrence = headingSlugs.get(baseSlug) ?? 0;
+  headingSlugs.set(baseSlug, occurrence + 1);
+  return occurrence === 0 ? baseSlug : `${baseSlug}-${occurrence}`;
+};
+markdownIt.renderer.rules.heading_open = (tokens, index, options, _environment, renderer) => {
+  const inlineToken = tokens[index + 1];
+  if (inlineToken) {
+    tokens[index].attrSet('id', createHeadingSlug(inlineToken.content));
+  }
+  return renderer.renderToken(tokens, index, options);
+};
+const headings = markdownIt.parse(article.body, {}).flatMap((token, index, tokens) => {
+  const inlineToken = tokens[index + 1];
+  if (token.type !== 'heading_open' || !inlineToken) {
+    return [];
+  }
+
+  return [{ depth: Number(token.tag.slice(1)), slug: createHeadingSlug(inlineToken.content), text: inlineToken.content }];
+});
+headingSlugs = new Map();
+const renderedContent = markdownIt.render(article.body);
 ---
 <BaseLayout title={article.data.title} description={article.data.description}>
   <div class="reading-layout">
@@ -11,7 +36,7 @@ const { Content, headings } = await render(article);
       <p class="eyebrow">{article.data.category}</p><h1>{article.data.title}</h1>
       <div class="article-meta"><time>{article.data.pubDate?.toLocaleDateString('zh-CN') ?? ''}</time>{article.data.tags.map((tag) => <span>#{tag}</span>)}</div>
       {article.data.csdnUrl && <p class="source-note">本文也发布于 CSDN：<a href={article.data.csdnUrl} rel="external noopener">CSDN 原文 ↗</a></p>}
-      <div class="prose"><Content /></div>
+      <div class="prose" set:html={renderedContent}></div>
     </article>
     <aside class="toc"><p>目录</p><ol>{headings.filter(({ depth }) => depth <= 3).map((heading) => <li class={`depth-${heading.depth}`}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></aside>
   </div>

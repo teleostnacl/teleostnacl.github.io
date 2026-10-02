@@ -21,7 +21,7 @@ draft: false
 
 本文将详细介绍 Sublime Text 的中文化的方法，同时介绍安装几个常用插件的方法。
 
-# 一、启用 Package Control
+## 一、启用 Package Control
 首先，我们在安装完成 `Sublime Text` 之后，需要先启用 `Package Control` 功能，以便可以安装其它广泛的插件。
 
 我们先点击菜单栏的 `Tools` 菜单，所以点击 `Install Package Control`，安装包管理功能。
@@ -37,7 +37,7 @@ draft: false
 ![](./1790847548284_40980329750a4bdfa2562ad7d2b8bab5.png)
 
 
-# 二、Sublime Text 中文化
+## 二、Sublime Text 中文化
 我们点击  `Preference` > `Package Control`，打开包管理界面，随后我们选择 `Package Control: Install Package`，进入包安装界面。
 
 ![](./1790847548335_5570f6f80b2f4a259a6489b5dd838579.png)
@@ -54,7 +54,7 @@ draft: false
 
 ![](./1790847548443_166a3154f8014572b6158b64b2c39765.png)
 
-# 三、GBK 编码支持
+## 三、GBK 编码支持
 `Sublime Text` 默认不支持 `GBK` 的编码，导致打开 `GBK` 文本文件将会出现乱码，因此需要添加 `GBK` 的插件。在 `Package Control: Install Package` 包安装界面，搜索并安装 `GBK Support` 和 `Convert​To​UTF8` 插件即可。
 
 ![](./1790847548541_822cd1f0ab0840609336101d2f212d63.png)
@@ -76,8 +76,8 @@ draft: false
 
 ![](./1790847549620_cab36852e80443ea8a9f19049159d649.png)
  
-# 四、常用插件
-## Kotlin 支持
+## 四、常用插件
+### Kotlin 支持
 `Kotlin` 语言现在较为流行，尤其是 `Android` 已将 `Koltin` 作为官方开发语言，但是 `Sublime Text` 官方没有对 `Kotlin` 语言做支持，幸好我们有插件可以实现对  `Kotlin` 语言支持，方便我们查看和编辑 `Kotlin` 的代码。
 
 在 `Package Control: Install Package` 包安装界面，搜索并安装 `Kotlin` 插件即可。
@@ -87,7 +87,7 @@ draft: false
 
 ![](./1790847549723_cf46f760a641448da1901b404e343da5.png)
 
-## HTML CSS JS JSON 格式化工具
+### HTML CSS JS JSON 格式化工具
 我们有时候看代码的时候，希望对代码进行一次格式化（Format Code），使其转换成标准化的格式，方便我们查看代码。
 
 我们可以安装 `HTML-CSS-JS Prettify` 插件，其是利用 `NodeJs` 为后端，对 `HTML CSS JS JSON` 等代码进行格式化，因此使用此插件需要首先安装 `NodeJs`。

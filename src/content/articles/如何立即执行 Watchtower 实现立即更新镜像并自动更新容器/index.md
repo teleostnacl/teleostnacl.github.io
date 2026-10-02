@@ -13,7 +13,7 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 [containrrr/watchtower](https://github.com/containrrr/watchtower) 是一个被设计用来自动更新 `Docker` 的镜像并优雅的停止正在运行的容器，自动更新容器的 `Docker` 镜像。但是 `containrrr/watchtower` 给出的默认命令是添加一个新的容器，并延迟 `24h` 之后才执行。如果我们需要立即更新 `Docker` 的镜像，并自动更新容器，需要如何执行命令呢？本文将详细介绍如何立即执行 Watchtower 实现立即更新镜像并自动更新容器。
 ```shell
 docker run --detach \
@@ -23,7 +23,7 @@ docker run --detach \
 ```
 ![](./1790847653397_1628bf62d4a64ba1a01bf1e117640397.png)
 
-# 二、解决方案
+## 二、解决方案
 - `containrrr/watchtower` Github地址：[https://github.com/containrrr/watchtower](https://github.com/containrrr/watchtower)
 - `Watchtower` 官方文档：[https://containrrr.dev/watchtower/arguments/](https://containrrr.dev/watchtower/arguments/)
 
@@ -58,5 +58,5 @@ docker run --rm \
   --run-once --cleanup
 ```
 
-# 三、附加资源
+## 三、附加资源
 实现定时运行的方案可以参考：[https://blog.csdn.net/TeleostNaCl/article/details/150233801](https://blog.csdn.net/TeleostNaCl/article/details/150233801)

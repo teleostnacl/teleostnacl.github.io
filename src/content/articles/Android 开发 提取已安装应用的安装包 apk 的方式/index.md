@@ -15,10 +15,10 @@ draft: false
 ---
 
 @[TOC]
-# 一、问题背景
+## 一、问题背景
 在 `Android` 平台上，我们使用 `apk` 安装软件时，其实是把 `apk` 文件移动到了 `/data/app` 文件夹下。在我们应用开发需求的时候，例如做备份应用，我们需要把应用软件的 `apk` 重新提取出来。本文将详细介绍在做Android开发的时候，如何用代码将应用安装包 `apk` 提取出来。
 
-# 二、流程图
+## 二、流程图
 ![](./1790847617344_7a13ac2a870c49ddbac0f17b8593df27.png)
 
 基本原理是通过 `PackageManager` 获取到已安装的应用，得到 `PackageInfo`，再从 `PackageInfo` 中的 `ApplicationInfo` 取 `sourceDir`，即为 `APK` 路径，此时使用文件的输入输出流即可将文件输出到指定目录下。
@@ -65,7 +65,7 @@ public String[] splitSourceDirs;
 public String[] splitPublicSourceDirs;
 ```
 
-# 三、代码实现
+## 三、代码实现
 在高版本的 `Android` 系统中（`Android 11` 及以上），需要声明 `android.permission.QUERY_ALL_PACKAGES` 才可以查询到所有应用。需要在 `AndroidManifest.xml` 文件中声明 `android.permission.QUERY_ALL_PACKAGES`  权限：
 ```xml
 <manifest>

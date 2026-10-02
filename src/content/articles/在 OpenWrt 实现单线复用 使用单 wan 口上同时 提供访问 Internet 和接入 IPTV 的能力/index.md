@@ -16,7 +16,7 @@ draft: false
 
 @[TOC]
 
-# 一、问题背景
+## 一、问题背景
 
 之前写文章介绍了如何实现双线的情况下，使用两条网线连接光猫和路由器，分别提供访问 `Internet` 和接入 `IPTV` 的能力。之后再通过路由器分发路由，使各类设备可以正常上网和播放 `IPTV` 直播流，和电视盒子可以正常使用 `IPTV` : [https://blog.csdn.net/TeleostNaCl/article/details/147023332](https://blog.csdn.net/TeleostNaCl/article/details/147023332)
 
@@ -31,7 +31,7 @@ draft: false
 ![](./1790847525040_ed87a86daea7490ab81635429f856e1c.png)
 
 
-# 二、光猫 VLAN 绑定设置
+## 二、光猫 VLAN 绑定设置
 
 首先，要实现单线复用，需要将光明的 指定 `LAN` 口设置为 `VLAN` 绑定，并填写到绑定 `VLAN` 号。
 
@@ -51,7 +51,7 @@ draft: false
 ![](./1790847525161_7967d900625b47649074e03405b78851.png)
 
 
-# 三、添加 wan 口的 VLAN (802.1q)
+## 三、添加 wan 口的 VLAN (802.1q)
 
 我们先确定我们 `OpenWrt` 设备的的 `wan` 口的设备，本文使用的是 `eth1`，因此我们需要给 `eth1` 添加 `VLAN (802.1q)`。
 
@@ -77,7 +77,7 @@ draft: false
 
 ![](./1790847525297_dbf3ca1222534edcba6a5f7ff40c37ef.png)
 
-# 四、添加 IPTV 的网桥设备
+## 四、添加 IPTV 的网桥设备
 
 我们还要实现电视盒子接到路由器上，可以直接连接到 `IPTV`，因此需要添加一个网桥设备，将一个指定的 `LAN` 口（用于给电视盒子连接），本文以 `LAN3` 口为例。
 
@@ -110,7 +110,7 @@ draft: false
 
 ![](./1790847525743_48fe6d41fc3f4c489d01eec356caad43.png)
 
-# 五、修改 wan 口的设备配置
+## 五、修改 wan 口的设备配置
 
 通过以上操作之后，此时原来的 `wan` 口由原来的 `eth1` 切换到了 `eth1.41`，因此需要在接口设置中，将 `wan` 口 的设备配置修改为 `eth1.41`。
 
@@ -130,7 +130,7 @@ draft: false
 经过以上设置之后，我们的路由器 就已经正常连接到 `Internet` 了。
 
 
-# 六、添加 IPTV 的接口
+## 六、添加 IPTV 的接口
 
 最后，我们需要添加一个 `IPTV` 的网络接口和防火墙，以便控制 `IPTV` 的流量正常的被发送和接受。
 
@@ -169,6 +169,6 @@ draft: false
 当以上配置完成之后，将电视盒子接入路由器的 `LAN3` 口之后，电视盒子就可以正常的访问和连接了。
 
 
-# 七、配置udpxy
+## 七、配置udpxy
 
 按以下文章 [https://blog.csdn.net/TeleostNaCl/article/details/147023332#2_OpenWrtudpxy_52](https://blog.csdn.net/TeleostNaCl/article/details/147023332#2_OpenWrtudpxy_52) 配置 `udpxy`，以便实现局域网下的设备都可以观看IPTV直播。这里的接口设置为 `br-iptv`。

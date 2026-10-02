@@ -12,26 +12,26 @@ draft: false
 ---
 
 @[TOC]
-# 问题背景
+## 问题背景
 有一段时间未使用 `WSL` 了, 今天再打开 `WSL` 时，报了一个致命性错误 `Error code: Wsl/Service/E_UNEXPECTED`，导致 `WSL` 不能正常运行。
 
 从网上找了几种解决方案，本文将做一个详细的记录。
 
-# 方案一 重新启用 WSL 功能（未解决）
+## 方案一 重新启用 WSL 功能（未解决）
 首先，进入 `控制面板` > `程序` > `程序和功能` > `启动或关闭Windows功能`，取消勾选与 `WSL` 相关的功能：`Hyper-V`、`Windows虚拟机监控程序`、`适用于 Linux 的 Windows 子系统`、`虚拟机平台`，随后点击确定并重启电脑，等待更新完成。
 ![](./1790847600003_978ee12fd68347b291030c7b2e1fd322.png)
 随后，等待电脑重启完成之后，重新勾选以上模块，启用`WSL`，随后重启更新，即可重新启用 WSL 功能。
 
 在我的机器中，使用此方案无法解决问题。
 
-# 方案二 更新 WSL
+## 方案二 更新 WSL
 可以在 `Powshell` 或 `CMD` 终端以管理员方式使用命令更新 `WSL`：
 ```shell
 wsl --update
 ```
 但是在升级过程中出现了几个错误，导致无法正常升级，需要一一进行解决。
 
-## 问题1 注册表权限问题
+### 问题1 注册表权限问题
 在执行 `wsl --update` 命令时，报了一个注册表权限的问题：
 ```shell
 wsl --update
@@ -41,17 +41,17 @@ Could not write value  to key \SOFTWARE\Classes\Directory\shell\WSL.   Verify th
 更新失败(退出代码: 1603)。
 ```
 此时报了一个注册表的值 `\SOFTWARE\Classes\Directory\shell\WSL` 无法写入的问题，这是一个权限的问题，需要修改注册表中指定位置的注册表的权限，步骤如下：
-### 1. 打开注册表管理器
+#### 1. 打开注册表管理器
 使用 `Win` + `R` 打开运行窗口，输入 `regedit` 即可打开注册表管理器
 
 ![](./1790847600069_1fddc2e5c0d4475da8518b6d809d28ee.png)
 ![](./1790847600107_136a05fcf25f4a6682fbede0945d70b1.png)
-### 2. 修改注册表的键的权限
+#### 2. 修改注册表的键的权限
 在 `注册表管理器` 中，在输入框中输入 `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\shell\WSL`，定位到指定注册表值。
 
 右键 `WSL`，选择 `权限` ，进入 `权限编辑窗口`
 ![](./1790847600156_41e9f2c86837477da9ef30d2009d3402.png)
-### 3. 修改顶部的所有者信息
+#### 3. 修改顶部的所有者信息
 首先在 `权限编辑窗口` 点击 `高级` ，进入 `高级安全设置`
 ![](./1790847600192_8fa72d6993b14a159e57f1f7f19436fd.png)
 
@@ -60,10 +60,10 @@ Could not write value  to key \SOFTWARE\Classes\Directory\shell\WSL.   Verify th
 ![](./1790847600245_1ac0b1d3e9324fa1939cf944e815f812.png)
 点击 `更改`，在下面的窗口中输入要选择的对象名称 `Administrators`，再点击检查名称，即可更改用户组。
 ![](./1790847600295_638bd33b3f4342e89c51ae77342007af.png)
-### 4. 修改 Administrators 权限
+#### 4. 修改 Administrators 权限
 此时回到 `权限编辑窗口`，授予 `Administrators` 的 `完全控制` 权限。
 ![](./1790847600347_a7fc3922cc484deea95f8cd9d0d0cf1c.png)
-## 问题2 修复 WSL 安装似乎已损坏
+### 问题2 修复 WSL 安装似乎已损坏
 当修改完注册表权限之后，再次使用 `wsl --update` 时，报了 `WSL 安装似乎已损坏` 的问题，需要修复 `WSL`，提示如下：
 ```shell
 wsl --update

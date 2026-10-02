@@ -17,7 +17,7 @@ draft: false
 
 @[TOC]
 
-# 一、问题背景
+## 一、问题背景
 
 当我们在使用 `Navigation` 组件用于管理导航多个 `Fragment` 的时候，我们经常会先拿到其 `NavController`，一种标准的用法如下：
 
@@ -67,9 +67,9 @@ view.post {
 - [https://blog.csdn.net/linminghuo/article/details/119000601](https://blog.csdn.net/linminghuo/article/details/119000601)
 - [https://blog.csdn.net/qq_45436365/article/details/119853537](https://blog.csdn.net/qq_45436365/article/details/119853537)
 
-# 二、源码分析
+## 二、源码分析
 
-## （一）androidx.navigation.Navigation 类
+### （一）androidx.navigation.Navigation 类
 
 首先，我们先来看 `androidx.navigation.Navigation.findNavController()` 方法，其源码如下：
 
@@ -142,7 +142,7 @@ public fun setViewNavController(view: View, controller: NavController?) {
 ![](./1790847558243_cfd0eccfa3674f66bb3668b449fbb759.png)
 
 
-## （二）androidx.navigation.fragment.NavHostFragment 类
+### （二）androidx.navigation.fragment.NavHostFragment 类
 
 在 `NavHostFragment` 类中调用 `Navigation.setViewNavController` 总共有三处地方，具体源码如下：
 
@@ -189,7 +189,7 @@ public override fun onDestroyView() {
 我们先来看 `FragmentContainerView` 与 `NavHostFragment` 之间的关系。
 
 
-## （三）androidx.fragment.app.FragmentContainerView 类
+### （三）androidx.fragment.app.FragmentContainerView 类
 
 我们在使用 `FragmentContainerView` 的时候，会设置 `android:name="androidx.navigation.fragment.NavHostFragment"`，而对于 `FragmentContainerView` 的创建，与一般的 `View` 是有所不同的，其使用的是传递了 `FragmentManager` 方法的 `internal constructor(context: Context, attrs: AttributeSet, fm: FragmentManager) : super(context, attrs)`，我们追寻相关源码做一个简短的分析：
 
@@ -345,12 +345,12 @@ internal constructor(
 由此可知，在 `Activity`  的 `onCreate` 的时候还未设置 `Tag`，从而导致拿不到  `NavHostController`，抛出异常。
 
 
-# 三、解决方案
+## 三、解决方案
 
 通过以上源码分析可以知道，  `NavHostController` 是在 `Activity`  的 `onStart` 方法中被设置到 `FragmentContainerView` 的 `Tag` 中之后，才能通过 `Navigation.findNavController()` 才能拿到 `NavController`。因此解决此问题有多种方式。
 
 
-## （一）在 Activity  的 onStart 方法之后获取 NavController
+### （一）在 Activity  的 onStart 方法之后获取 NavController
 
 第一种解决方法是在 `Activity` 的 `onStart` 方法之后获取 `NavHostController`，即
 
@@ -362,7 +362,7 @@ override fun onStart() {
 }
 ```
 
-## （二）直接通过 NavHostFragment 拿到 NavController
+### （二）直接通过 NavHostFragment 拿到 NavController
 
 由前文分析可以知道， `NavHostController` 是通过 `by lazy` 延迟初始化出来的，可以知道，其实 `NavHostFragment` 一直都有 `NavHostController`，即 `NavController` （ `NavHostController` 继承自 `NavController`），那么我们可以直接通过 `NavHostFragment` 拿到 `NavController`。
 

@@ -24,7 +24,7 @@ draft: false
 
 本文将参考 [https://kodi.wiki/view/Backup](https://kodi.wiki/view/Backup) 官方的备份教程，详细介绍如何使用 `ADB` 免 `root` 备份 `Android` 版的 `Kodi` 数据并导入到另一台 `Android` 设备的方法。
 
-# 备份
+## 备份
 
 首先，查阅官方教程可以知道，`Kodi` 的数据是存储在 `Android/data/org.xbmc.kodi/files/.kodi` 目录下的：
 
@@ -44,7 +44,7 @@ adb pull /sdcard/Android/data/org.xbmc.kodi $folder
 此时我们就在电脑上得到了 `Kodi` 的完整备份：
 
 ![](./1790847505298_a726b1b2036047da936a01eacf98ffcd.png)
-# 还原
+## 还原
 首先，我们还是使用 `ADB` 连接上待还原的设备，使用如下命令将备份的数据还原到设备上(`$folder` 替换为备份数据的文件夹)：
 ```shell
 adb push $folder /sdcard/Android/data/org.xbmc.kodi
