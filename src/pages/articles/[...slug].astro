@@ -1,10 +1,45 @@
 ---
 import { getCollection } from 'astro:content';
+import imageAssetMap from 'astro:asset-imports';
+import { getImage } from 'astro:assets';
 import MarkdownIt from 'markdown-it';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 export async function getStaticPaths() { return (await getCollection('articles', ({ data }) => !data.draft)).map((article) => ({ params: { slug: article.slug }, props: { article } })); }
 const { article } = Astro.props;
 const markdownIt = new MarkdownIt({ html: true, linkify: true, typographer: true });
+const tocMarker = '<!--article-toc-->';
+const replaceTocMarker = (source: string) => {
+  const newline = source.includes('\r\n') ? '\r\n' : '\n';
+  let inFence = false;
+  return source.split(/\r?\n/).map((line) => {
+    if (/^ {0,3}(```|~~~)/.test(line)) {
+      inFence = !inFence;
+      return line;
+    }
+    return !inFence && /^ {0,3}@\[TOC\][ \t]*$/.test(line) ? tocMarker : line;
+  }).join(newline);
+};
+const markdownSource = replaceTocMarker(article.body);
+const resolveArticleImage = async (source: string) => {
+  if (!article.filePath || !source.startsWith('.')) {
+    return source;
+  }
+
+  const assetSource = decodeURI(source);
+  const imageImportId = `${assetSource}?${new URLSearchParams({ astroContentImageFlag: '', importer: article.filePath })}`;
+  const importedImage = imageAssetMap.get(imageImportId)
+    ?? [...imageAssetMap.entries()].find(([assetImportId]) => assetImportId.startsWith(`${assetSource}?`))?.[1];
+  if (!importedImage) {
+    return source;
+  }
+
+  return (await getImage({ src: importedImage })).src;
+};
+const rewriteArticleImageSources = async (html: string) => {
+  const imageSources = [...new Set([...html.matchAll(/<img\b[^>]*\bsrc=(["'])([^"']+)\1/gi)].map((match) => match[2]))];
+  const resolvedImageSources = new Map(await Promise.all(imageSources.map(async (source) => [source, await resolveArticleImage(source)])));
+  return html.replace(/(<img\b[^>]*\bsrc=(["']))([^"']+)(\2)/gi, (_match, prefix, _quote, source, suffix) => `${prefix}${resolvedImageSources.get(source) ?? source}${suffix}`);
+};
 let headingSlugs = new Map<string, number>();
 const createHeadingSlug = (text: string) => {
   const baseSlug = text.trim().toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, '').replace(/\s+/g, '-') || 'section';
@@ -19,7 +54,7 @@ markdownIt.renderer.rules.heading_open = (tokens, index, options, _environment, 
   }
   return renderer.renderToken(tokens, index, options);
 };
-const headings = markdownIt.parse(article.body, {}).flatMap((token, index, tokens) => {
+const headings = markdownIt.parse(markdownSource, {}).flatMap((token, index, tokens) => {
   const inlineToken = tokens[index + 1];
   if (token.type !== 'heading_open' || !inlineToken) {
     return [];
@@ -27,8 +62,10 @@ const headings = markdownIt.parse(article.body, {}).flatMap((token, index, token
 
   return [{ depth: Number(token.tag.slice(1)), slug: createHeadingSlug(inlineToken.content), text: inlineToken.content }];
 });
+const tocHeadings = headings.filter(({ depth }) => depth >= 2 && depth <= 4);
+const renderedToc = tocHeadings.length === 0 ? '' : `<nav class="article-toc" aria-label="文章目录"><p>目录</p><ol>${tocHeadings.map((heading) => `<li class="toc-depth-${heading.depth}"><a href="#${heading.slug}">${markdownIt.utils.escapeHtml(heading.text)}</a></li>`).join('')}</ol></nav>`;
 headingSlugs = new Map();
-const renderedContent = markdownIt.render(article.body);
+const renderedContent = await rewriteArticleImageSources(markdownIt.render(markdownSource).replaceAll(tocMarker, renderedToc));
 ---
 <BaseLayout title={article.data.title} description={article.data.description}>
   <div class="reading-layout">
@@ -38,7 +75,7 @@ const renderedContent = markdownIt.render(article.body);
       {article.data.csdnUrl && <p class="source-note">本文也发布于 CSDN：<a href={article.data.csdnUrl} rel="external noopener">CSDN 原文 ↗</a></p>}
       <div class="prose" set:html={renderedContent}></div>
     </article>
-    <aside class="toc"><p>目录</p><ol>{headings.filter(({ depth }) => depth <= 3).map((heading) => <li class={`depth-${heading.depth}`}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></aside>
+    <aside class="toc"><p>目录</p><ol>{tocHeadings.map((heading) => <li class={`toc-depth-${heading.depth}`}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></aside>
   </div>
 </BaseLayout>
 <script>
