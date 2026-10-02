@@ -1,6 +1,6 @@
 ---
 title: "使用Windows的IIS搭建WebDAV服务器，免费实现通过IPV6进行无域名的文件分享"
-description: "使用Windows的IIS搭建WebDAV服务器，免费实现通过IPV6进行无域名的文件分享"
+description: "利用 Windows IIS 搭建 WebDAV 文件服务器，通过 IPv6 地址实现无需域名的远程文件分享，并说明网络前提和配置步骤。"
 pubDate: 2025-04-13
 category: "Windows"
 tags:

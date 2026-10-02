@@ -1,6 +1,6 @@
 ---
 title: "探寻为什么可以使用 openwrt.lan 域名访问到 OpenWrt 管理后台 luci 的原因"
-description: "探寻为什么可以使用 openwrt.lan 域名访问到 OpenWrt 管理后台 luci 的原因"
+description: "解析 OpenWrt 通过 dnsmasq、主机名和本地域名配置解析 openwrt.lan 的过程，并介绍自定义 LuCI 访问域名的方法。"
 pubDate: 2025-10-19
 category: "OpenWrt"
 tags:

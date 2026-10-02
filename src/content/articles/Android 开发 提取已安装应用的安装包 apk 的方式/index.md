@@ -1,6 +1,6 @@
 ---
 title: "Android 开发 | 提取已安装应用的安装包 apk 的方式"
-description: "Android 开发 | 提取已安装应用的安装包 apk 的方式"
+description: "说明如何通过 PackageManager 找到已安装应用的 sourceDir，再用文件流导出 APK，并补充按包名提取指定应用安装包的方法。"
 pubDate: 2025-10-03
 category: "Android"
 tags:

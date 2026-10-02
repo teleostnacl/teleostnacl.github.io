@@ -1,6 +1,6 @@
 ---
 title: "luci-app-qbittorrent-static | 一种在OpenWrt运行qBittorrent的方法"
-description: "luci-app-qbittorrent-static | 一种在OpenWrt运行qBittorrent的方法"
+description: "介绍在 OpenWrt 中编译和安装 luci-app-qbittorrent-static，使用静态 qBittorrent 二进制并通过 LuCI 进行管理的部署方式。"
 pubDate: 2025-03-12
 category: "OpenWrt"
 tags:

@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 创建交换区 swap 增大 OpenWrt 的可用内存"
-description: "OpenWrt | 创建交换区 swap 增大 OpenWrt 的可用内存"
+description: "介绍在 OpenWrt 中创建和管理 Swap，涵盖 LuCI、命令行、swappiness 临时调整及 sysctl 持久化配置。"
 pubDate: 2025-10-22
 category: "OpenWrt"
 tags:

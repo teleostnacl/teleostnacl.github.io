@@ -1,6 +1,6 @@
 ---
 title: "使用 jintellitype 库在 Java 程序中实现监听 Windows 全局快捷键（热键）"
-description: "使用 jintellitype 库在 Java 程序中实现监听 Windows 全局快捷键（热键）"
+description: "介绍使用 jintellitype 在 Java 中注册 Windows 全局快捷键，说明 CTRL、ALT、SHIFT、WIN 等修饰键的组合写法。"
 pubDate: 2025-10-05
 category: "Android"
 tags:

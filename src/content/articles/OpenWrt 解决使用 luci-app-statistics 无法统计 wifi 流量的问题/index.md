@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 解决使用 luci-app-statistics 无法统计 wifi 流量的问题"
-description: "OpenWrt | 解决使用 luci-app-statistics 无法统计 wifi 流量的问题"
+description: "说明 OpenWrt 流量卸载会绕过软件统计链路，导致 luci-app-statistics 无法统计 Wi-Fi 到 WAN 流量，并给出关闭卸载的配置。"
 pubDate: 2025-11-18
 category: "OpenWrt"
 tags:

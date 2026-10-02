@@ -1,6 +1,6 @@
 ---
 title: "使用 Android Jetpack 中的 Startup 组件快速实现组件初始化逻辑与主模块解耦"
-description: "使用 Android Jetpack 中的 Startup 组件快速实现组件初始化逻辑与主模块解耦"
+description: "介绍 Android Jetpack Startup 的 Initializer 和 InitializationProvider 配置，把组件初始化从 Application 解耦并按模块自动执行。"
 pubDate: 2025-12-07
 category: "Android"
 tags:

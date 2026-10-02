@@ -1,6 +1,6 @@
 ---
 title: "如何使用KSP生成代码（附实现一个自动生成版本号的KSP Compiler）"
-description: "如何使用KSP生成代码（附实现一个自动生成版本号的KSP Compiler）"
+description: "从依赖配置、注解和处理器编写到业务调用，完整介绍用 KSP 生成代码，并实现自动生成版本号的示例 Compiler。"
 pubDate: 2025-05-18
 category: "Android"
 tags:

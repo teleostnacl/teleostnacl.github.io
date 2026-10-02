@@ -1,6 +1,6 @@
 ---
 title: "一种解决使用 PotPlayer 播放 Alist 的 Webdav 时提示 无法在 FTP/WebDAV/HTTP 上修改该文件夹 的方法"
-description: "一种解决使用 PotPlayer 播放 Alist 的 Webdav 时提示 无法在 FTP/WebDAV/HTTP 上修改该文件夹 的方法"
+description: "解决 PotPlayer 播放 AList WebDAV 时提示无法修改文件夹的问题，重点检查 WebDAV 账户密码、读取权限和 PotPlayer 凭据配置。"
 pubDate: 2025-08-23
 category: "经验分享"
 tags:

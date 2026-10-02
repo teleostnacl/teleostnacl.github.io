@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 使用 luci-app-statistics 统计流量使用情况并持久化保存数据"
-description: "OpenWrt | 使用 luci-app-statistics 统计流量使用情况并持久化保存数据"
+description: "使用 luci-app-statistics 与 collectd 统计 OpenWrt 接口流量，并配置数据持久化，避免设备重启后历史记录丢失。"
 pubDate: 2025-11-17
 category: "OpenWrt"
 tags:

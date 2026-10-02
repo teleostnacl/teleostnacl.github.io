@@ -1,6 +1,6 @@
 ---
 title: "在 Windows 上使用 Ethernet Diagnostic Program (瑞昱网卡诊断程序) 配置 Realtek 网卡的 VLAN ID 实现一张网卡多个网段"
-description: "在 Windows 上使用 Ethernet Diagnostic Program (瑞昱网卡诊断程序) 配置 Realtek 网卡的 VLAN ID 实现一张网卡多个网段"
+description: "针对 Windows 缺少原生 VLAN 配置的问题，使用 Realtek Ethernet Diagnostic Program 为网卡添加 VLAN ID 和虚拟网络。"
 pubDate: 2025-12-25
 category: "Windows"
 tags:

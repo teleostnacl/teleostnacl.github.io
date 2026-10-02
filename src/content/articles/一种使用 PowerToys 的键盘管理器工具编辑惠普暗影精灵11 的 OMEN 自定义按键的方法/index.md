@@ -1,6 +1,6 @@
 ---
 title: "一种使用 PowerToys 的键盘管理器工具编辑惠普暗影精灵11 的 OMEN 自定义按键的方法"
-description: "一种使用 PowerToys 的键盘管理器工具编辑惠普暗影精灵11 的 OMEN 自定义按键的方法"
+description: "针对惠普暗影精灵 11 缺少右 Ctrl 键的问题，使用 PowerToys 键盘管理器将 OMEN 自定义按键重新映射为右 Ctrl。"
 pubDate: 2025-10-24
 category: "Windows"
 tags:

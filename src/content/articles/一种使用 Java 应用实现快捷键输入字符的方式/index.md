@@ -1,6 +1,6 @@
 ---
 title: "一种使用 Java 应用实现快捷键输入字符的方式"
-description: "一种使用 Java 应用实现快捷键输入字符的方式"
+description: "针对中文输入法下难以输入反引号等英文符号的问题，使用常驻 Java 程序监听快捷键、写入剪贴板并模拟粘贴完成输入。"
 pubDate: 2025-05-23
 category: "Java"
 tags:

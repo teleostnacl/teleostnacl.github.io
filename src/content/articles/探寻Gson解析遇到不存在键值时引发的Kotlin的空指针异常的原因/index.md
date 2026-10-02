@@ -1,6 +1,6 @@
 ---
 title: "探寻Gson解析遇到不存在键值时引发的Kotlin的空指针异常的原因"
-description: "探寻Gson解析遇到不存在键值时引发的Kotlin的空指针异常的原因"
+description: "分析 Gson 将缺失 JSON 字段映射到 Kotlin 非空属性时触发空指针的原因，追踪 TypeAdapter、反射适配器与默认值处理。"
 pubDate: 2025-04-17
 category: "Android"
 tags:

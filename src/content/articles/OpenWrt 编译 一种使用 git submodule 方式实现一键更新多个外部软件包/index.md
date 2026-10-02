@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt 编译 | 一种使用 git submodule 方式实现一键更新多个外部软件包"
-description: "OpenWrt 编译 | 一种使用 git submodule 方式实现一键更新多个外部软件包"
+description: "针对非 feeds 形式的多个 OpenWrt 外部软件包，介绍用独立 Git 仓库和 submodule 统一管理，并通过脚本一键更新。"
 pubDate: 2025-08-18
 category: "OpenWrt"
 tags:

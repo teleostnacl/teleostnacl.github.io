@@ -1,6 +1,6 @@
 ---
 title: "使用 mina-sshd 库通过 SCP 上传文件并解决无法上传大文件的问题"
-description: "使用 mina-sshd 库通过 SCP 上传文件并解决无法上传大文件的问题"
+description: "记录使用 mina-sshd 通过 SCP 上传大文件时遇到的异常现象，并结合 SSHD 日志和 Wireshark 抓包保留问题线索。"
 pubDate: 2025-10-21
 category: "Android"
 tags:

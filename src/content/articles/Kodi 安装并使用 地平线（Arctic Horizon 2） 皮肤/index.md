@@ -1,6 +1,6 @@
 ---
 title: "Kodi | 安装并使用 地平线（Arctic Horizon 2） 皮肤"
-description: "Kodi | 安装并使用 地平线（Arctic Horizon 2） 皮肤"
+description: "介绍 Kodi 地平线（Arctic Horizon 2）皮肤的安装与中文化配置，包括字体、语言、字符集和中文拼音键盘设置。"
 pubDate: 2025-12-27
 category: "经验分享"
 tags:

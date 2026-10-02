@@ -1,6 +1,6 @@
 ---
 title: "SMBJ 简单使用指南 实现在 Java/Android 程序中访问 SMB 服务器"
-description: "SMBJ 简单使用指南 实现在 Java/Android 程序中访问 SMB 服务器"
+description: "介绍 SMBJ 在 Java 和 Android 中连接 SMB2/SMB3 服务器，完成文件夹创建、删除、上传，并处理依赖冲突和 ProGuard 配置。"
 pubDate: 2025-09-23
 category: "Android"
 tags:

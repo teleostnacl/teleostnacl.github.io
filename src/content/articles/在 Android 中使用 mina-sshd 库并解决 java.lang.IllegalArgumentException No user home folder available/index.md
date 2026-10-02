@@ -1,6 +1,6 @@
 ---
 title: "在 Android 中使用 mina-sshd 库并解决 java.lang.IllegalArgumentException: No user home folder available"
-description: "在 Android 中使用 mina-sshd 库并解决 java.lang.IllegalArgumentException: No user home folder available"
+description: "介绍 Android 集成 mina-sshd 的依赖、混淆和资源冲突处理，并针对 user home、Socket 权限等运行错误给出兼容配置。"
 pubDate: 2025-11-26
 category: "Android"
 tags:

@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 解决NTFS格式的硬盘意外断电之后无法再次挂载的问题"
-description: "OpenWrt | 解决NTFS格式的硬盘意外断电之后无法再次挂载的问题"
+description: "分析 OpenWrt 上 NTFS 硬盘因意外断电被标记为 dirty、无法挂载的原因，并介绍 ntfs-3g 修复和挂载前自动检查的方法。"
 pubDate: 2025-06-14
 category: "OpenWrt"
 tags:

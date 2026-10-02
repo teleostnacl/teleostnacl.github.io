@@ -1,6 +1,6 @@
 ---
 title: "一种解决 OpenWrt 安装 docker 之后局域网的设备之间无法互相访问通信的方法"
-description: "一种解决 OpenWrt 安装 docker 之后局域网的设备之间无法互相访问通信的方法"
+description: "分析 OpenWrt 安装 Docker 后局域网设备互访失败的原因，结合 tcpdump 和防火墙检查，给出转发策略与 host 网络两种方案。"
 pubDate: 2025-06-27
 category: "OpenWrt"
 tags:

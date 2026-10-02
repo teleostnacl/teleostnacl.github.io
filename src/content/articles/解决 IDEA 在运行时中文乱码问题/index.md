@@ -1,6 +1,6 @@
 ---
 title: "解决 IDEA 在运行时中文乱码问题"
-description: "解决 IDEA 在运行时中文乱码问题"
+description: "解决 IDEA 运行 Java 程序中文乱码问题，说明通过 Edit Custom VM Options 添加 -Dfile.encoding=UTF-8 的配置方法。"
 pubDate: 2025-06-02
 category: "Intellij-idea"
 tags:

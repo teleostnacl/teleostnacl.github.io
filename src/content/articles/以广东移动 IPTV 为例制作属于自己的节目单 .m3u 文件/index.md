@@ -1,6 +1,6 @@
 ---
 title: "以广东移动 IPTV 为例制作属于自己的节目单 .m3u 文件"
-description: "以广东移动 IPTV 为例制作属于自己的节目单 .m3u 文件"
+description: "从广东移动 IPTV JSON 节目数据中提取频道名、台标和组播地址，转换为经 udpxy 播放的自定义 .m3u 节目单。"
 pubDate: 2025-12-28
 category: "网络"
 tags:

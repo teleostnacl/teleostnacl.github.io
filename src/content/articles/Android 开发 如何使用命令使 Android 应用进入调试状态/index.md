@@ -1,6 +1,6 @@
 ---
 title: "Android 开发 | 如何使用命令使 Android 应用进入调试状态"
-description: "Android 开发 | 如何使用命令使 Android 应用进入调试状态"
+description: "说明如何通过 adb 命令让可调试的 Android 应用进入等待调试状态，并介绍连接 Android Studio 调试器及退出调试的方法。"
 pubDate: 2025-10-18
 category: "Android"
 tags:

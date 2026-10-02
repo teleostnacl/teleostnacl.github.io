@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 如何在 ucode 脚本中打印日志"
-description: "OpenWrt | 如何在 ucode 脚本中打印日志"
+description: "介绍在 OpenWrt 的 ucode 脚本中接入日志输出，注册 rpcd/ubus 服务并通过日志观察脚本运行状态的调试方法。"
 pubDate: 2025-08-03
 category: "OpenWrt"
 tags:

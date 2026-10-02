@@ -1,6 +1,6 @@
 ---
 title: "解决 OpenWrt 编译时报 toolchain/* failed to build 的错误"
-description: "解决 OpenWrt 编译时报 toolchain/* failed to build 的错误"
+description: "针对 OpenWrt 工具链编译失败，介绍清理交叉工具链缓存并重新编译的处理方式，同时区分不同 clean 命令的作用。"
 pubDate: 2025-08-17
 category: "OpenWrt"
 tags:

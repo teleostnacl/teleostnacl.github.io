@@ -1,6 +1,6 @@
 ---
 title: "WSL|极致释放WSL占用的磁盘空间"
-description: "WSL|极致释放WSL占用的磁盘空间"
+description: "介绍通过压缩虚拟磁盘等方式释放 WSL 占用的磁盘空间，并提醒先清理发行版内部无用数据再执行压缩。"
 pubDate: 2025-02-04
 category: "Windows"
 tags:

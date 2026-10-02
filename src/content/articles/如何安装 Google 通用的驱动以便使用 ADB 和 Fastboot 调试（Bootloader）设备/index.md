@@ -1,6 +1,6 @@
 ---
 title: "如何安装 Google 通用的驱动以便使用 ADB 和 Fastboot 调试（Bootloader）设备"
-description: "如何安装 Google 通用的驱动以便使用 ADB 和 Fastboot 调试（Bootloader）设备"
+description: "介绍 Windows 10/11 安装 Google 通用 USB 驱动的方法，并用 adb devices 或 fastboot 验证 Android 调试和 Bootloader 连接。"
 pubDate: 2025-09-08
 category: "Android"
 tags:

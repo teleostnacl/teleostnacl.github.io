@@ -1,6 +1,6 @@
 ---
 title: "在 Kodi 中添加 AList 搭建 WebDav 的方法"
-description: "在 Kodi 中添加 AList 搭建 WebDav 的方法"
+description: "介绍开启 AList WebDAV 后，在 Kodi 中添加网络位置和媒体库，让 Kodi 访问并播放 AList 挂载的远程文件。"
 pubDate: 2025-07-06
 category: "智能路由器"
 tags:

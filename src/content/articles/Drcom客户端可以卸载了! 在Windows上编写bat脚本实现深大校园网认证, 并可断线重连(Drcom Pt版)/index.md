@@ -1,6 +1,6 @@
 ---
 title: "Drcom客户端可以卸载了! 在Windows上编写bat脚本实现深大校园网认证, 并可断线重连(Drcom Pt版)"
-description: "Drcom客户端可以卸载了! 在Windows上编写bat脚本实现深大校园网认证, 并可断线重连(Drcom Pt版)"
+description: "针对深大校园网认证，介绍在 Windows 上用内置或安装的 curl 编写 bat 脚本，实现网页登录、断线重连和参数替换。"
 pubDate: 2022-09-03
 category: "Windows"
 tags:

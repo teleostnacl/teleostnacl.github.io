@@ -1,6 +1,6 @@
 ---
 title: "在 Windows 8/10/11 上运行Windows7的经典游戏(扫雷 蜘蛛纸牌等)"
-description: "在 Windows 8/10/11 上运行Windows7的经典游戏(扫雷 蜘蛛纸牌等)"
+description: "介绍在 Windows 8/8.1/10/11 上安装运行 Windows 7 经典小游戏，并处理系统大版本更新后游戏组件丢失的问题。"
 pubDate: 2025-04-19
 category: "Windows"
 tags:

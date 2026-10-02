@@ -1,6 +1,6 @@
 ---
 title: "解决SSHD的Thread Thread-2 threw exception: java.lang.IllegalStateException: Executor has been shut down"
-description: "解决SSHD的Thread Thread-2 threw exception: java.lang.IllegalStateException: Executor has been shut down"
+description: "分析 SSHD 在 Windows JDK 中重复关闭 SshClient 时出现 Executor has been shut down 的线程异常，并用默认未捕获异常处理器抑制无害报错。"
 pubDate: 2025-12-20
 category: "Android"
 tags:

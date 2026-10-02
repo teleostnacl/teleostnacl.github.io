@@ -1,6 +1,6 @@
 ---
 title: "Docker | 如何限制容器的 CPU/内存/磁盘IO 的资源利用以降低性能消耗"
-description: "Docker | 如何限制容器的 CPU/内存/磁盘IO 的资源利用以降低性能消耗"
+description: "介绍 Docker 对容器设置 CPU、内存和磁盘 IO 限额的方法，覆盖 docker run、Compose、docker update 及资源占用检查。"
 pubDate: 2025-11-30
 category: "Docker"
 tags:

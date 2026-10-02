@@ -1,6 +1,6 @@
 ---
 title: "Windows 开启和关闭 Administrator 用户的方法"
-description: "Windows 开启和关闭 Administrator 用户的方法"
+description: "介绍在管理员权限下使用命令启用或禁用 Windows 内置 Administrator 用户，并说明重新登录后检查账户的方法。"
 pubDate: 2025-07-12
 category: "Windows"
 tags:

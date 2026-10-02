@@ -1,6 +1,6 @@
 ---
 title: "Android App开发 | Retrofit+RxJava使用Jetpack实现深大统一身份认证(一) -抓包分析"
-description: "Android App开发 | Retrofit+RxJava使用Jetpack实现深大统一身份认证(一) -抓包分析"
+description: "通过抓包分析深大统一身份认证的登录流程，梳理 GET、POST、Cookie、验证码和密码加密请求，并说明如何在 Android 中复现网页端认证。"
 pubDate: 2022-06-02
 category: "Android"
 tags:

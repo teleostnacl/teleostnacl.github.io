@@ -1,6 +1,6 @@
 ---
 title: "如何在 IDEA 中使用 Proguard 自动混淆 Gradle 编译的Java 项目"
-description: "如何在 IDEA 中使用 Proguard 自动混淆 Gradle 编译的Java 项目"
+description: "介绍在 IDEA 的纯 Java Gradle 项目中整合 ProGuard，自动收集依赖规则、编译 Groovy 任务并生成混淆后的 Jar。"
 pubDate: 2025-10-05
 category: "Android"
 tags:

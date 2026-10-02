@@ -1,6 +1,6 @@
 ---
 title: "调试Android源码探寻Seekbar为什么需要设置paddingStart/End才能去掉默认间距的原因 (paddingHorizontal/Left/Right无效)"
-description: "调试Android源码探寻Seekbar为什么需要设置paddingStart/End才能去掉默认间距的原因 (paddingHorizontal/Left/Right无效)"
+description: "通过调试 Android 源码追踪 SeekBar 的 padding 赋值和默认 Style，解释为何需要使用 paddingStart/End 才能移除默认间距。"
 pubDate: 2025-04-16
 category: "Android"
 tags:

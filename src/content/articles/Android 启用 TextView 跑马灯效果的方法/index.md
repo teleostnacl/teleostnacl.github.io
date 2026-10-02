@@ -1,6 +1,6 @@
 ---
 title: "Android | 启用 TextView 跑马灯效果的方法"
-description: "Android | 启用 TextView 跑马灯效果的方法"
+description: "介绍 TextView 跑马灯效果的正确配置，重点说明 ellipsize、singleLine 以及获得焦点或设置 selected 状态的必要条件。"
 pubDate: 2025-12-31
 category: "Android"
 tags:

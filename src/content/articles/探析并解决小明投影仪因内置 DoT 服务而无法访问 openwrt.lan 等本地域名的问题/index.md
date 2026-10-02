@@ -1,6 +1,6 @@
 ---
 title: "探析并解决小明投影仪因内置 DoT 服务而无法访问 openwrt.lan 等本地域名的问题"
-description: "探析并解决小明投影仪因内置 DoT 服务而无法访问 openwrt.lan 等本地域名的问题"
+description: "通过抓包分析小明投影仪内置 DoT 绕过 OpenWrt 本地 DNS 的原因，并用防火墙拦截加密 DNS 以恢复 openwrt.lan 解析。"
 pubDate: 2025-12-21
 category: "OpenWrt"
 tags:

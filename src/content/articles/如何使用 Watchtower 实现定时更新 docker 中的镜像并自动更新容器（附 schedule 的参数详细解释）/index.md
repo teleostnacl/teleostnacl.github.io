@@ -1,6 +1,6 @@
 ---
 title: "如何使用 Watchtower 实现定时更新 docker 中的镜像并自动更新容器（附 schedule 的参数详细解释）"
-description: "如何使用 Watchtower 实现定时更新 docker 中的镜像并自动更新容器（附 schedule 的参数详细解释）"
+description: "介绍用 Watchtower 按 schedule 定时检查镜像、优雅停止并重建容器，并详细解释定时表达式参数。"
 pubDate: 2025-08-12
 category: "Docker"
 tags:

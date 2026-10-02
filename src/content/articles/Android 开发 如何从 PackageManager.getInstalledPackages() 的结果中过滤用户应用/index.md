@@ -1,6 +1,6 @@
 ---
 title: "Android 开发 | 如何从 PackageManager.getInstalledPackages() 的结果中过滤用户应用"
-description: "Android 开发 | 如何从 PackageManager.getInstalledPackages() 的结果中过滤用户应用"
+description: "介绍如何利用 PackageManager 获取已安装应用，并根据 ApplicationInfo 的 FLAG_SYSTEM 与 FLAG_UPDATED_SYSTEM_APP 标记过滤出用户应用。"
 pubDate: 2025-10-03
 category: "Android"
 tags:

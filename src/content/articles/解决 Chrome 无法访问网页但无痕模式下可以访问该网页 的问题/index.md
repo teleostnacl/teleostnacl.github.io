@@ -1,6 +1,6 @@
 ---
 title: "解决 Chrome 无法访问网页但无痕模式下可以访问该网页 的问题"
-description: "解决 Chrome 无法访问网页但无痕模式下可以访问该网页 的问题"
+description: "针对 Chrome 普通窗口无法访问而无痕模式正常的问题，定位为错误 DNS 缓存，并介绍清理 host cache 的处理步骤。"
 pubDate: 2025-11-05
 category: "Windows"
 tags:

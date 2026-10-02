@@ -1,6 +1,6 @@
 ---
 title: "当在git中新增忽略文件之后如何移除已经提交到git的文件"
-description: "当在git中新增忽略文件之后如何移除已经提交到git的文件"
+description: "说明仅在 .gitignore 中新增规则无法停止跟踪已提交文件的原因，并给出从 Git 索引移除、保留本地文件的操作方法。"
 pubDate: 2025-06-19
 category: "Git"
 tags:

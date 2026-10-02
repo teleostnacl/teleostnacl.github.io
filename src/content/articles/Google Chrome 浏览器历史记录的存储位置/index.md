@@ -1,6 +1,6 @@
 ---
 title: "Google Chrome 浏览器历史记录的存储位置"
-description: "Google Chrome 浏览器历史记录的存储位置"
+description: "整理 Google Chrome 在 Windows、macOS 和 Linux 上保存历史记录的路径，并说明如何用 SQLite 查看 History 数据库内容。"
 pubDate: 2025-12-17
 category: "Chrome"
 tags:

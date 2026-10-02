@@ -1,6 +1,6 @@
 ---
 title: "CopyQ | 在命令中使用正则表达式并实现匹配指定字符串的方法"
-description: "CopyQ | 在命令中使用正则表达式并实现匹配指定字符串的方法"
+description: "介绍 CopyQ 高级命令中使用 ECMAScript 正则表达式匹配剪贴板内容，并据此触发不同处理逻辑的方法。"
 pubDate: 2025-06-09
 category: "正则表达式"
 tags:

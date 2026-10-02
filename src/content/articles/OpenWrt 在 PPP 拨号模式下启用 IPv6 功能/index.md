@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 在 PPP 拨号模式下启用 IPv6 功能"
-description: "OpenWrt | 在 PPP 拨号模式下启用 IPv6 功能"
+description: "介绍光猫桥接、OpenWrt PPPoE 拨号场景下启用 IPv6 的 WAN/LAN 配置，并通过 DHCPv6 客户端和地址测试验证结果。"
 pubDate: 2025-09-08
 category: "OpenWrt"
 tags:

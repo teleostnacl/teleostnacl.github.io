@@ -1,6 +1,6 @@
 ---
 title: "Android 开发 | 如何用命令开启网络调试"
-description: "Android 开发 | 如何用命令开启网络调试"
+description: "介绍设备已通过数据线连接 ADB 后，如何使用命令开启 5555 端口的网络调试，再通过 adb connect 进行无线调试。"
 pubDate: 2025-10-18
 category: "Android"
 tags:

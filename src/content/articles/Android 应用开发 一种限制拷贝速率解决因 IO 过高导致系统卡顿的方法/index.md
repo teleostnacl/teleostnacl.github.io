@@ -1,6 +1,6 @@
 ---
 title: "Android 应用开发 | 一种限制拷贝速率解决因 IO 过高导致系统卡顿的方法"
-description: "Android 应用开发 | 一种限制拷贝速率解决因 IO 过高导致系统卡顿的方法"
+description: "分析 Android 高频文件 IO 导致 UI 卡顿的原因，使用限制拷贝速度降低 IO 占用，给出 Kotlin 文件复制实现思路。"
 pubDate: 2025-07-06
 category: "Android"
 tags:

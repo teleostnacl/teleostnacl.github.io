@@ -1,6 +1,6 @@
 ---
 title: "当 /etc/sysctl.d/ 目录下存在多个配置文件且配置项冲突时最终会使用哪个配置项"
-description: "当 /etc/sysctl.d/ 目录下存在多个配置文件且配置项冲突时最终会使用哪个配置项"
+description: "解释 sysctl.d 多目录和同名配置文件的加载优先级，说明系统如何按目录顺序及文件名决定最终内核参数值。"
 pubDate: 2025-08-23
 category: "Linux"
 tags:

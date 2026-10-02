@@ -1,6 +1,6 @@
 ---
 title: "如何在 Java 程序中检查是否可以连接到某个网站"
-description: "如何在 Java 程序中检查是否可以连接到某个网站"
+description: "介绍 Java 中检测网站可达性的方式，对比执行 ping 命令与使用 InetAddress 等 API 检查主机连通性。"
 pubDate: 2025-10-26
 category: "Android"
 tags:

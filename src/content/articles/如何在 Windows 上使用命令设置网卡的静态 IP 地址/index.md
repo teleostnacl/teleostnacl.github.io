@@ -1,6 +1,6 @@
 ---
 title: "如何在 Windows 上使用命令设置网卡的静态 IP 地址"
-description: "如何在 Windows 上使用命令设置网卡的静态 IP 地址"
+description: "介绍在 Windows 中用命令查询网卡 ID 和名称，设置静态 IP、网关、DNS，并提供恢复 DHCP 自动获取地址的方法。"
 pubDate: 2025-10-06
 category: "Windows"
 tags:

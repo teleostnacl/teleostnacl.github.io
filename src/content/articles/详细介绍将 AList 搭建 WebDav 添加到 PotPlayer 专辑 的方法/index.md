@@ -1,6 +1,6 @@
 ---
 title: "详细介绍将 AList 搭建 WebDav 添加到 PotPlayer 专辑 的方法"
-description: "详细介绍将 AList 搭建 WebDav 添加到 PotPlayer 专辑 的方法"
+description: "详细介绍 AList WebDAV 权限、用户和服务配置，以及在 PotPlayer 中添加 WebDAV 专辑来播放远程媒体文件的完整步骤。"
 pubDate: 2025-08-23
 category: "经验分享"
 tags:

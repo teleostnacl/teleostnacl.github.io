@@ -1,6 +1,6 @@
 ---
 title: "Android 直接通过 app_process 启动的应用如何使用 Context"
-description: "Android 直接通过 app_process 启动的应用如何使用 Context"
+description: "介绍通过 app_process 直接运行 Android Java 程序时获取 Context 的方法，并解释 shell 进程环境与创建应用上下文的处理方式。"
 pubDate: 2025-05-23
 category: "Android"
 tags:

@@ -1,6 +1,6 @@
 ---
 title: "如何在 Java 程序中访问中文域名的网站"
-description: "如何在 Java 程序中访问中文域名的网站"
+description: "分析 Java 访问中文国际化域名时出现 UnknownHostException 的原因，使用 IDN.toASCII 将域名转换为可解析的 ASCII 形式。"
 pubDate: 2025-10-12
 category: "Android"
 tags:

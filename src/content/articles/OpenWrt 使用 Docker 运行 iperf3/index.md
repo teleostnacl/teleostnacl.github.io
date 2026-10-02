@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 使用 Docker 运行 iperf3"
-description: "OpenWrt | 使用 Docker 运行 iperf3"
+description: "介绍在 OpenWrt 中用 Docker Compose 运行 iperf3 服务端，并从其他设备连接路由器进行网络性能测试。"
 pubDate: 2025-06-30
 category: "OpenWrt"
 tags:

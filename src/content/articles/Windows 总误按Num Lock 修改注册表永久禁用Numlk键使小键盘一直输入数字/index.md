@@ -1,6 +1,6 @@
 ---
 title: "Windows | 总误按Num Lock?修改注册表永久禁用Numlk键使小键盘一直输入数字"
-description: "Windows | 总误按Num Lock?修改注册表永久禁用Numlk键使小键盘一直输入数字"
+description: "通过注册表 Scancode Map 永久禁用 NumLock 切换，避免误触小键盘状态，同时提供导入、手动修改和撤销配置的方法。"
 pubDate: 2025-05-31
 category: "Windows"
 tags:

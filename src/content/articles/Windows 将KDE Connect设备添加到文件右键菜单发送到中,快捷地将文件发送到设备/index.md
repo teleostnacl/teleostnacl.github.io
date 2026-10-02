@@ -1,6 +1,6 @@
 ---
 title: "Windows | 将KDE Connect设备添加到文件右键菜单发送到中,快捷地将文件发送到设备"
-description: "Windows | 将KDE Connect设备添加到文件右键菜单发送到中,快捷地将文件发送到设备"
+description: "利用 KDE Connect 命令行和 VBS，将 Windows 文件右键菜单的“发送到”接入设备传输，并隐藏脚本运行时的命令行窗口。"
 pubDate: 2023-03-23
 category: "Windows"
 tags:

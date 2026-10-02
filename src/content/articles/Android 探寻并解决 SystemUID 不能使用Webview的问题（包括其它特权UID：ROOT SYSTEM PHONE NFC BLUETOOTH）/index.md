@@ -1,6 +1,6 @@
 ---
 title: "Android | 探寻并解决 SystemUID 不能使用Webview的问题（包括其它特权UID：ROOT SYSTEM PHONE NFC BLUETOOTH）"
-description: "Android | 探寻并解决 SystemUID 不能使用Webview的问题（包括其它特权UID：ROOT SYSTEM PHONE NFC BLUETOOTH）"
+description: "分析特权 UID 应用使用 WebView 时的报错原因，比较 Android 14 以下反射修复与多进程隔离方案，并说明兼容边界。"
 pubDate: 2025-06-03
 category: "Android"
 tags:

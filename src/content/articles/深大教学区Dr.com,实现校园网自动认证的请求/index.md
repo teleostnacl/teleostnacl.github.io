@@ -1,6 +1,6 @@
 ---
 title: "深大教学区Dr.com,实现校园网自动认证的请求"
-description: "深大教学区Dr.com,实现校园网自动认证的请求"
+description: "通过抓包还原深大教学区 Dr.com 的认证 POST 请求，说明精简参数后用 curl 或 wget 在路由器等 Linux 设备上自动登录。"
 pubDate: 2022-06-06
 category: "Linux"
 tags:

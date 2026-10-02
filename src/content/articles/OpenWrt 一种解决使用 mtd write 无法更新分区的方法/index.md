@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 一种解决使用 mtd write 无法更新分区的方法"
-description: "OpenWrt | 一种解决使用 mtd write 无法更新分区的方法"
+description: "说明 OpenWrt 使用 mtd write 更新分区时遇到只读限制的处理方法，包括编译 kmod-mtd-rw 和临时解除分区保护。"
 pubDate: 2025-06-22
 category: "OpenWrt"
 tags:

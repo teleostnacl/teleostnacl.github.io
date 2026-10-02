@@ -1,6 +1,6 @@
 ---
 title: "CMCC RAX3000M使用Tftpd刷写OpenWrt固件的救砖方法"
-description: "CMCC RAX3000M使用Tftpd刷写OpenWrt固件的救砖方法"
+description: "以 CMCC RAX3000M 为例，介绍已刷入 U-Boot 后通过 Tftpd 传输 recovery 与 sysupgrade 固件，在无法启动时完成救砖。"
 pubDate: 2025-04-28
 category: "OpenWrt"
 tags:

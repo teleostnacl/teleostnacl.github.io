@@ -1,6 +1,6 @@
 ---
 title: "使用 nft 防火墙规则简单实现类 mwan3 分流"
-description: "使用 nft 防火墙规则简单实现类 mwan3 分流"
+description: "针对多 WAN 的简单分流需求，介绍用 nftables 标记指定 IPTV 流量并配合路由规则选择 WAN，避免引入完整 mwan3。"
 pubDate: 2025-12-28
 category: "OpenWrt"
 tags:

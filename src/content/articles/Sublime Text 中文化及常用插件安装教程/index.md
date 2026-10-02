@@ -1,6 +1,6 @@
 ---
 title: "Sublime Text 中文化及常用插件安装教程"
-description: "Sublime Text 中文化及常用插件安装教程"
+description: "介绍 Sublime Text 启用 Package Control、切换中文界面、支持 GBK 编码，并安装 Kotlin、格式化等常用插件。"
 pubDate: 2025-12-01
 category: "Sublime"
 tags:

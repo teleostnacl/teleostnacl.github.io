@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 实现限制只有指定设备才能访问 luci 和 使用 SSH 等方式管理设备的方法"
-description: "OpenWrt | 实现限制只有指定设备才能访问 luci 和 使用 SSH 等方式管理设备的方法"
+description: "利用 OpenWrt 防火墙按指定 IP 或 MAC 限制访问 LuCI、SSH 等管理服务，构建仅允许可信设备管理路由器的规则。"
 pubDate: 2025-10-26
 category: "OpenWrt"
 tags:

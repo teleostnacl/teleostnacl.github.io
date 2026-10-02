@@ -1,6 +1,6 @@
 ---
 title: "解决微软输入法无法添加多个动态自定义短语的问题"
-description: "解决微软输入法无法添加多个动态自定义短语的问题"
+description: "分析微软输入法批量保存动态自定义短语时占位符被替换的问题，介绍使用现成 Python 脚本绕过存储缺陷的处理方式。"
 pubDate: 2025-12-16
 category: "Windows"
 tags:

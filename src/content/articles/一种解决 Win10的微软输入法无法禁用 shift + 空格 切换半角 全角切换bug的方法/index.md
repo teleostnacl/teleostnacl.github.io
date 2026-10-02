@@ -1,6 +1,6 @@
 ---
 title: "一种解决 Win10的微软输入法无法禁用 shift + 空格 切换半角/全角切换bug的方法"
-description: "一种解决 Win10的微软输入法无法禁用 shift + 空格 切换半角/全角切换bug的方法"
+description: "针对 Win10 微软输入法无法真正禁用 Shift+空格切换全半角的问题，介绍用 PowerToys 键盘管理器拦截该快捷键。"
 pubDate: 2025-12-20
 category: "Bug"
 tags:

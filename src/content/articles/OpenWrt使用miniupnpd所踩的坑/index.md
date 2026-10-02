@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt使用miniupnpd所踩的坑"
-description: "OpenWrt使用miniupnpd所踩的坑"
+description: "总结 OpenWrt 使用 miniupnpd 的常见坑，包括公网 WAN、fw4 兼容、NAT 类型和端口映射条件，并记录相应解决方法。"
 pubDate: 2025-04-07
 category: "OpenWrt"
 tags:

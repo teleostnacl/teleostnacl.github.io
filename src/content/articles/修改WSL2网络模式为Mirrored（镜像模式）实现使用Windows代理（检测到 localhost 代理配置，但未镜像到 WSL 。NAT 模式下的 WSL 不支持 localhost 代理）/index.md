@@ -1,6 +1,6 @@
 ---
 title: "修改WSL2网络模式为Mirrored（镜像模式）实现使用Windows代理（检测到 localhost 代理配置，但未镜像到 WSL 。NAT 模式下的 WSL 不支持 localhost 代理）"
-description: "修改WSL2网络模式为Mirrored（镜像模式）实现使用Windows代理（检测到 localhost 代理配置，但未镜像到 WSL 。NAT 模式下的 WSL 不支持 localhost 代理）"
+description: "介绍将 WSL2 网络模式改为 Mirrored，使 WSL 与 Windows 共享网络并直接使用主机代理，解决 NAT 模式下 localhost 代理不可用的问题。"
 pubDate: 2025-07-02
 category: "Windows"
 tags:

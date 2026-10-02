@@ -1,6 +1,6 @@
 ---
 title: "参考 lede 源码编写 dts 文件使 OpenWrt 支持编译 ZTE E8820S"
-description: "参考 lede 源码编写 dts 文件使 OpenWrt 支持编译 ZTE E8820S"
+description: "参考 LEDE 设备支持方式，为 ZTE E8820S 编写 OpenWrt DTS 和镜像配置，比较参考设备差异并完成硬件移植。"
 pubDate: 2025-07-11
 category: "OpenWrt"
 tags:

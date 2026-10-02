@@ -1,6 +1,6 @@
 ---
 title: "一种使用 PowerToys 的键盘管理器工具重新映射按键实现在 Windows 上快捷输入字符的方式"
-description: "一种使用 PowerToys 的键盘管理器工具重新映射按键实现在 Windows 上快捷输入字符的方式"
+description: "使用 PowerToys 键盘管理器把指定快捷键映射为字符输入，降低 Java 常驻程序和剪贴板方案的使用门槛。"
 pubDate: 2025-06-09
 category: "Windows"
 tags:

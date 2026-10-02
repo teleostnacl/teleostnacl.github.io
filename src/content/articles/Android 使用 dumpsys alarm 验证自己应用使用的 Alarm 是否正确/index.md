@@ -1,6 +1,6 @@
 ---
 title: "Android | 使用 dumpsys alarm 验证自己应用使用的 Alarm 是否正确"
-description: "Android | 使用 dumpsys alarm 验证自己应用使用的 Alarm 是否正确"
+description: "介绍使用 dumpsys alarm 按包名检查 AlarmManager 定时任务，通过 origWhen 等字段确认闹钟是否注册及下一次触发时间。"
 pubDate: 2025-09-23
 category: "Android"
 tags:

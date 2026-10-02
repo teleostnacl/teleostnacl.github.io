@@ -1,6 +1,6 @@
 ---
 title: "Kodi | 如何使用 ADB 无 root 备份 Android 版本 Kodi 的数据并导入到另一台设备中"
-description: "Kodi | 如何使用 ADB 无 root 备份 Android 版本 Kodi 的数据并导入到另一台设备中"
+description: "针对 Android 11 无法直接访问 Kodi 数据目录的问题，介绍使用 ADB 在设备间备份和还原 Kodi 配置与媒体数据的方法。"
 pubDate: 2025-12-29
 category: "Android"
 tags:

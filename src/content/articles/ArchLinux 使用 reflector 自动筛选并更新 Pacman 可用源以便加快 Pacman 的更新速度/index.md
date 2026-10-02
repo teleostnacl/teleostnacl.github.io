@@ -1,6 +1,6 @@
 ---
 title: "ArchLinux | 使用 reflector 自动筛选并更新 Pacman 可用源以便加快 Pacman 的更新速度"
-description: "ArchLinux | 使用 reflector 自动筛选并更新 Pacman 可用源以便加快 Pacman 的更新速度"
+description: "介绍 ArchLinux 中使用 reflector 按速度筛选 Pacman 镜像源，并配置定时服务自动更新 mirrorlist 以加快软件包更新。"
 pubDate: 2025-09-19
 category: "Linux"
 tags:

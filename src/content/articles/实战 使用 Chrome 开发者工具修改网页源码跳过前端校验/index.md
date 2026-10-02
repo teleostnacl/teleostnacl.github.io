@@ -1,6 +1,6 @@
 ---
 title: "实战 | 使用 Chrome 开发者工具修改网页源码跳过前端校验"
-description: "实战 | 使用 Chrome 开发者工具修改网页源码跳过前端校验"
+description: "以 Wi-Fi 名校验为例，演示使用 Chrome 开发者工具定位前端校验常量并修改网页源码，以跳过仅存在于浏览器端的限制。"
 pubDate: 2025-10-05
 category: "前端"
 tags:

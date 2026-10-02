@@ -1,6 +1,6 @@
 ---
 title: "Android | 如何申请 android.permission.MANAGE_EXTERNAL_STORAGE 权限 以便在 Android 11 之后管理设备上的所有文件"
-description: "Android | 如何申请 android.permission.MANAGE_EXTERNAL_STORAGE 权限 以便在 Android 11 之后管理设备上的所有文件"
+description: "梳理 Android 10 分区存储和 Android 11 全面文件访问限制，介绍声明与申请 MANAGE_EXTERNAL_STORAGE 权限的适用场景和步骤。"
 pubDate: 2025-09-24
 category: "Android"
 tags:

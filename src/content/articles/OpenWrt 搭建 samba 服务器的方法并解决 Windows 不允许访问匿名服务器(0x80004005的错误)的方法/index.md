@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt 搭建 samba 服务器的方法并解决 Windows 不允许访问匿名服务器(0x80004005的错误)的方法"
-description: "OpenWrt 搭建 samba 服务器的方法并解决 Windows 不允许访问匿名服务器(0x80004005的错误)的方法"
+description: "介绍在 OpenWrt 上安装并配置 Samba 共享，包括 USB 自动挂载、用户权限和 Windows 无法匿名访问时的两种处理方案。"
 pubDate: 2025-06-02
 category: "OpenWrt"
 tags:

@@ -1,6 +1,6 @@
 ---
 title: "CMCC RAX3000M nand版 OpenWrt 可用空间变小的恢复方法"
-description: "CMCC RAX3000M nand版 OpenWrt 可用空间变小的恢复方法"
+description: "针对 CMCC RAX3000M NAND 版刷机后可用空间异常减少的问题，分析无效 UBI 卷占用，并给出释放空间和恢复布局的操作思路。"
 pubDate: 2025-06-22
 category: "OpenWrt"
 tags:

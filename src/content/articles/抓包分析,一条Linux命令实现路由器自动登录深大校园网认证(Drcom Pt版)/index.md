@@ -1,6 +1,6 @@
 ---
 title: "抓包分析,一条Linux命令实现路由器自动登录深大校园网认证(Drcom Pt版)"
-description: "抓包分析,一条Linux命令实现路由器自动登录深大校园网认证(Drcom Pt版)"
+description: "通过抓包还原深大校园网 GET/POST 认证请求，用 curl 或 wget 编写 Linux 路由器自动登录脚本，并加入断线检测重连。"
 pubDate: 2022-05-03
 category: "Linux"
 tags:

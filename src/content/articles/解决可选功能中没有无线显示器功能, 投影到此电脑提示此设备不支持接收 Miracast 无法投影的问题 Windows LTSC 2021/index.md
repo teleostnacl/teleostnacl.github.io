@@ -1,6 +1,6 @@
 ---
 title: "解决可选功能中没有无线显示器功能, 投影到此电脑提示此设备不支持接收 Miracast 无法投影的问题 Windows LTSC 2021"
-description: "解决可选功能中没有无线显示器功能, 投影到此电脑提示此设备不支持接收 Miracast 无法投影的问题 Windows LTSC 2021"
+description: "针对 Windows LTSC 2021 缺少无线显示器可选功能的问题，介绍提取系统组件、使用 DISM++ 或 PowerShell 部署 Miracast 支持的步骤。"
 pubDate: 2024-10-27
 category: "Windows"
 tags:

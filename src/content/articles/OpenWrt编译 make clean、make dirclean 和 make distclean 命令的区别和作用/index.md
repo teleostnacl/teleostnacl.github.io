@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt编译 | make clean、make dirclean 和 make distclean 命令的区别和作用"
-description: "OpenWrt编译 | make clean、make dirclean 和 make distclean 命令的区别和作用"
+description: "对比 OpenWrt 编译中的 make clean、make dirclean 和 make distclean，说明各自清理的文件范围及适用场景。"
 pubDate: 2025-08-17
 category: "OpenWrt"
 tags:

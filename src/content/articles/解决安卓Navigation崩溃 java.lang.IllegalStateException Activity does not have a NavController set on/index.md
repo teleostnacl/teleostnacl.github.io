@@ -1,6 +1,6 @@
 ---
 title: "解决安卓Navigation崩溃: java.lang.IllegalStateException: Activity * does not have a NavController set on *"
-description: "解决安卓Navigation崩溃: java.lang.IllegalStateException: Activity * does not have a NavController set on *"
+description: "从 NavHostFragment 设置和清除 NavController 的源码入手，分析 Android Navigation 崩溃的生命周期原因，并给出避免视图控制器丢失的修复思路。"
 pubDate: 2025-11-24
 category: "Android"
 tags:

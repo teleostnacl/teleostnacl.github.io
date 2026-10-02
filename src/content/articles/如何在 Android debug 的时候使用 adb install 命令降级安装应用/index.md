@@ -1,6 +1,6 @@
 ---
 title: "如何在 Android debug 的时候使用 adb install 命令降级安装应用"
-description: "如何在 Android debug 的时候使用 adb install 命令降级安装应用"
+description: "解释 Android Package Manager 拒绝低 versionCode APK 的原因，介绍调试场景下使用 adb install 的降级安装参数和限制。"
 pubDate: 2025-12-08
 category: "Android"
 tags:

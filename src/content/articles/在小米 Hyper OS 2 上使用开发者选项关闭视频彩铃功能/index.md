@@ -1,6 +1,6 @@
 ---
 title: "在小米 Hyper OS 2 上使用开发者选项关闭视频彩铃功能"
-description: "在小米 Hyper OS 2 上使用开发者选项关闭视频彩铃功能"
+description: "介绍在小米 Hyper OS 2 中开启开发者选项，进入蜂窝网络调试并关闭视频彩铃，避免主动呼叫时播放对方彩铃视频。"
 pubDate: 2025-12-08
 category: "Android"
 tags:

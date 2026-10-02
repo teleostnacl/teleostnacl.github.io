@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 使用 Docker 运行 qBittorrent"
-description: "OpenWrt | 使用 Docker 运行 qBittorrent"
+description: "介绍在 OpenWrt 上通过 Docker Compose 部署 qBittorrent，配置用户、WebUI、下载目录、端口和容器持久化。"
 pubDate: 2025-06-29
 category: "OpenWrt"
 tags:

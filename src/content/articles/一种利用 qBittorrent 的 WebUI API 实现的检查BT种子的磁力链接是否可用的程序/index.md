@@ -1,6 +1,6 @@
 ---
 title: "一种利用 qBittorrent 的 WebUI API 实现的检查BT种子的磁力链接是否可用的程序"
-description: "一种利用 qBittorrent 的 WebUI API 实现的检查BT种子的磁力链接是否可用的程序"
+description: "基于 qBittorrent WebUI API 实现磁力链接可用性检查，完成登录、添加种子、读取属性和删除任务的 Retrofit 接口与流程。"
 pubDate: 2025-10-02
 category: "Android"
 tags:

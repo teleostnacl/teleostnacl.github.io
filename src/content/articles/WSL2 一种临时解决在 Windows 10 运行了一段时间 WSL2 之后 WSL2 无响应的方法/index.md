@@ -1,6 +1,6 @@
 ---
 title: "WSL2 | 一种临时解决在 Windows 10 运行了一段时间 WSL2 之后 WSL2 无响应的方法"
-description: "WSL2 | 一种临时解决在 Windows 10 运行了一段时间 WSL2 之后 WSL2 无响应的方法"
+description: "记录 Windows 10 中 WSL2 长时间运行后服务无响应的问题，并给出管理员 PowerShell 重启 WSL 服务的临时恢复方法。"
 pubDate: 2025-09-11
 category: "Windows"
 tags:

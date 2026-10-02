@@ -1,6 +1,6 @@
 ---
 title: "Docker | 一种使用 docker-compose 命令将 YAML 定义的配置文件导入到 Docker 的方法"
-description: "Docker | 一种使用 docker-compose 命令将 YAML 定义的配置文件导入到 Docker 的方法"
+description: "说明如何使用 docker compose -f 指定 YAML 配置，并通过 up -d 在后台创建、启动和连接配置中的多容器服务。"
 pubDate: 2025-09-08
 category: "Docker"
 tags:

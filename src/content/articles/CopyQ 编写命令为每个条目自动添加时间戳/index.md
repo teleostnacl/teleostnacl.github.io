@@ -1,6 +1,6 @@
 ---
 title: "CopyQ | 编写命令为每个条目自动添加时间戳"
-description: "CopyQ | 编写命令为每个条目自动添加时间戳"
+description: "介绍 CopyQ 如何用 QML 脚本格式化当前时间，并把时间戳追加到每个剪贴板条目的标签中，方便回溯复制时间。"
 pubDate: 2024-11-10
 category: "经验分享"
 tags:

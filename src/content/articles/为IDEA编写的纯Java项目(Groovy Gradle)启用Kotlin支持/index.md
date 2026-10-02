@@ -1,6 +1,6 @@
 ---
 title: "为IDEA编写的纯Java项目(Groovy Gradle)启用Kotlin支持"
-description: "为IDEA编写的纯Java项目(Groovy Gradle)启用Kotlin支持"
+description: "介绍在纯 Java Groovy Gradle 项目中加入 Kotlin Gradle 插件和 Kotlin JVM 配置，使 IDEA 项目能够同时编译和运行 Kotlin 代码。"
 pubDate: 2024-11-10
 category: "Android"
 tags:

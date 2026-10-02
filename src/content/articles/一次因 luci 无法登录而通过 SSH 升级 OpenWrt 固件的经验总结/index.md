@@ -1,6 +1,6 @@
 ---
 title: "一次因 luci 无法登录而通过 SSH 升级 OpenWrt 固件的经验总结"
-description: "一次因 luci 无法登录而通过 SSH 升级 OpenWrt 固件的经验总结"
+description: "记录 LuCI 无法登录但路由器仍可联网时，通过 SSH 登录、SCP 上传固件并执行 sysupgrade 完成 OpenWrt 升级的过程。"
 pubDate: 2025-07-13
 category: "OpenWrt"
 tags:

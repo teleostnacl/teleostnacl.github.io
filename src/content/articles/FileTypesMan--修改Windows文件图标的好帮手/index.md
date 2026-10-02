@@ -1,6 +1,6 @@
 ---
 title: "FileTypesMan--修改Windows文件图标的好帮手"
-description: "FileTypesMan--修改Windows文件图标的好帮手"
+description: "介绍 FileTypesMan 查看和编辑 Windows 文件类型注册信息的方法，用于修改指定扩展名的默认图标及关联配置。"
 pubDate: 2025-04-13
 category: "Windows"
 tags:

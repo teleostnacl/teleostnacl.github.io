@@ -1,6 +1,6 @@
 ---
 title: "Android TV | 一种不跳出应用指定页面的类 Monkey 的 Android TV 压测脚本"
-description: "Android TV | 一种不跳出应用指定页面的类 Monkey 的 Android TV 压测脚本"
+description: "针对 Android TV 中 Monkey 压测容易退出指定页面的问题，设计可重新拉起目标应用和页面的脚本，实现更稳定的定向随机压测。"
 pubDate: 2025-11-30
 category: "Android"
 tags:

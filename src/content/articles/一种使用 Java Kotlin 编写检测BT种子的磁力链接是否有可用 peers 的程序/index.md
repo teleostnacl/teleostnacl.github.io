@@ -1,6 +1,6 @@
 ---
 title: "一种使用 Java / Kotlin 编写检测BT种子的磁力链接是否有可用 peers 的程序"
-description: "一种使用 Java / Kotlin 编写检测BT种子的磁力链接是否有可用 peers 的程序"
+description: "使用 Java/Kotlin 和 atomashpolskiy/bt 连接 tracker，等待磁力任务获得 peers 后立即停止，以快速筛选可用 BT 种子。"
 pubDate: 2025-08-31
 category: "Android"
 tags:

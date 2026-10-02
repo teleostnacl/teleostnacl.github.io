@@ -1,6 +1,6 @@
 ---
 title: "解决在 Android 使用 hierynomus/smbj 库时上传和下载文件较慢的问题"
-description: "解决在 Android 使用 hierynomus/smbj 库时上传和下载文件较慢的问题"
+description: "定位 Android 使用 SMBJ 上传下载速度异常偏低的原因，说明关闭安全数据传输、改用 SMB2 并禁用加密的配置取舍。"
 pubDate: 2025-11-09
 category: "Android"
 tags:

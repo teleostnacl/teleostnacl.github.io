@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 以斐讯K2为例,编写脚本使用logread命令实时读取日志,监听OpenWrt网线插拔事件"
-description: "OpenWrt | 以斐讯K2为例,编写脚本使用logread命令实时读取日志,监听OpenWrt网线插拔事件"
+description: "针对 hotplug 难以捕获物理网线插拔的问题，使用 logread 持续读取系统日志并结合管道、循环和字符串判断编写监听脚本。"
 pubDate: 2023-03-27
 category: "OpenWrt"
 tags:

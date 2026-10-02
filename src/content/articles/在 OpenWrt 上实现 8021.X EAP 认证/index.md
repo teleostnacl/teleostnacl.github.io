@@ -1,6 +1,6 @@
 ---
 title: "在 OpenWrt 上实现 8021.X EAP 认证"
-description: "在 OpenWrt 上实现 8021.X EAP 认证"
+description: "介绍在 OpenWrt 中安装完整 wpad、编写 802.1X 配置和开机脚本，接入需要 RADIUS 身份认证的有线网络。"
 pubDate: 2025-07-12
 category: "OpenWrt"
 tags:

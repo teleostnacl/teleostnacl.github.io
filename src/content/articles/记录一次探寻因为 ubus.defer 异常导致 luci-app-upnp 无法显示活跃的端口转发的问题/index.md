@@ -1,6 +1,6 @@
 ---
 title: "记录一次探寻因为 ubus.defer 异常导致 luci-app-upnp 无法显示活跃的端口转发的问题"
-description: "记录一次探寻因为 ubus.defer 异常导致 luci-app-upnp 无法显示活跃的端口转发的问题"
+description: "从浏览器开发者工具追踪 LuCI 的 upnp_status_table，定位 ubus.defer 异常导致活跃端口转发不显示的原因和修复过程。"
 pubDate: 2025-08-17
 category: "网络"
 tags:

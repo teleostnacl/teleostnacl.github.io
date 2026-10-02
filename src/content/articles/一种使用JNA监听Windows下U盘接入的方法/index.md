@@ -1,6 +1,6 @@
 ---
 title: "一种使用JNA监听Windows下U盘接入的方法"
-description: "一种使用JNA监听Windows下U盘接入的方法"
+description: "通过 JNA 调用 RegisterDeviceNotification 和 Windows 消息循环，注册隐藏窗口并监听 U 盘接入与移除事件。"
 pubDate: 2025-03-23
 category: "Windows"
 tags:

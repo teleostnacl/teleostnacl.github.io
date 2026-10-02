@@ -1,6 +1,6 @@
 ---
 title: "如何立即执行 Watchtower 实现立即更新镜像并自动更新容器"
-description: "如何立即执行 Watchtower 实现立即更新镜像并自动更新容器"
+description: "介绍 Watchtower 使用 --run-once 立即拉取新镜像并更新容器的方法，说明一次性容器运行和自动清理参数。"
 pubDate: 2025-08-23
 category: "Docker"
 tags:

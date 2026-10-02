@@ -1,6 +1,6 @@
 ---
 title: "在OpenWrt上使用udpxy同时实现在机顶盒和Potplayer等直播流软件观看IPTV直播的方法"
-description: "在OpenWrt上使用udpxy同时实现在机顶盒和Potplayer等直播流软件观看IPTV直播的方法"
+description: "在 OpenWrt 上配置 IPTV VLAN、接口、防火墙、IGMP 和多播，再部署 udpxy，让机顶盒与 PotPlayer 等客户端观看直播。"
 pubDate: 2025-04-07
 category: "OpenWrt"
 tags:

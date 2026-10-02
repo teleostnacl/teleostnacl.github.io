@@ -1,6 +1,6 @@
 ---
 title: "两种方法解决IDEA系的编译器使用git时报fatal: could not read Username for ‘*‘: No such file or directory的错误"
-description: "两种方法解决IDEA系的编译器使用git时报fatal: could not read Username for ‘*‘: No such file or directory的错误"
+description: "分析 IDEA 系软件执行 Git 时 askpass 报错的真实原因，提供检查凭据、远程地址和 Git 集成配置的两种解决路径。"
 pubDate: 2025-12-04
 category: "Android"
 tags:

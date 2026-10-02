@@ -1,6 +1,6 @@
 ---
 title: "在 OpenWrt 实现单线复用 使用单 wan 口上同时 提供访问 Internet 和接入 IPTV 的能力"
-description: "在 OpenWrt 实现单线复用 使用单 wan 口上同时 提供访问 Internet 和接入 IPTV 的能力"
+description: "通过光猫 VLAN、OpenWrt 802.1q、IPTV 网桥和 udpxy 配置，实现单 WAN 口同时承载 Internet 与 IPTV。"
 pubDate: 2025-12-20
 category: "OpenWrt"
 tags:

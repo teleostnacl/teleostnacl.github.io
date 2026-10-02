@@ -1,6 +1,6 @@
 ---
 title: "在 Windows CMD 中使用命令直接执行 wsl 中的命令和程序的方法"
-description: "在 Windows CMD 中使用命令直接执行 wsl 中的命令和程序的方法"
+description: "介绍使用 Windows CMD 的 wsl 命令指定发行版、工作目录并执行 Linux 命令或程序，支持在脚本中调用 WSL。"
 pubDate: 2025-10-19
 category: "Windows"
 tags:

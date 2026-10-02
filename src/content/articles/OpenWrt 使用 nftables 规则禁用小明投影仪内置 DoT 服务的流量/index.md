@@ -1,6 +1,6 @@
 ---
 title: "OpenWrt | 使用 nftables 规则禁用小明投影仪内置 DoT 服务的流量"
-description: "OpenWrt | 使用 nftables 规则禁用小明投影仪内置 DoT 服务的流量"
+description: "针对小明投影仪内置 DoT 导致本地域名解析异常的问题，介绍用 nftables 在 prerouting 阶段拦截其加密 DNS 流量。"
 pubDate: 2025-12-22
 category: "OpenWrt"
 tags:

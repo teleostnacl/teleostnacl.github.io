@@ -1,6 +1,6 @@
 ---
 title: "记录 | 修复 WSL 的 灾难性故障 Error code: Wsl/Service/E_UNEXPECTED"
-description: "记录 | 修复 WSL 的 灾难性故障 Error code: Wsl/Service/E_UNEXPECTED"
+description: "记录 WSL 报 Wsl/Service/E_UNEXPECTED 后的排查过程，涵盖重新启用功能、更新 WSL、注册表权限和损坏修复。"
 pubDate: 2025-10-16
 category: "Windows"
 tags:

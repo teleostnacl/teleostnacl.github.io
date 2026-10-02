@@ -1,6 +1,6 @@
 ---
 title: "如何在 Vim 启用行号显示和语法高亮功能"
-description: "如何在 Vim 启用行号显示和语法高亮功能"
+description: "介绍 Vim 中开启行号显示和语法高亮的配置方法，适合通过 vimrc 固化编辑器显示设置。"
 pubDate: 2025-12-14
 category: "Linux"
 tags:

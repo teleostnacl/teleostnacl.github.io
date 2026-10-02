@@ -1,6 +1,6 @@
 ---
 title: "记录|斐讯K2拆机使用ttl刷入breed并刷入新固件"
-description: "记录|斐讯K2拆机使用ttl刷入breed并刷入新固件"
+description: "记录斐讯 K2 拆机焊接 TTL 线、进入工厂模式刷入 Breed 并更新固件的完整过程，适合需要硬件救援的场景。"
 pubDate: 2022-09-03
 category: "网络"
 tags:
