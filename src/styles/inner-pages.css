@@ -65,6 +65,36 @@ select {
   margin: 0;
 }
 
+/* 共享页脚作为阅读结束的落款，双行居中适配不同页面宽度，首页沿用无页脚入口。 */
+.inner-page > footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border-top: 0;
+  padding-top: 24px;
+  padding-bottom: 36px;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* 用暖色短线替代旧主题的全宽深色边框，装饰与正文分隔保持克制。 */
+.inner-page > footer::before {
+  content: '';
+  width: 64px;
+  height: 1px;
+  margin-bottom: 12px;
+  background: var(--line);
+}
+
+/* 版权略高于签名的文字层级，两段仍使用已有完整文案与动态年份。 */
+.inner-page > footer > span:first-child {
+  color: var(--ink);
+}
+
 .inner-page .site-header {
   justify-content: flex-start;
   gap: clamp(24px, 3vw, 48px);
@@ -221,6 +251,11 @@ select {
 .inner-page .article-content {
   min-width: 0;
   max-width: none;
+}
+
+/* 权限名等长技术标识仅在超过标题可用宽度时断行，避免窄屏被连续字符撑宽。 */
+.inner-page .article-content h1 {
+  overflow-wrap: anywhere;
 }
 
 /* 目录贴近正文；长目录独立滚动，防止固定定位内容超出视口。 */

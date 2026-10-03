@@ -1,4 +1,38 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/search.css';
 ---
-<BaseLayout title="搜索"><section class="listing"><p class="eyebrow">SEARCH</p><h1>搜索文章</h1><div id="search"></div></section><link rel="stylesheet" href="/pagefind/pagefind-ui.css" /><script src="/pagefind/pagefind-ui.js" is:inline></script><script is:inline>window.addEventListener('DOMContentLoaded',()=>new PagefindUI({element:'#search',showSubResults:true}));</script></BaseLayout>
+<BaseLayout title="搜索">
+  <section class="search-page" aria-labelledby="search-heading">
+    <header class="search-header">
+      <h1 id="search-heading">搜索文章</h1>
+      <p>从问题、技术或关键词，找到需要的文章。</p>
+    </header>
+    <form class="search-form" role="search">
+      <label class="search-label" for="search-query">关键词</label>
+      <div class="search-input-row">
+        <input id="search-query" name="q" type="search" placeholder="例如：Android、OpenWrt、Git" autocomplete="off" aria-describedby="search-hint" />
+        <button class="search-submit" type="submit">搜索</button>
+        <button class="search-clear" type="button" hidden>清除</button>
+      </div>
+      <p id="search-hint" class="search-hint">输入关键词后按回车或点击搜索。</p>
+    </form>
+    <div class="search-results-area" aria-busy="false">
+      <div class="search-filters" aria-label="筛选文章" hidden>
+        <fieldset><legend>分类</legend><div data-filter="category" class="search-filter-options"></div></fieldset>
+        <fieldset><legend>标签</legend><div data-filter="tag" class="search-filter-options"></div></fieldset>
+        <button class="search-reset-filters" type="button" hidden>清除筛选</button>
+        <p class="search-filter-hint">数量为关键词命中的文章数；分类与标签需同时满足。</p>
+      </div>
+      <p class="search-status" role="status" aria-live="polite" aria-atomic="true">输入关键词，开始查找文章。</p>
+      <ol class="search-results" aria-label="文章搜索结果"></ol>
+      <button class="search-more" type="button" hidden>加载更多</button>
+      <button class="search-retry" type="button" hidden>重试</button>
+    </div>
+    <noscript><p>搜索需要启用 JavaScript。也可以前往<a href="/articles/">文章列表</a>浏览。</p></noscript>
+  </section>
+</BaseLayout>
+<script>
+  import { initSearch } from '../scripts/search.js';
+  initSearch();
+</script>

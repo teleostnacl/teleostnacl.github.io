@@ -1,0 +1,213 @@
+/* 搜索独立限宽，避免长标题和摘要横跨整个视口；继续使用站点的字体及配色。 */
+.search-page {
+  max-width: 960px;
+  margin: 24px auto 0;
+}
+
+.search-header h1 {
+  margin: 0 0 16px;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  color: var(--ink);
+}
+
+.search-header p,
+.search-hint,
+.search-filter-hint {
+  color: var(--muted);
+}
+
+.search-form {
+  margin: 32px 0 24px;
+}
+
+.search-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.search-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.search-page input,
+.search-page button {
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.search-page input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 13px 16px;
+  background: rgba(255, 252, 245, 0.9);
+  color: var(--ink);
+}
+
+.search-page input::placeholder {
+  color: var(--muted);
+}
+
+.search-page button {
+  cursor: pointer;
+  padding: 12px 18px;
+  min-height: 44px;
+  background: rgba(255, 252, 245, 0.85);
+  color: var(--ink);
+}
+
+.search-page .search-submit,
+.search-page button[aria-pressed="true"] {
+  border-color: var(--mint);
+  background: var(--mint);
+  color: #fff;
+}
+
+.search-page button:hover {
+  border-color: var(--mint);
+}
+
+.search-page button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.search-page :is(input, button, a):focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 4px;
+}
+
+.search-hint,
+.search-filter-hint {
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+}
+
+/* 顶部筛选与列表共用对齐线，按钮自然换行，避免窄屏横向滚动。 */
+.search-filters {
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.search-filters fieldset {
+  min-width: 0;
+  margin: 0 0 14px;
+  padding: 0;
+  border: 0;
+}
+
+.search-filters legend {
+  padding: 0;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.search-filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  /* 标签较多时限定为约三行并允许滚动，避免顶部筛选挤走文章列表。 */
+  max-height: 156px;
+  overflow-y: auto;
+  padding: 4px;
+  margin: -4px;
+}
+
+.search-filter-options button {
+  padding: 7px 12px;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.search-filter-count {
+  margin-left: 8px;
+  font-size: 0.8rem;
+}
+
+.search-status {
+  margin: 24px 0 0;
+  color: var(--muted);
+}
+
+.search-results {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 以分隔线组织纯文字结果，不预留缩略图列，也不展示章节子结果。 */
+.search-result {
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+
+.search-result h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.search-result h2 a:hover {
+  color: var(--mint);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.search-result-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.search-result-category {
+  color: var(--mint);
+}
+
+.search-result-excerpt {
+  margin: 12px 0 0;
+  color: var(--ink);
+  line-height: 1.85;
+}
+
+.search-result mark {
+  background: #f4df9b;
+  color: var(--ink);
+  padding: 0 2px;
+}
+
+.search-more,
+.search-retry {
+  margin-top: 24px;
+}
+
+/* 确保隐藏状态优先于任何布局 display，防止清除按钮或空筛选区提前出现。 */
+.search-page [hidden] {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .search-page {
+    margin-top: 18px;
+  }
+
+  .search-input-row {
+    flex-wrap: wrap;
+  }
+
+  .search-page input {
+    flex-basis: 100%;
+  }
+
+  .search-form {
+    margin-top: 24px;
+  }
+}
