@@ -32,6 +32,7 @@ netsh interface ip show interfaces
 例如：
 
 ![](./1790847604804_7a285be9feec404d95d032a418756a3e.png)
+
 我们可以获得 `wifi` 网卡的 `ID` 为 `20`，网卡名为 `WLAN`，而有线连接的 `ID` 为 `3`，网卡名为 `以太网` 。
 
 ### 2. 设置静态 IP 地址
@@ -78,6 +79,7 @@ netsh interface ip add dns 20 8.8.4.4 index=2
 ```
 
 同时可以使用 `网络适配器` 中查看是否设置生效
+
 ![](./1790847604882_4b46b80e108e4e8ba9cfa44e3c2ed0f0.png)
 
 ### 3. 还原动态 IP 地址

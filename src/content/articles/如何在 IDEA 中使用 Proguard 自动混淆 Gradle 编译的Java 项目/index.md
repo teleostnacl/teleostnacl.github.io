@@ -48,9 +48,11 @@ android {
 参考文档：[https://developer.android.com/topic/performance/app-optimization/library-optimization](https://developer.android.com/topic/performance/app-optimization/library-optimization)
 
 如文档介绍，如果一个模块以库的方式导入，其会自动在 `jar` 包里面 寻找 `META-INF/proguard` 目录下的混淆规则，并将这些混淆规则运用在最终的打包中。
+
 ![](./1790847612424_db5695e724014155a2ea9da4643bbd09.png)
 
 例如，`Gson` 库：在 `META-INF/proguard` 目录下有 `gson.pro` 混淆规则文件
+
 ![](./1790847612545_56e0a8f86d5941f7b599ceb5e5ab65d4.png)
 
 
@@ -67,11 +69,15 @@ consumerProguardFiles 'consumer-proguard-rules.pro'
 
 ## 三、思路解析
 因此，参考 `Android` 混淆过程，在混淆 `Java` 程序时可以采用相同的方式，先编译出 `jar` 包，再搜集库、模块和依赖的所有编译规则，传递给混淆程序，使其进行混淆，流程图如下：
+
 ![](./1790847612600_34acf469443445698c1563ef2992d5f8.png)
+
 ## 四、代码实现
 ### 1. 导入依赖
 我们可以在项目中的 `buildSrc` 模块编写自己的 `Gradle` 编译逻辑，使其可以供其它模块使用自定义的编译业务需求。按照模块新建的方式，我们可以创建出 `buildSrc` 模块：
+
 ![](./1790847612697_b87de9ea7d224136bbad38e4f27997e1.png)
+
 我们需要编辑 `build.gradle` 文件，导入相关的依赖：
 ```groovy
 repositories {
@@ -387,7 +393,9 @@ BuildProjectTask.createBuildProjectTask(project, "TestProject",
 此时任务名为 `TestProject`，`jar` 包输出路径在 `根目录/out/TestProject` 下，主类的全限定名为 `com.teleostnacl.test.Main`。
 
 由于我们在搜集混淆规则的文件时，使用的是 `META-INF/proguard/*.pro`，我们可以在自己编写的模块下的 `src\main\resources\META-INF\proguard\` 文件夹下定义 `.pro` 文件，例如如下：
+
 ![](./1790847612769_24bb6cf4354f4e778e68a5b993e9d3c9.png)
 
 此时会在 Gradle 任务中生成 `Proguard` 的任务，运行此任务即可编译生成混淆包的 Jar 文件
+
 ![](./1790847612830_0dffb70d2bbc4fe08de42ff0e158abae.png)

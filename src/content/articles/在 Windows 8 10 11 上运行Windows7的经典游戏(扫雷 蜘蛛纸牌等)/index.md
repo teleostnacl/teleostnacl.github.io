@@ -33,6 +33,7 @@ draft: false
 ![](./1790847736046_6fe89f809548476d932bf0896044b03b.png)
 
 ![](./1790847736083_9bccf15e5dc84ae0a05e9b228f80736e.png)
+
 项目地址：`https://win7games.com/#games`
 
 官方下载地址：`https://win7games.com/download/Windows7Games_for_Windows_11_10_8.zip`
@@ -43,12 +44,15 @@ draft: false
 ## 二、安装
 
 从下载链接下载之后，将得到一个 `.zip` 压缩包文件，对其进行解压得到一个 `Windows7Games_for_Windows_11_10_8.exe` 文件，此文件即是安装文件。
+
 ![](./1790847736119_0f5cc91b15074b3091e4cf5ff882eed6.png)
 
 双击运行解压之后的 `Windows7Games_for_Windows_11_10_8.exe` 文件，即可开始安装。
+
 ![](./1790847736157_2713bac33adc4048a54d159f95a6c8da.png)
 
 在这个页面可以选择所需要安装的小游戏，可以去掉不想要的小游戏，小游戏翻译如下：
+
 ![](./1790847736194_08d6bedec6324d99b41b09ea74275b45.png)
 
 - 纸牌 Solitaire
@@ -62,10 +66,12 @@ draft: false
 
 
 **安装完成！**
+
 ![](./1790847736231_9bc8f2b3137c454eaccf0db403b06a23.png)
 
 ## 三、运行
 安装完成之后，其会在开始菜单新建一个 `Games` 的文件夹，里面即是新安装的小游戏，双击即可运行。
+
 ![](./1790847736268_de37dfca04214ebba76435ea74103510.png)
 
 ## 四、Windows大版本更新之后小游戏丢失的解决方案

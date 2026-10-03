@@ -30,4 +30,5 @@ net user administrator /active:no
 ```
 
 当执行完开启命令之后，此时注销当前用户，在登录界面即可看到  `Administrator` 用户。
+
 ![](./1790847676045_848e3c6df0c643df90655a5571fb068d.png)

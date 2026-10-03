@@ -11,21 +11,29 @@ draft: false
 
 ## 抓包分析
 - 深大统一身份认证登录网址为<br> `https://authserver.szu.edu.cn/authserver/login`<br>一次登录过程(模拟Android网页版)所产生的主要网络请求如下图所示
+
 ![](./1790847793932_a9f1745927c64416df019ce556a9bc06.png)
+
 ### 1. login:
 - 此过程为一次GET请求(`https://authserver.szu.edu.cn/authserver/login`)，无查询参数，生成登录页面的HTML
+
 ![](./1790847794017_c743aae5853321940833811970a84135.png)
 
 - 在该HTML中含有最后登录发送POST请求所需要的表单信息。
+
 ![](./1790847794240_9cbdf089ae95adfbccf851b5ae11691d.png)
 
 - 同时有变量pwdDefaultEncryptSalt，用于使用js进行加密密码时传递的参数
+
 ![](./1790847794362_70a11b636ae85e5dd1b7f2491ffb376c.png)
 
 - 在未有cookies登录网址时，此请求会进行两次，第一次会由js代码生成记录语言的cookies：`org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE=zh_CN`(在Andriod客户端可忽略该语言cookies)，以及每次都会产生用于记录用户的cookie:`route`和`JSESSIONID_auth`。
+
 ![cookies](./1790847794460_c786ef0778edd65154b9d816e70afabf.png)
+
 ### 2. encrypt.js:
 - 此请求为GET请求(`https://authserver.szu.edu.cn/authserver/custom/js/encrypt.js`)，无查询参数，需传递由login生成的Cookies信息，获取进行加密的js代码，用于在登录请求时进行密码的加密。(通过对登录按钮的事件监听器进行分析得出)
+
 ![](./1790847795880_7602f7157c6680f13243ad97761909c5.png)
 
 ![](./1790847795967_7b4fa4387013d6bf31addb51ac4ac62f.png)
@@ -61,4 +69,5 @@ rememberMe
 ![](./1790847796175_7186648a6e53ace1be0c713f88f3259d.png)
 ### 6. 登录失败之后的login的HTML
 - 登录失败后，会回到登录界面，在HTML中会产生一个id为“errorMsg”的span，其值为错误信息的提示
+
 ![](./1790847796232_74d97e2ef0e709f5b3341cc86317ec8a.png)

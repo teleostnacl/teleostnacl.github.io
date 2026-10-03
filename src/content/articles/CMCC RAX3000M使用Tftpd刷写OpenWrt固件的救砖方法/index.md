@@ -18,6 +18,7 @@ draft: false
 
 
 ![](./1790847733694_16d18c85a3b64eda944d7fb242e185fc.png)
+
 其中 
 
 - `KERNEL` 为 `openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb`
@@ -49,6 +50,7 @@ draft: false
 下载之后直接运行
 
 ![](./1790847733802_942e165c461f4676a49fdadb9e16e741.png)
+
 进入之后，在`Current Directory` 选择 `openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb` 所在的目录，`Service interfaces` 选择已经将IP地址设置为 `192.168.1.254` 的网络接口，点击`Show Dir`可以看到选中文件夹是否包含 `openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb` 文件，如下图所示，此时已经配置完成。
 
 ![](./1790847733860_b88f5a1ea1e14ac4b0522d1779d25d05.png)
@@ -66,6 +68,7 @@ draft: false
 此时如果一切顺利的话，`Tftpd` 将出现进度条并开始传输文件(如果不能正常传输的话，请检查防火墙设置)，如下图所示：
 
 ![](./1790847733952_c67cbe891e6549ddbd8a56aa3c6fc95d.png)
+
 等进度条走完之后，路由器将重启，此时可以将电脑静态IP地址去掉，登录新的管理员地址，即可进入新的`OpenWrt` 系统。
 
 ![](./1790847734002_fa826cd92c8e493a963d25177fe3f031.png)

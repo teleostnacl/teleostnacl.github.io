@@ -45,6 +45,7 @@ Normal version without GUI.  Features included (+) or not (-):
 ```
 
 在浏览模式下，输入 `:` 符号即可开始输入命令：
+
 ![](./1790847535038_23d1d4e5cd054f17b682a76516d22195.png)
 
 当两条命令输入完成之后，即可得到启用行号显示和语法高亮功能的 `Vim`：
@@ -62,6 +63,7 @@ Normal version without GUI.  Features included (+) or not (-):
 但是每次启动 `Vim` 都要设置一下启用行号显示和语法高亮功能显得略微麻烦一点，我们有没有办法使其配置永久化呢，答案是肯定的。
 
 首先，我们需要知道 `Vim` 使用的配置文件有哪些，我们在 `Vim` 里输入命令 `:scriptnames` 可以得到类似如下的输出：
+
 ![](./1790847535114_cbf2a679a1fe49299316776ca26c968e.png)
 
 ```shell

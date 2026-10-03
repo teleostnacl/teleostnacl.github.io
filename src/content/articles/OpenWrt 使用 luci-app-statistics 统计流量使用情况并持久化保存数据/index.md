@@ -52,16 +52,20 @@ apk add collectd collectd-mod-cpu collectd-mod-interface collectd-mod-iwinfo col
 ```
 
 如果我们是在编译的时候，则只需要勾选 `LuCI` > `3. Applications` > `luci-app-statistics` 即可。
+
 ![](./1790847562623_c8a34dcb6a994dcb9b33d43d8d8cb62d.png)
 
 等安装完成之后，此时在 `luci` 中就会出现新的选项卡：`统计`，点进去之后即可看到可视化的数据项。
+
 ![](./1790847562662_9a7b1e29f973448691c43adf68ab877e.png)
+
 ## 三、持久化配置
 当首次安装完成之后，默认将收集到的数据是存放在 `/tmp` 目录下的，当设备重启之后，数据就会丢失，因此我们需要设置一个可持久化存放数据的目录，例如 外置挂载设备 的目录。
 
 我们在 `luci` 中点击 `统计` > `设置`，进入 `luci-app-statistics` 的设置管理界面。
 
 ![](./1790847562699_e3374e31f9e94333ab5cb50f122d57d7.png)
+
 首先，我们在 `collected` 设置中设置 `基目录`，使用可持久化存放数据的目录作为 `基目录`。
 
 随后，切到 `输出插件` 选项，点击 `RRDTool` 的 `配置` 按钮，在 `存储目录` 中设置为可持久化存放数据的目录。

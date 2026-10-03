@@ -76,7 +76,9 @@ config.maxConcurrentlyActivePeerConnectionsPerTorrent = 50
 ```
 
 源码如下：
+
 ![](./1790847640800_15e6d10427dc477199c22fbcebd04dd1.png)
+
 ### （四）构建不下载的 Storage
 由于在下载的时候，一定需要指定一个 `Storage`，表示下载该种子的文件时存储的目录。但是我们只是需要检测种子是否可用，不需要实际下载，因此需要自定义一个 `Storage` 类，使其不会进行下载，一种实现方法就是覆写所有方法，并且都是空实现，以便实现禁止下载。方法如下：
 ```kotlin

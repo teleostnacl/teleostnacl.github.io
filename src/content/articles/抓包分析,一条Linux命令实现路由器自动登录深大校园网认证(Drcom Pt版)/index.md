@@ -151,6 +151,7 @@ ssh [账户]@[登录地址]
 ```
 
 ![](./1790847799121_fefd721a37dbff2d78dccc2284f83eea.png)
+
 4. 测试路由器是否支持curl命令或wget命令，模拟请求会用到这两个命令，使用putty登录或者ssh登录路由器后台后，输入curl或wget命令，如果能正常输出用法则表示固件支持该命令，如果显示not found，则表示不支持。
 
 <center><b><font size ='2'>不支持curl但支持wget</font></b></center></font>
@@ -215,9 +216,11 @@ ssh [账户]@[登录地址]
 - 我们依旧比较关心请求头和响应头。所以我们先来看第 18 号包的响应头。它传输了数据过来，我们先看看数据是什么。
 
   - 点开第 18 号包，展开`Hypertext Transfer Protocol`，展开`Line-based text data: text/html`。可以看到这返回了一个 HTML，里面的内容仅展示一句`Login succeed`。由此，可以推断该响应头对应的请求是实现认证登录的最核心部分。
+
 ![](./1790847799598_c547997acfbc8010a8901babbd0cea94.png)
   
   - 我们对请求头进行分析，点开第 16 个包，展开`Hypertext Transfer Protocol`。
+
 ![](./1790847799652_6d99f2d6dd2e6b51c8ca957ec92d3fd3.png)
 
   - 我们可以看到这是对`http://172.30.255.42:801/eportal/?c=ACSetting&a=Login&jsVersion=3.0&wlanuserip=172.30.236.7&wlanacname=&wlanacip=172.30.255.41`这个网址发送了 POST 请求。

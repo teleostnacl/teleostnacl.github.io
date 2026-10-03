@@ -18,15 +18,19 @@ OpenWrt是一个高度模块化、高度自动化的嵌入式Linux系统，拥�
 
 有时候，在使用OpenWrt时，我们需要监听网线的插拔，获取网线插拔的事件，并执行一些操作。OpenWrt官方文档给出使用hotplug去获取相关事件: `https://openwrt.org/docs/guide-user/base-system/hotplug`
 如文档中指出，可在`/etc/hotplug.d/iface/`文件夹下编写脚本，对`$ACTION`， `$INTERFACE`，`$DEVICE`进行判断，可监听网络接口的状态。
+
 ![](./1790847773655_cd9247e0382e478ec4de9c7a0f1d13cd.png)
 
 但是实际上验证，此监听只是对INTERFACE下建立的接口虚拟接口有效，当手动控制接口状态时，如Restart Stop才会执行`/etc/hotplug.d/iface/`下的脚本文件，而直接插拔网线并不能被监听到。因此此方法并不能直接监听网线插拔事件。
+
 ![](./1790847773754_0c2a388a30082d913375ab7dbb82af99.png)
 
 同时，这篇文章(`https://www.jianshu.com/p/a1bfc54bc6dd`)中提到phy内核检测到WAN口变化后会创建hotplug消息，因此可在`/etc/hotplug.d/phy/`路径下编写脚本，获取hotplug消息。但是使用斐讯K2的官方OpenWrt，在插拔网线时，并不能执行`/etc/hotplug.d/phy/`路径下的脚本。
 
 在通过查看日志排查脚本的过程中，发现日志中有内核对网线插拔的事件打印。
+
 ![网线插拔的事件打印](./1790847773809_cdd853cc1449ed4598844dde1e1db947.png)
+
 打印形式诸如`mtk_soc_eth 10100000.ethernet eth0: port x link up/down `
 `port`标识端口号，`up/down`表示插入/移除网线。
 
@@ -35,11 +39,15 @@ OpenWrt是一个高度模块化、高度自动化的嵌入式Linux系统，拥�
 ## 二、相关基础
 ### 1. logread命令
 OpenWrt提供了logread命令用来读取日志的内容，其帮助文档如下：
+
 ![帮助文档](./1790847773896_e37647d27f46bf1350436a8a23425183.png)
+
 logread命令相当强大，官方已给出来详细的指导文档(`https://openwrt.org/docs/guide-user/base-system/log.essentials`)，可以实现将日志保存到内存，文件甚至是通过TCP/IP存储到远程设备中。
 
 我们关注`-f`参数，此参数可以使终端一直等待日志的到来，并将日志实时地显示在终端中
+
 ![等待日志的到来，并实时显示](./1790847773951_3c7d6696a4711e5db95d00c084ee8926.png)
+
 因此我们可以通过编写脚本，使用`logread -f`命令实时读取日志，并使用Linux的管道流操作，检测是否为网线插拔的事件，从而做成相应的响应。
 
 ### 2. Linux管道流操作

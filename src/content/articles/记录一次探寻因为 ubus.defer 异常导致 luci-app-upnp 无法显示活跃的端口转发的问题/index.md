@@ -32,6 +32,7 @@ draft: false
 因此，我们通过全局搜索，查找 `upnp_status_table` 使用的地方，查询其被赋值的地方。我们按下 `ctrl` + `shift` + `F`，打开全局搜索，输入 `upnp_status_table`，回车，可以看到  `upnp_status_table` 在 `upnp.js` 的脚本中被使用，因此我们定位到此脚本 `luci-static/resources/view/upnp/upnp.js`
 
 ![](./1790847665973_1c2d7f3c276d45c18d2013c2872d548e.png)
+
 在 `upnp.js` 中可以看到核心代码如下：
 ```js
 load: function() {

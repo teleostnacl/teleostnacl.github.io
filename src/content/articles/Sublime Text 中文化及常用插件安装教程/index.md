@@ -81,6 +81,7 @@ draft: false
 `Kotlin` 语言现在较为流行，尤其是 `Android` 已将 `Koltin` 作为官方开发语言，但是 `Sublime Text` 官方没有对 `Kotlin` 语言做支持，幸好我们有插件可以实现对  `Kotlin` 语言支持，方便我们查看和编辑 `Kotlin` 的代码。
 
 在 `Package Control: Install Package` 包安装界面，搜索并安装 `Kotlin` 插件即可。
+
 ![](./1790847549672_447a16a7bd284a6abe0d055d1db98dc7.png)
 
 此时在语法选择菜单中，就增加了 `Kotlin` 语言的支持。

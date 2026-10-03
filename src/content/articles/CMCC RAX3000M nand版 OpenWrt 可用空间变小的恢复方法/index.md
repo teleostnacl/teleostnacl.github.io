@@ -17,6 +17,7 @@ draft: false
 `CMCC RAX3000M` `Nand` 版本的配置为 128MB 的 `nand` `ROM` + `512MB` 的 `RAM`，详细可见 [CMCC RAX3000M](https://openwrt.org/toh/hwdata/cmcc/cmcc_rax3000m)
 
 ![](./1790847699623_380dac74f96f4dd99d14c22dbf483a21.png)
+
 因此，在 `CMCC RAX3000M` 可用空间应该约为 `128MB`。但是最近在刷 `OpenWrt` 的时候，发现刷完新系统之后的可用空间只有几M了，但是镜像包都不是很大；同时刷写大于 `55MB` 的固件的时候，总是会刷写失败，并且刷写失败之后会进入到一个之前刷过的某个版本，这表明 `Flash` 中有一个系统占据了部分空间，**导致实际可用的空间大幅度减少了**。
 
 
@@ -34,6 +35,7 @@ draft: false
 综上分析，做出了第一次尝试，是不是只有刷一个小的`initramfs-recovery` 镜像，就可以减小占用了呢？那么直接从官方的镜像选择器，找到 `CMCC RAX3000M` 的 `OpenWrt` 的官方镜像：`https://firmware-selector.openwrt.org/?version=24.10.1&target=mediatek%2Ffilogic&id=cmcc_rax3000m`，从而可以使用到集成最小文件系统的 `OpenWrt` 系统，最大程度的减小占用。
 
 ![](./1790847699678_8e9b960826c54a91995f8411b3f09207.png)
+
 下载`KERNEL` 和 `SYSUPGRADE` ，此时会得到 `openwrt-24.10.1-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb` 和 `openwrt-24.10.1-mediatek-filogic-cmcc_rax3000m-squashfs-sysupgrade.itb` 两个文件，即第一个是 `ramdik`，用于在 `Tftpd64` 刷机，第二个为完整的系统，用于在系统升级中使用。
 
 
@@ -48,6 +50,7 @@ draft: false
 在 `OpenWrt` 官方 `pull` 中，添加了 `CMCC RAX3000M` 支持的提交中，给出了刷机的方法，参考：[mediatek: add CMCC RAX3000M support #1075](https://github.com/immortalwrt/immortalwrt/pull/1075)
 
 ![](./1790847699742_f2f4b26626d644569e6e408db518ab0f.png)
+
 第二三步是刷写 `BL2` 分区 和 `uboot` 分区的，而第七步提到了重新分配 `UBI` 分区卷的过程。而在 `OpenWrt` 中 `UBI` 卷是存放 `rootfs` 和 `overlay` 分区的卷，此卷的大小就会影响到刷机之后实际可用的空间。因此，由此推测，是不是 `UBI` 卷分区有问题呢，导致可用空间变小了。
 
 

@@ -28,6 +28,7 @@ android:paddingRight="0dp"
 android:padding="0dp"
 ```
 现象如下：
+
 ![](./1790847741371_2de886011d274ccb839e285743fcaeb8.png)
 
 本文将调试Android源码探寻为什么一定需要设置 `paddingStart` 和 `paddingEnd` 才能去掉默认间距的原因。
@@ -161,29 +162,40 @@ void drawTrack(Canvas canvas) {
 在 `SeekBar`、`AbsSeekBar`、`ProgressBar` 的源码中搜索 `mPaddingLeft  =` 寻找 `mPaddingLeft` 赋值的地方，但是可以发现， `SeekBar`、`AbsSeekBar`、`ProgressBar` 这三个类中没有进行赋值，因此需要从其的基类 `View` 中寻找 `mPaddingLeft ` 赋值的地方。
 
 ![](./1790847742099_4a8f27af55ac4bd6a2cf23a2588537ab.png)
+
 搜索源码发现有五个调用，除开初始化的地方，总共有四个赋值的地方，因此需要调试这四个赋值的地方。
 第一个赋值的地方在 `internalSetPadding()` 方法
+
 ![](./1790847742206_efcfba6304f640528d7a7ec4c5e95d56.png)
 
 另外三个赋值在`resetPaddingToInitialValues()`方法中
+
 ![](./1790847742291_8498703606524a0381cb20a17aec9906.png)
+
 由于所有`View`都是继承自`View`类，所以如果调试View类的时候，所有 `View` 都会被打断，因此在调试的需要加上条件，只有是 `Seekbar` 类时才停下来进行分析。
 右键断点可以在 `Condition` 中添加 `this instanceof SeekBar`，实现只有是 `Seekbar` 类才断点。
+
 ![](./1790847742369_caffa04d243f4e10952ee4d216eba827.png)
 
 可以发现，第一次 `mPaddingLeft` 第一次赋值的地方是在 `resetPaddingInitalValue`，语句是 `mPaddingLeft = (mUserPaddingEnd >= 0) ? mUserPaddingEnd : mUserPaddingLeftInitial;`, 也就是说，如果`mUserPaddingEnd` >=0 的时候，使用`mUserPaddingEnd`，< 0 的时候，使用 `mUserPaddingLeftInitial`
 在调试过程中发现，`mUserPaddingEnd = 46, mUserPaddingStart = 46, mUserPaddingLeftInitial = 0`。
 需要往上分析第一次调用`resetPaddingInitalValue`的地方，以及 `mUserPaddingEnd, mUserPaddingStart` 赋值的地方。
+
 ![](./1790847742474_dd94e82d539842daa223858a9bc3ab01.png)
+
 但是从代码中没有直接找到调用 `resetPaddingInitalValue` 的地方，从方法名中可以知道是将Padding reset 回初始值。因此调用此方法之后，会设置padding，因此需要分析 `mUserPaddingEnd, mUserPaddingStart` 赋值的地方。
 
 ### （三）分析 mUserPaddingStart mUserPaddingEnd 赋值的地方
 在View中搜索 `mUserPaddingStart = `，寻找 `mUserPaddingStart` 和 `mUserPaddingEnd`赋值的地方。（从以上分析 `mUserPaddingStart` 与 `mUserPaddingEnd` 是相同的，只要分析其中一个就可以了）
+
 ![](./1790847742681_1d5f840fc64a434180435e7c24bd06b8.png)
+
 总共搜索出五个地方赋值，与前面一样添加断点，并添加条件，只有是 `Seekbar` 类才断点。
 
 第一次赋值是在View的构造方法中， `mUserPaddingStart = UNDEFINED_PADDING`，先将 `mUserPaddingStart` 赋值为初始化，这个值是 `Integer.MIN_VALUE`。
+
 ![](./1790847742849_325a4fb71e9f483cae2fb3b8c727c0a3.png)
+
 到这一步之后，我们可以看构造方法，`mUserPaddingStart` 的赋值过程。
 第二个赋值语句是这句 `mUserPaddingStart = startPadding;`，在` public View(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes)` 的构造方法中。对该赋值语句往上分析，寻找 `startPadding` 赋值的地方。
 ```java
@@ -456,7 +468,9 @@ public SeekBar(Context context, AttributeSet attrs) {
 ```
 
 全局搜索 `seekBarStyle`，并一层一层往下跳，找到最底层的`style`
+
 ![](./1790847742955_882c65b573ab420b8b34cbc606e4a891.png)
+
 得到如下style
 ```xml
 <style name="Widget.Material.SeekBar">

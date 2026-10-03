@@ -20,7 +20,9 @@ sudo pacman -Syyu
 官方文档如下：[https://wiki.archlinux.org/title/Pacman](https://wiki.archlinux.org/title/Pacman)
 
 我们知道，我们可以通过编辑 `/etc/pacman.d/mirrorlist` 文件管理 `Pacman` 更新的时候所使用的源服务器，如果选择离我们将近的服务器可以达到提高更新速度的目的。一份标准的 `mirrorlist` 文件如下：
+
 ![](./1790847628747_60bb6e4e3f224f6f96773b3ad663e963.png)
+
 如果想使用哪个源，则把那一行的注释符 `#` 去掉即可。
 
 一份标准的文件可以通过以下链接进行获取:
@@ -56,6 +58,7 @@ sudo reflector --country China --sort rate --save /etc/pacman.d/mirrorlist
 ################################################################################
 ```
 详细文件如下：
+
 ![](./1790847628848_07c694a5313d4924aecc17f6b82faf71.png)
 
 此时使用 `pacman` 更新的时候就会使用更新之后的镜像。
@@ -79,7 +82,9 @@ sudo systemctl edit reflector.timer
 > 这个命令默认会用你的 `$EDITOR` 环境变量指定的编辑器（比如 `nano` 或 `vim`）。如果想指定编辑器，可以用 `sudo EDITOR=vim systemctl edit reflector.timer`。
 
 此时会打开文本编辑器，此时将编辑 `/etc/systemd/system/reflector.timer.d/override.conf` 文件。
+
 ![](./1790847628917_597698d8ec254d07bf7f2e0e55e49c07.png)
+
 我们将在 `### Anything between here and the comment below will become the contents of the drop-in file` 之后 和 `### Edits below this comment will be discarded` 之前的位置 编辑自己想增加的内容，这里添加的配置将覆盖原文件。
 
 例如，我们想要每周日凌晨3点自动运行
@@ -99,6 +104,7 @@ Persistent=true
 此语法规则如下：[https://wiki.archlinux.org/title/Systemd/Timers](https://wiki.archlinux.org/title/Systemd/Timers)
 
 `OnCalendar` 的基本格式是：`星期 年-月-日 时:分:秒`，其它参数解析如下：
+
 ![](./1790847629012_0d6fb4a0cd364f3cb90bdb1f005f1585.png)
 
 
@@ -129,6 +135,7 @@ sudo systemctl cat reflector.service
 ```
 
 此时可以看到 在原来 `/usr/lib/systemd/system/reflector.timer` 的文件内容之后，加了一个 ` /etc/systemd/system/reflector.timer.d/override.conf` 覆盖文件，即表示修改成功，将会使用 `override.conf` 的配置进行调用。
+
 ![](./1790847629113_f65dded7bdcf409095da37357895375f.png)
 
 同时，我们可以执行 `sudo systemctl start reflector.service` 直接运行一次 `reflector.service` 以便验证我们对 `reflector.service` 是否生效。
